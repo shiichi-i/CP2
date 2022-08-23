@@ -3548,16 +3548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  speed: 21
-  rotSpeed: 21
-  startY: 0
-  currentY: 0
-  panY: 0
-  startX: 0
-  currentX: 0
-  panX: 0
-  rotX: 0
-  rotY: 0
+  speed: 0.07
 --- !u!4 &1866605231
 Transform:
   m_ObjectHideFlags: 0

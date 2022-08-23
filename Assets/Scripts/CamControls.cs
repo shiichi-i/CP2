@@ -5,7 +5,7 @@ using UnityEngine;
 public class CamControls : MonoBehaviour
 {
     public Camera cam;
-    float speed = 21f;
+    public float speed = 21f;
 
 
     Vector3 newPosition, _LocalRotation;
@@ -46,12 +46,12 @@ public class CamControls : MonoBehaviour
         {
             currentY = Input.mousePosition.y;
             currentX = Input.mousePosition.x;
-            panY = cam.transform.localPosition.y + startY - currentY;
-            panX = cam.transform.localPosition.x + startX - currentX;
+            panY = cam.transform.localPosition.y + (startY - currentY);
+            panX = cam.transform.localPosition.x + (startX - currentX);
 
             newPosition = new Vector3(panX, panY, transform.localPosition.z);
 
-            cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, newPosition, Time.deltaTime / speed);
+            cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, newPosition, Time.deltaTime * speed);
         }
         if (Input.GetMouseButtonUp(2))
         {
