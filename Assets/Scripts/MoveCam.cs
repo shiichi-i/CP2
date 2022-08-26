@@ -5,13 +5,15 @@ using System.Collections;
 public class MoveCam : MonoBehaviour
 {
 
-	public float turnSpeed = 3.0f;      // Speed of camera turning when mouse moves in along an axis
+	/*public float turnSpeed = 3.0f;      // Speed of camera turning when mouse moves in along an axis
 	public float rotationX;             // rotation on X axis value
 	public float rotationY;             // rotation on Y axis value
 	public float panSpeed = 0.5f;       // Speed of the camera when being panned
+	private Vector3 mouseOrigin;    // Position of cursor when mouse dragging starts
+	*/
 	public float zoomSpeed = 1.0f;      // Speed of the camera going back and forth
 
-	private Vector3 mouseOrigin;    // Position of cursor when mouse dragging starts
+	
 	private bool isPanning;     // Is the camera being panned?
 	private bool isRotating;    // Is the camera being rotated?
 
@@ -19,7 +21,7 @@ public class MoveCam : MonoBehaviour
 
 	void Update()
 	{
-		// Get the right mouse button
+		/*// Get the right mouse button
 		if (Input.GetMouseButtonDown(1))
 		{
 			// Get mouse origin
@@ -61,7 +63,7 @@ public class MoveCam : MonoBehaviour
 
 			Vector3 move = new Vector3(-pos.x * panSpeed, -pos.y * panSpeed, 0);
 			transform.Translate(move, Space.Self);
-		}
+		}*/
 
 		// Move the camera linearly along Z axis
 		if (Input.GetAxis("Mouse ScrollWheel") > 0)
