@@ -7,7 +7,7 @@ public class ToggleWindow : MonoBehaviour
     public GameObject panel;
     public GameObject arrow;
     public float fOpen, fClose;
-    public bool bottom, isOpen = true;
+    public bool bottom, isOpen;
     public void ToggleTab()
     {
         if (bottom)
@@ -31,13 +31,13 @@ public class ToggleWindow : MonoBehaviour
         {
             if (isOpen)
             {
-                LeanTween.rotateY(arrow, 0f, 0.3f);
+                LeanTween.rotateY(arrow, 180f, 0.3f);
                 LeanTween.moveLocalX(panel, fClose, 0.3f);
                 isOpen = false;
             }
             else if (!isOpen)
             {
-                LeanTween.rotateY(arrow, 180f, 0.3f);
+                LeanTween.rotateY(arrow, 0f, 0.3f);
                 LeanTween.moveLocalX(panel, fOpen, 0.3f);
                 isOpen = true;
             }
