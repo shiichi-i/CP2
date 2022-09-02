@@ -5,32 +5,23 @@ using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
-    ToggleWindow coding;
-    ToggleWindow building;
-    public Button codeButton;
-    public Button buildButton;
-    void Start()
-    {
-        coding = GameObject.Find("BlockBar").GetComponent<ToggleWindow>();
-        building = GameObject.Find("BuildBar").GetComponent<ToggleWindow>();
-        buildButton.onClick.AddListener(onBuildClick);
-        codeButton.onClick.AddListener(onCodeClick);
-    }
+    public GameObject coding;
+    public GameObject building;
 
-    // Update is called once per frame
-    void onBuildClick()
+    public void onBuildClick()
     {
-        if (building.isOpen && !coding.isOpen)
+        if(building.GetComponent<Animator>().GetBool("isOpen") && !coding.GetComponent<Animator>().GetBool("isOpen"))
         {
-            coding.ToggleTab();
+            coding.GetComponent<Animator>().SetBool("isOpen", true);
         }
     }
 
-    void onCodeClick()
+    public void OnCodeClick()
     {
-        if (building.isOpen && !coding.isOpen)
+        if (building.GetComponent<Animator>().GetBool("isOpen") && !coding.GetComponent<Animator>().GetBool("isOpen"))
         {
-            building.ToggleTab();
+            building.GetComponent<Animator>().SetBool("isOpen", false);
         }
     }
+
 }
