@@ -69,11 +69,10 @@ public class CodeAreaControls : MonoBehaviour
             }
             else
             {
-                newPosition.x = transform.localPosition.x;
-                newPosition.y = transform.localPosition.y;
+                newPosition = transform.localPosition;
             }
 
-            transform.localPosition = Vector3.Lerp(transform.localPosition, newPosition, Time.deltaTime);
+            transform.localPosition = newPosition;
         }
         if (Input.GetMouseButtonUp(2))
         {
