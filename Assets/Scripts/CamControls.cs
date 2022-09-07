@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CamControls : MonoBehaviour
 {
@@ -24,6 +23,8 @@ public class CamControls : MonoBehaviour
     bool RotPressed, PanPressed;
     public bool pressed = false;
 
+    IsMouseOverUI mouseUI;
+
 
     void Start()
     {
@@ -34,17 +35,19 @@ public class CamControls : MonoBehaviour
         camRot = transform.rotation;
         pivPos = pivot.transform.position;
         pivRot = pivot.transform.rotation;
-  
+
+        mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
+
     }
     void LateUpdate()
     {
-        if (!IsMouseOverUI())
+        if (!mouseUI.IsMouseOnUI())
         {
             HandleZooming();
         }
         if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
-            if (!IsMouseOverUI() && !onUIStart)
+            if (!mouseUI.IsMouseOnUI() && !onUIStart)
             {
                 onCamStart = true;
             }
@@ -128,11 +131,6 @@ public class CamControls : MonoBehaviour
         {
             pivot.transform.position -= transform.forward;
         }
-    }
-
-    bool IsMouseOverUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
     }
 
     public void ResetCamera()

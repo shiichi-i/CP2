@@ -5,13 +5,8 @@ using UnityEngine;
 public class ObjSelection : MonoBehaviour
 {
     public GameObject tempObj = null;
+    public GameObject currentObj = null;
 
-    void Awake()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -24,11 +19,13 @@ public class ObjSelection : MonoBehaviour
                 {
                     if (tempObj != hit.collider.gameObject && tempObj != null)
                     {
+                        currentObj = null;
                         Destroy(tempObj.GetComponent<Outline>());
                     }
                     if(hit.collider.gameObject.GetComponent<Outline>() == null)
                     {
-                        hit.collider.gameObject.AddComponent<Outline>();
+                        currentObj = hit.collider.gameObject;
+                        currentObj.AddComponent<Outline>();
                     }
                     tempObj = hit.collider.gameObject;   
                 }
@@ -36,6 +33,7 @@ public class ObjSelection : MonoBehaviour
                 {
                     if(tempObj != null)
                     {
+                        currentObj = null;
                         Destroy(tempObj.GetComponent<Outline>());
                     }
                 }
@@ -44,6 +42,7 @@ public class ObjSelection : MonoBehaviour
             {
                 if (tempObj != null)
                 {
+                    currentObj = null;
                     Destroy(tempObj.GetComponent<Outline>());
                 }
             }

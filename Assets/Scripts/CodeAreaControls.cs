@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CodeAreaControls : MonoBehaviour
@@ -16,6 +15,7 @@ public class CodeAreaControls : MonoBehaviour
     public bool onUIStart;
     public bool onCamStart;
 
+    IsMouseOverUI mouseUI;
 
     void Start()
     { 
@@ -26,17 +26,19 @@ public class CodeAreaControls : MonoBehaviour
 
         resetPos = transform.localPosition;
         resetZoom = panel.localScale;
+
+        mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
     }
 
     void LateUpdate()
     {
-        if (IsMouseOnUI())
+        if (mouseUI.IsMouseOnUI())
         {
             HandleZooming();
         }
         if (Input.GetMouseButtonDown(2))
         {
-            if (IsMouseOnUI() && !onCamStart)
+            if (mouseUI.IsMouseOnUI() && !onCamStart)
             {
                 onUIStart = true;
             }
@@ -164,11 +166,6 @@ public class CodeAreaControls : MonoBehaviour
                 panel.localScale = new Vector3(panelX, panelY, panel.localScale.z);
             }
         }
-    }
-
-    private bool IsMouseOnUI()
-    {
-        return EventSystem.current.IsPointerOverGameObject();
     }
 
     public void Reset()
