@@ -6,10 +6,16 @@ public class ObjSelection : MonoBehaviour
 {
     public GameObject tempObj = null;
     public GameObject currentObj = null;
+    SpawnManager spawn;
+
+    void Start()
+    {
+        spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
+    }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -21,10 +27,12 @@ public class ObjSelection : MonoBehaviour
                     {
                         currentObj = null;
                         Destroy(tempObj.GetComponent<Outline>());
+                        Destroy(tempObj.GetComponent<CollisionDetection>());
                     }
                     if(hit.collider.gameObject.GetComponent<Outline>() == null)
                     {
                         currentObj = hit.collider.gameObject;
+                        currentObj.AddComponent<CollisionDetection>();
                         currentObj.AddComponent<Outline>();
                     }
                     tempObj = hit.collider.gameObject;   
@@ -35,6 +43,7 @@ public class ObjSelection : MonoBehaviour
                     {
                         currentObj = null;
                         Destroy(tempObj.GetComponent<Outline>());
+                        Destroy(tempObj.GetComponent<CollisionDetection>());
                     }
                 }
             }

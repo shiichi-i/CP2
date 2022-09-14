@@ -29,7 +29,7 @@ public class CamControls : MonoBehaviour
     void Start()
     {
         pivot = GameObject.Find("CamTarget");
-        newPosition = transform.position;
+        newPosition = transform.localPosition;
 
         camPos = transform.position;
         camRot = transform.rotation;

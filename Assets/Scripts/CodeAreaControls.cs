@@ -16,6 +16,7 @@ public class CodeAreaControls : MonoBehaviour
     public bool onCamStart;
 
     IsMouseOverUI mouseUI;
+    public GameObject animator;
 
     void Start()
     { 
@@ -32,7 +33,7 @@ public class CodeAreaControls : MonoBehaviour
 
     void LateUpdate()
     {
-        if (mouseUI.IsMouseOnUI())
+        if (mouseUI.IsMouseOnUI() && animator.GetComponent<Animator>().GetBool("isOpen"))
         {
             HandleZooming();
         }
