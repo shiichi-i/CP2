@@ -7,12 +7,14 @@ public class VP_shadow : MonoBehaviour
 {
     public VP_drag drag;
     public VP_manager manager;
-    public bool vis;
+    public bool taken;
+    public GameObject occupied, parent;
 
     void Start()
     {
-        drag = this.gameObject.transform.parent.gameObject.GetComponent<VP_drag>();
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
+        parent = this.gameObject.transform.parent.gameObject;
+        drag = parent.GetComponent<VP_drag>();
     }
 
     void LateUpdate()
@@ -20,7 +22,10 @@ public class VP_shadow : MonoBehaviour
         if (manager.colliding !=null && manager.colliding != this.gameObject)
         {
             this.gameObject.GetComponent<Image>().enabled = false;
-            vis = false;
+        }
+        if(manager.dropped && occupied !=null && !taken)
+        {
+            occupied = null;
         }
     }
 
@@ -28,25 +33,32 @@ public class VP_shadow : MonoBehaviour
     {
         if (other.tag != "Selectable" && !drag.selected && manager.onShadow)
         {
-            manager.colliding = this.gameObject;
-            vis = true;
-        }
+            taken = true;
+            if (occupied == null)
+            { 
+                manager.colliding = this.gameObject;
+            }
+            else if(occupied != null && occupied == manager.dragging)
+            {
+                occupied = null;
+            }
 
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag != "Selectable" || other.gameObject.name != this.gameObject.transform.parent.gameObject.name)
+        
+        if (other.tag != "Selectable" || other.gameObject.name != parent.name)
         {
+            taken = false;
             this.gameObject.GetComponent<Image>().enabled = false;
             manager.colliding = null;
-            vis = false;
         }
 
         if (manager.colliding != this.gameObject)
         {
             this.gameObject.GetComponent<Image>().enabled = false;
-            vis = false;
         }
     }
 }

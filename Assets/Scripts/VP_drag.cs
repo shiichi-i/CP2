@@ -20,6 +20,7 @@ public class VP_drag : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
+                manager.dropped = false;
                 manager.isSelect = true;
                 manager.dragging = this.gameObject;
                 selected = true;

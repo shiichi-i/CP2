@@ -7,6 +7,13 @@ public class VP_manager : MonoBehaviour
 {
     public bool isSelect, onShadow, dropped;
     public GameObject dragging = null ,colliding = null;
+    public GameObject start;
+    public int blocks;
+
+    void Start()
+    {
+        start = GameObject.Find("Start");
+    }
 
     void Update()
     {
@@ -27,9 +34,15 @@ public class VP_manager : MonoBehaviour
         {
             colliding.GetComponent<Image>().enabled = false;
             dragging.transform.position = colliding.transform.position;
+            colliding.GetComponent<VP_shadow>().occupied = dragging;
+            dragging.transform.SetParent(colliding.transform.parent);
             dragging = null;
             colliding = null;
             dropped = false;
+        }
+        else if (dragging != null && colliding == null)
+        {
+            dragging.transform.SetParent(start.transform.parent);
         }
 
 
