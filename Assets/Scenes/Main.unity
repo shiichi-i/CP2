@@ -282,7 +282,9 @@ GameObject:
   - component: {fileID: 83433939}
   - component: {fileID: 83433940}
   - component: {fileID: 83433941}
+  - component: {fileID: 83433944}
   - component: {fileID: 83433942}
+  - component: {fileID: 83433943}
   m_Layer: 5
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -361,6 +363,44 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!61 &83433943
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83433938}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.15298843, y: -1.1745815}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 104.97576, y: 112.003555}
+  m_EdgeRadius: 0
+--- !u!114 &83433944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83433938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a60c6d367a23a4c91a03724b983326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &151359031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2518,7 +2558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.3999782, y: 99.108}
+  m_AnchoredPosition: {x: -0.000016809, y: 99.108}
   m_SizeDelta: {x: 74.56, y: 40.393}
   m_Pivot: {x: 0.49999982, y: 0.49999875}
 --- !u!114 &655324612
@@ -4669,7 +4709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000076293945, y: 1}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 100, y: 192.66882}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1337200338
@@ -4742,6 +4782,7 @@ MonoBehaviour:
   isSelect: 0
   onShadow: 0
   dropped: 0
+  spawnEmpty: 1
   dragging: {fileID: 0}
   colliding: {fileID: 0}
   start: {fileID: 0}
@@ -5201,8 +5242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.4, y: 99.10808}
-  m_SizeDelta: {x: 60.0217, y: 42.407}
+  m_AnchoredPosition: {x: -0.4, y: 99.612}
+  m_SizeDelta: {x: 60.0217, y: 41.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1538569538
 MonoBehaviour:

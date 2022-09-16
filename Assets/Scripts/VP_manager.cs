@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class VP_manager : MonoBehaviour
 {
-    public bool isSelect, onShadow, dropped;
+    public bool isSelect, onShadow, dropped, spawnEmpty;
     public GameObject dragging = null ,colliding = null;
     public GameObject start;
     public int blocks;

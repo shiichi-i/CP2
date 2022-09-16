@@ -16,12 +16,15 @@ public class VP_spawn : MonoBehaviour
 
     public void SpawnBlock()
     {
-        naming.blocks++;
-        GameObject a = Instantiate(prefab) as GameObject;
-        a.name = a.name + naming.blocks.ToString();
-        a.transform.SetParent(panel);
-        a.GetComponent<RectTransform>().localPosition = spawnPoint.GetComponent<RectTransform>().localPosition;
-        a.GetComponent<RectTransform>().localScale = spawnPoint.GetComponent<RectTransform>().localScale;
+        if (naming.spawnEmpty)
+        {
+            naming.blocks++;
+            GameObject a = Instantiate(prefab) as GameObject;
+            a.name = a.name + naming.blocks.ToString();
+            a.transform.SetParent(panel);
+            a.GetComponent<RectTransform>().localPosition = spawnPoint.GetComponent<RectTransform>().localPosition;
+            a.GetComponent<RectTransform>().localScale = spawnPoint.GetComponent<RectTransform>().localScale;
+        }
     }
 
 }
