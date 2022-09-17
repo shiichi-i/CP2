@@ -34,6 +34,9 @@ public class SpawnManager : MonoBehaviour
                 prefab.GetComponent<Renderer>().material = normal;
                 prefab.AddComponent<Rigidbody>();
                 prefab.GetComponent<MeshCollider>().isTrigger = false;
+                GameObject arrow = Instantiate(outline.arrows) as GameObject;
+                arrow.transform.position = outline.currentObj.transform.position;
+                outline.currentObj.transform.SetParent(arrow.transform);
                 outline.tempObj = prefab;
                 outline.currentObj = null;
                 prefab = null;

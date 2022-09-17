@@ -7,6 +7,7 @@ public class ObjSelection : MonoBehaviour
     public GameObject tempObj = null;
     public GameObject currentObj = null;
     SpawnManager spawn;
+    public GameObject arrows;
 
     void Start()
     {
@@ -25,13 +26,22 @@ public class ObjSelection : MonoBehaviour
                 {
                     if (tempObj != hit.collider.gameObject && tempObj != null)
                     {
+
                         currentObj = null;
+
+                        GameObject arrow = tempObj.transform.parent.gameObject;
+                        tempObj.transform.SetParent(null);
+                        Destroy(arrow);
+                        
                         Destroy(tempObj.GetComponent<Outline>());
                         Destroy(tempObj.GetComponent<CollisionDetection>());
                     }
                     if(hit.collider.gameObject.GetComponent<Outline>() == null)
                     {
                         currentObj = hit.collider.gameObject;
+                        GameObject arrow = Instantiate(arrows) as GameObject;
+                        arrow.transform.position = currentObj.transform.position;
+                        currentObj.transform.SetParent(arrow.transform);
                         currentObj.AddComponent<CollisionDetection>();
                         currentObj.AddComponent<Outline>();
                     }
@@ -42,8 +52,11 @@ public class ObjSelection : MonoBehaviour
                     if(tempObj != null)
                     {
                         currentObj = null;
+                        GameObject arrow = tempObj.transform.parent.gameObject;
+                        tempObj.transform.SetParent(null);
+                        Destroy(arrow);
                         Destroy(tempObj.GetComponent<Outline>());
-                        Destroy(tempObj.GetComponent<CollisionDetection>());
+                        tempObj = null;
                     }
                 }
             }
@@ -52,7 +65,11 @@ public class ObjSelection : MonoBehaviour
                 if (tempObj != null)
                 {
                     currentObj = null;
+                    GameObject arrow = tempObj.transform.parent.gameObject;
+                    tempObj.transform.SetParent(null);
+                    Destroy(arrow);
                     Destroy(tempObj.GetComponent<Outline>());
+                    tempObj = null;
                 }
             }
         }
