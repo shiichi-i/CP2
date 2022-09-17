@@ -11,11 +11,13 @@ public class ObjSelection : MonoBehaviour
     public bool moving = false;
 
     SimManager sim;
+    IsMouseOverUI ui;
 
     void Start()
     {
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         sim = GameObject.Find("SimBar").GetComponent<SimManager>();
+        ui = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
     }
 
     void Update()
@@ -26,7 +28,7 @@ public class ObjSelection : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit) && !moving)
             {
-                if(hit.collider.tag == "Selectable")
+                if(hit.collider.tag == "Selectable" && !ui.IsMouseOnUI())
                 {
                     if (tempObj != hit.collider.gameObject && tempObj != null)
                     {
