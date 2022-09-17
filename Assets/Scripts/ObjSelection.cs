@@ -30,16 +30,13 @@ public class ObjSelection : MonoBehaviour
                 {
                     if (tempObj != hit.collider.gameObject && tempObj != null)
                     {
-
                         currentObj = null;
                         if (!sim.Playing)
                         {
                             GameObject arrow = tempObj.transform.parent.gameObject;
                             tempObj.transform.SetParent(null);
                             Destroy(arrow);
-                        }
-                        
-                        
+                        }   
                         Destroy(tempObj.GetComponent<Outline>());
                         Destroy(tempObj.GetComponent<CollisionDetection>());
                     }
@@ -59,7 +56,7 @@ public class ObjSelection : MonoBehaviour
                 }
                 else
                 {
-                    if(tempObj != null && !moving)
+                    if(tempObj != null && !moving && hit.collider.tag != "CodeArea")
                     {
                         currentObj = null;
                         if (!sim.Playing)
