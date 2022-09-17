@@ -7,6 +7,12 @@ public class AvoidCollision : MonoBehaviour
     public bool isColliding = false;
     public GameObject selectedObj;
     public Material red, temp;
+    SpawnManager spawn;
+
+    void Start()
+    {
+        spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
+    }
 
     void Update()
     {

@@ -8,10 +8,14 @@ public class ObjSelection : MonoBehaviour
     public GameObject currentObj = null;
     SpawnManager spawn;
     public GameObject arrows;
+    public bool moving = false;
+
+    SimManager sim;
 
     void Start()
     {
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
+        sim = GameObject.Find("SimBar").GetComponent<SimManager>();
     }
 
     void Update()
@@ -20,7 +24,7 @@ public class ObjSelection : MonoBehaviour
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && !moving)
             {
                 if(hit.collider.tag == "Selectable")
                 {
@@ -28,10 +32,13 @@ public class ObjSelection : MonoBehaviour
                     {
 
                         currentObj = null;
-
-                        GameObject arrow = tempObj.transform.parent.gameObject;
-                        tempObj.transform.SetParent(null);
-                        Destroy(arrow);
+                        if (!sim.Playing)
+                        {
+                            GameObject arrow = tempObj.transform.parent.gameObject;
+                            tempObj.transform.SetParent(null);
+                            Destroy(arrow);
+                        }
+                        
                         
                         Destroy(tempObj.GetComponent<Outline>());
                         Destroy(tempObj.GetComponent<CollisionDetection>());
@@ -39,9 +46,12 @@ public class ObjSelection : MonoBehaviour
                     if(hit.collider.gameObject.GetComponent<Outline>() == null)
                     {
                         currentObj = hit.collider.gameObject;
-                        GameObject arrow = Instantiate(arrows) as GameObject;
-                        arrow.transform.position = currentObj.transform.position;
-                        currentObj.transform.SetParent(arrow.transform);
+                        if (!sim.Playing)
+                        {
+                            GameObject arrow = Instantiate(arrows) as GameObject;
+                            arrow.transform.position = currentObj.transform.position;
+                            currentObj.transform.SetParent(arrow.transform);
+                        }
                         currentObj.AddComponent<CollisionDetection>();
                         currentObj.AddComponent<Outline>();
                     }
@@ -49,26 +59,34 @@ public class ObjSelection : MonoBehaviour
                 }
                 else
                 {
-                    if(tempObj != null)
+                    if(tempObj != null && !moving)
                     {
                         currentObj = null;
-                        GameObject arrow = tempObj.transform.parent.gameObject;
-                        tempObj.transform.SetParent(null);
-                        Destroy(arrow);
+                        if (!sim.Playing)
+                        {
+                            GameObject arrow = tempObj.transform.parent.gameObject;
+                            tempObj.transform.SetParent(null);
+                            Destroy(arrow);
+                        }
                         Destroy(tempObj.GetComponent<Outline>());
+                        Destroy(tempObj.GetComponent<CollisionDetection>());
                         tempObj = null;
                     }
                 }
             }
             else
             {
-                if (tempObj != null)
+                if (tempObj != null && !moving)
                 {
                     currentObj = null;
-                    GameObject arrow = tempObj.transform.parent.gameObject;
-                    tempObj.transform.SetParent(null);
-                    Destroy(arrow);
+                    if (!sim.Playing)
+                    {
+                        GameObject arrow = tempObj.transform.parent.gameObject;
+                        tempObj.transform.SetParent(null);
+                        Destroy(arrow);
+                    }
                     Destroy(tempObj.GetComponent<Outline>());
+                    Destroy(tempObj.GetComponent<CollisionDetection>());
                     tempObj = null;
                 }
             }

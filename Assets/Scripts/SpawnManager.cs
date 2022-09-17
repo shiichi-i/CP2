@@ -14,8 +14,6 @@ public class SpawnManager : MonoBehaviour
     ObjSelection outline;
     public LayerMask layerMask;
 
-
-
     void Start()
     {
         mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
@@ -30,8 +28,8 @@ public class SpawnManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && !avoidCollision.isColliding && !mouseUI.IsMouseOnUI())
             {
-                willSpawn = false;
                 prefab.GetComponent<Renderer>().material = normal;
+                willSpawn = false;
                 prefab.AddComponent<Rigidbody>();
                 prefab.GetComponent<MeshCollider>().isTrigger = false;
                 GameObject arrow = Instantiate(outline.arrows) as GameObject;

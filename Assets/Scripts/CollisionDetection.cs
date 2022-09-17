@@ -6,20 +6,27 @@ public class CollisionDetection : MonoBehaviour
 {
     AvoidCollision avoidCollision;
     public GameObject selectedObj;
+    SpawnManager mat;
 
     void Start()
     {
         avoidCollision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
         selectedObj = this.gameObject;
         avoidCollision.selectedObj = selectedObj;
+        mat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
     }
 
     void OnTriggerStay(Collider other)
     {
-        avoidCollision.isColliding = true;
+        if(other.tag == "Selectable")
+        {
+            avoidCollision.isColliding = true;
+        }
     }
+
     void OnTriggerExit(Collider other)
     {
         avoidCollision.isColliding = false;
+        this.gameObject.GetComponent<Renderer>().material = mat.normal;
     }
 }

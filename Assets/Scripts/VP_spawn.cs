@@ -8,22 +8,28 @@ public class VP_spawn : MonoBehaviour
     Transform panel;
     VP_manager naming;
 
+    SimManager simulation;
+
     void Start()
     {
         panel = GameObject.Find("Panel").GetComponent<Transform>();
         naming = GameObject.Find("CodeArea").GetComponent<VP_manager>();
+        simulation = GameObject.Find("SimBar").GetComponent<SimManager>();
     }
 
     public void SpawnBlock()
     {
-        if (naming.spawnEmpty)
+        if (!simulation.Playing)
         {
-            naming.blocks++;
-            GameObject a = Instantiate(prefab) as GameObject;
-            a.name = a.name + naming.blocks.ToString();
-            a.transform.SetParent(panel);
-            a.GetComponent<RectTransform>().localPosition = spawnPoint.GetComponent<RectTransform>().localPosition;
-            a.GetComponent<RectTransform>().localScale = spawnPoint.GetComponent<RectTransform>().localScale;
+            if (naming.spawnEmpty)
+            {
+                naming.blocks++;
+                GameObject a = Instantiate(prefab) as GameObject;
+                a.name = a.name + naming.blocks.ToString();
+                a.transform.SetParent(panel);
+                a.GetComponent<RectTransform>().localPosition = spawnPoint.GetComponent<RectTransform>().localPosition;
+                a.GetComponent<RectTransform>().localScale = spawnPoint.GetComponent<RectTransform>().localScale;
+            }
         }
     }
 
