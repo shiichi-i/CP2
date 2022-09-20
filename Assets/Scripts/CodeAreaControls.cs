@@ -1,95 +1,113 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CodeAreaControls : MonoBehaviour
 {
-    public float speed = 0.4f;
-    Vector3 newPosition;
-    float startY, currentY, panY;
-    float startX, currentX, panX;
+    Vector3 newPosition, resetPos, resetZoom;
+    public float panSensitivity = 4f;
     bool xLimit, yLimit;
 
     public RectTransform panel;
     float panelY, panelX;
 
-    
+    public bool onUIStart;
+    public bool onCamStart;
+
+    IsMouseOverUI mouseUI;
+    public GameObject animator;
+
     void Start()
-    {
+    { 
         newPosition = transform.localPosition;
         panel = GameObject.Find("Panel").GetComponent<RectTransform>();
         panelY = panel.localScale.y;
         panelX = panel.localScale.x;
+
+        resetPos = transform.localPosition;
+        resetZoom = panel.localScale;
+
+        mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
     }
 
     void LateUpdate()
     {
-        if (IsMouseOnUI())
+        if (mouseUI.IsMouseOnUI() && animator.GetComponent<Animator>().GetBool("isOpen"))
         {
             HandleZooming();
-            HandlePanning();
-            HandleLimits();
         }
-    }
-
-    void HandlePanning()
-    {
         if (Input.GetMouseButtonDown(2))
         {
-            startY = -Input.mousePosition.y;
-            startX = -Input.mousePosition.x;
+            if (mouseUI.IsMouseOnUI() && !onCamStart)
+            {
+                onUIStart = true;
+            }
         }
+        if (Input.GetMouseButtonUp(2))
+        {
+            if (onUIStart)
+            {
+                onUIStart = false;
+            }
+        }
+
+
+    }
+
+    public void HandlePanning()
+    {
         if (Input.GetMouseButton(2))
         {
-            currentY = -Input.mousePosition.y;
-            currentX = -Input.mousePosition.x;
-
-            panX = transform.localPosition.x + (startX - currentX);
-            panY = transform.localPosition.y + (startY - currentY);
-
-            if (!xLimit && !yLimit)
-            { 
-                newPosition = new Vector3(panX, panY, transform.localPosition.z);
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+            {
+                if (!xLimit)
+                {
+                    newPosition.x += Input.GetAxis("Mouse X") * panSensitivity;
+                }
+                if (!yLimit)
+                {
+                    newPosition.y += Input.GetAxis("Mouse Y") * panSensitivity;
+                }
             }
-            else if(xLimit && yLimit)
+            else
             {
                 newPosition = transform.localPosition;
             }
 
-            transform.localPosition = Vector3.Lerp(transform.localPosition, newPosition, Time.deltaTime * speed);
-
-
+            transform.localPosition = newPosition;
         }
-
+        if (Input.GetMouseButtonUp(2))
+        {
+            newPosition = transform.localPosition;
+        }
     }
 
-    void HandleLimits()
+    public void HandleLimits()
     {
-        if (transform.localPosition.x >= 77)
+        if (transform.localPosition.x >= 70)
         {
-            if (panX > 0)
+            if (Input.GetAxis("Mouse X") > 0)
             {
                 xLimit = true;
-                newPosition = new Vector3(transform.localPosition.x, panY, transform.localPosition.z);
+                newPosition = new Vector3(transform.localPosition.x, newPosition.y, transform.localPosition.z);
 
             }
-            if (panX < 0)
+            if (Input.GetAxis("Mouse X") < 0)
             {
                 xLimit = false;
             }
         }
-        else if(transform.localPosition.x <= -77)
+        else if(transform.localPosition.x <= -70)
         {
-            if (panX > 0)
+            if (Input.GetAxis("Mouse X") > 0)
             {
                 xLimit = false;
             }
-            if (panX < 0)
+            if (Input.GetAxis("Mouse X") < 0)
             {
                 xLimit = true;
-                newPosition = new Vector3(transform.localPosition.x, panY, transform.localPosition.z);
+                newPosition = new Vector3(transform.localPosition.x, newPosition.y, transform.localPosition.z);
             }
         }
         else
@@ -99,26 +117,26 @@ public class CodeAreaControls : MonoBehaviour
 
         if (transform.localPosition.y >= 55)
         {
-            if (panY > 0)
+            if (Input.GetAxis("Mouse Y") > 0)
             {
                 yLimit = true;
-                newPosition = new Vector3(panX, transform.localPosition.y, transform.localPosition.z);
+                newPosition = new Vector3(newPosition.x, transform.localPosition.y, transform.localPosition.z);
             }
-            if (panY < 0)
+            if (Input.GetAxis("Mouse Y") < 0)
             {
                 yLimit = false;
             }
         }
         else if (transform.localPosition.y <= -55)
         {
-            if (panY > 0)
+            if (Input.GetAxis("Mouse Y") > 0)
             {
                 yLimit = false;
             }
-            if (panY < 0)
+            if (Input.GetAxis("Mouse Y") < 0)
             {
                 yLimit = true;
-                newPosition = new Vector3(panX, transform.localPosition.y, transform.localPosition.z);
+                newPosition = new Vector3(newPosition.x, transform.localPosition.y, transform.localPosition.z);
             }
         }
         else
@@ -151,8 +169,9 @@ public class CodeAreaControls : MonoBehaviour
         }
     }
 
-    private bool IsMouseOnUI()
+    public void Reset()
     {
-        return EventSystem.current.IsPointerOverGameObject();
+        transform.localPosition = resetPos;
+        panel.localScale = resetZoom;
     }
 }

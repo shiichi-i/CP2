@@ -1,76 +1,95 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CamControls : MonoBehaviour
 {
-    public Camera cam;
-    public float speed = 21f;
+    public GameObject pivot;
 
 
     Vector3 newPosition, _LocalRotation;
-    public float startY, currentY, panY;
-    float startX, currentX, panX;
 
+    Vector3 camPos, pivPos;
+    Quaternion camRot, pivRot;
 
-    float MouseSensitivity = 4f;
+    public float panSensitivity = 10f;
+    float MouseSensitivity = 2f;
     float OrbitDampening = 10f;
+
+    public bool onCamStart;
+    public bool onUIStart;
 
 
     bool RotPressed, PanPressed;
     public bool pressed = false;
 
+    IsMouseOverUI mouseUI;
+
 
     void Start()
     {
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        newPosition = transform.position;
+        pivot = GameObject.Find("CamTarget");
+        newPosition = transform.localPosition;
+
+        camPos = transform.position;
+        camRot = transform.rotation;
+        pivPos = pivot.transform.position;
+        pivRot = pivot.transform.rotation;
+
+        mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
+
     }
     void LateUpdate()
     {
-        if (!IsMouseOverUI()) { 
-            HandlePanning();
-            HandleZooming();
-            HandleRotating();
-        }
-        if (Input.GetMouseButtonUp(1))
+        if (!mouseUI.IsMouseOnUI())
         {
-            pressed = false;
-            RotPressed = false;
+            HandleZooming();
+        }
+        if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
+        {
+            if (!mouseUI.IsMouseOnUI() && !onUIStart)
+            {
+                onCamStart = true;
+            }
+        }
+        if (Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(2))
+        {
+            if (onCamStart)
+            {
+                onCamStart = false;
+            }
         }
     }
 
-    void HandlePanning()
+    public void HandlePanning()
     {
-        if (Input.GetMouseButtonDown(2))
-        {
-            startY = Input.mousePosition.y;
-            startX = Input.mousePosition.x;
-            PanPressed = true;
-            pressed = true;
-        }
         if (Input.GetMouseButton(2) && !RotPressed)
         {
-            currentY = Input.mousePosition.y;
-            currentX = Input.mousePosition.x;
+            PanPressed = true;
+            pressed = true;
 
-            panY = cam.transform.localPosition.y + (startY - currentY);
-            panX = cam.transform.localPosition.x + (startX - currentX);
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+            {
+                newPosition.x -= Input.GetAxis("Mouse X") * panSensitivity;
+                newPosition.y -= Input.GetAxis("Mouse Y") * panSensitivity;
+                newPosition.z = transform.localPosition.z;
+            }
+            else
+            {
+                newPosition = transform.localPosition;
+            }
 
-            newPosition = new Vector3(panX, panY, 0);
-            
-            cam.transform.localPosition = Vector3.Lerp(cam.transform.localPosition, newPosition, Time.deltaTime * speed);
-
+            transform.localPosition = newPosition;
         }
         if (Input.GetMouseButtonUp(2))
         {
-            pressed = false;
+            newPosition = transform.localPosition;
             PanPressed = false;
+            pressed = false;
         }
     }
 
-    void HandleRotating()
+    public void HandleRotating()
     {
 
         if (Input.GetMouseButton(1) && !PanPressed)
@@ -90,25 +109,35 @@ public class CamControls : MonoBehaviour
             }
 
             Quaternion QT = Quaternion.Euler(_LocalRotation.y, _LocalRotation.x, 0);
-            transform.rotation = Quaternion.Lerp(this.transform.rotation, QT, Time.deltaTime * OrbitDampening);
+            pivot.transform.rotation = Quaternion.Lerp(pivot.transform.rotation, QT, Time.deltaTime * OrbitDampening);
+
         }
-        
+        if (Input.GetMouseButtonUp(1))
+        {
+            RotPressed = false;
+            pressed = false;
+        }
+
+
     }
 
     void HandleZooming()
     {
         if (Input.mouseScrollDelta.y > 0 && !pressed)
         {
-            transform.position += transform.forward;
+            pivot.transform.position += transform.forward;
         }
         if (Input.mouseScrollDelta.y < 0 && !pressed)
         {
-            transform.position -= transform.forward;
+            pivot.transform.position -= transform.forward;
         }
     }
 
-    private bool IsMouseOverUI()
+    public void ResetCamera()
     {
-        return EventSystem.current.IsPointerOverGameObject();
+        pivot.transform.rotation = pivRot;
+        pivot.transform.position = pivPos;
+        transform.position = camPos;
+        transform.rotation = camRot;
     }
 }
