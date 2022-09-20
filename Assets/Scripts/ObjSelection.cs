@@ -9,6 +9,8 @@ public class ObjSelection : MonoBehaviour
     SpawnManager spawn;
     public GameObject arrows;
     public bool moving = false;
+    TransformManager arrow;
+    AvoidCollision collision;
 
     SimManager sim;
     IsMouseOverUI ui;
@@ -18,47 +20,53 @@ public class ObjSelection : MonoBehaviour
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         sim = GameObject.Find("SimBar").GetComponent<SimManager>();
         ui = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
+        arrow = GameObject.Find("SimBar").GetComponent<TransformManager>();
+        collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn)
+        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit) && !moving)
+
+            if (Physics.Raycast(ray, out hit))
             {
-                if(hit.collider.tag == "Selectable" && !ui.IsMouseOnUI())
+                if (hit.collider.tag == "Selectable" && arrow.dragAxis == null)
                 {
-                    if (tempObj != hit.collider.gameObject && tempObj != null)
+                    if (!ui.IsMouseOnUI())
                     {
-                        currentObj = null;
-                        if (!sim.Playing)
+                        if (tempObj != hit.collider.gameObject && tempObj != null)
                         {
-                            GameObject arrow = tempObj.transform.parent.gameObject;
-                            tempObj.transform.SetParent(null);
-                            Destroy(arrow);
-                        }   
-                        Destroy(tempObj.GetComponent<Outline>());
-                        Destroy(tempObj.GetComponent<CollisionDetection>());
-                    }
-                    if(hit.collider.gameObject.GetComponent<Outline>() == null)
-                    {
-                        currentObj = hit.collider.gameObject;
-                        if (!sim.Playing)
-                        {
-                            GameObject arrow = Instantiate(arrows) as GameObject;
-                            arrow.transform.position = currentObj.transform.position;
-                            currentObj.transform.SetParent(arrow.transform);
+                            currentObj = null;
+                            if (!sim.Playing)
+                            {
+                                GameObject arrow = tempObj.transform.parent.gameObject;
+                                tempObj.transform.SetParent(null);
+                                Destroy(arrow);
+                            }
+                            Destroy(tempObj.GetComponent<Outline>());
+                            Destroy(tempObj.GetComponent<CollisionDetection>());
                         }
-                        currentObj.AddComponent<CollisionDetection>();
-                        currentObj.AddComponent<Outline>();
+                        if (hit.collider.gameObject.GetComponent<Outline>() == null)
+                        {
+                            currentObj = hit.collider.gameObject;
+                            if (!sim.Playing)
+                            {
+                                GameObject arrow = Instantiate(arrows) as GameObject;
+                                arrow.transform.position = currentObj.transform.position;
+                                currentObj.transform.SetParent(arrow.transform);
+                            }
+                            currentObj.AddComponent<CollisionDetection>();
+                            currentObj.AddComponent<Outline>();
+                        }
+                        tempObj = hit.collider.gameObject;
                     }
-                    tempObj = hit.collider.gameObject;   
                 }
                 else
                 {
-                    if(tempObj != null && !moving && hit.collider.tag != "CodeArea")
+                    if (tempObj != null && !moving && !arrow.overlap)
                     {
                         currentObj = null;
                         if (!sim.Playing)
@@ -92,3 +100,4 @@ public class ObjSelection : MonoBehaviour
         }
     }
 }
+

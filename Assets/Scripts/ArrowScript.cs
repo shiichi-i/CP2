@@ -16,5 +16,6 @@ public class ArrowScript : MonoBehaviour
     {
         manager.dragAxis = this.gameObject;
         manager.axis = axis;
+        manager.overlap = true;
     }
 }

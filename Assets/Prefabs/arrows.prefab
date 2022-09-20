@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1332058285}
   - component: {fileID: 1332058284}
   - component: {fileID: 1332058297}
-  m_Layer: 4
+  m_Layer: 7
   m_Name: X-axis
   m_TagString: CodeArea
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 1332058281}
   - component: {fileID: 1332058280}
   - component: {fileID: 1332058295}
-  m_Layer: 4
+  m_Layer: 7
   m_Name: Z-axis
   m_TagString: CodeArea
   m_Icon: {fileID: 0}
@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 1332058283}
   - component: {fileID: 1332058282}
   - component: {fileID: 1332058296}
-  m_Layer: 4
+  m_Layer: 7
   m_Name: Y-axis
   m_TagString: CodeArea
   m_Icon: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public bool willSpawn;
+    public bool willSpawn, ticked;
     public GameObject prefab;
 
     IsMouseOverUI mouseUI;
@@ -24,8 +24,26 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
-        if(prefab != null && willSpawn)
+        if(prefab != null && willSpawn && ticked)
         {
+            outline.currentObj = prefab;
+            if (!avoidCollision.isColliding)
+            {
+                prefab.GetComponent<Renderer>().material = transparent;
+            }
+            if (!mouseUI.IsMouseOnUI())
+            {
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, float.MaxValue, layerMask))
+                    {
+                        prefab.transform.position = new Vector3(hit.point.x, 1f, hit.point.z);
+                    }
+                }
+            }
+
             if (Input.GetMouseButtonDown(0) && !avoidCollision.isColliding && !mouseUI.IsMouseOnUI())
             {
                 prefab.GetComponent<Renderer>().material = normal;
@@ -38,31 +56,9 @@ public class SpawnManager : MonoBehaviour
                 outline.tempObj = prefab;
                 outline.currentObj = null;
                 prefab = null;
-            }
-
-        }
-        
-        if (willSpawn && prefab != null)
-        {
-            outline.currentObj = prefab;
-            if (!avoidCollision.isColliding)
-            {
-                prefab.GetComponent<Renderer>().material = transparent;
-            } 
-            if (!mouseUI.IsMouseOnUI())
-            {
-                
-                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, float.MaxValue, layerMask))
-                    {
-                        prefab.transform.position = new Vector3(hit.point.x, 1f, hit.point.z);
-                    }  
-                }
-
+                ticked = false;
             }
         }
+
     }
 }

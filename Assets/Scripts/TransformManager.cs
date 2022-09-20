@@ -9,6 +9,7 @@ public class TransformManager : MonoBehaviour
     Vector3 newPos;
     public float sensitivity;
     ObjSelection selection;
+    public bool overlap;
 
     void Start()
     {
@@ -67,6 +68,11 @@ public class TransformManager : MonoBehaviour
                 dragAxis = null;
                 selection.moving = false;
             }
+            
+        }
+        else if (dragAxis == null && Input.GetMouseButtonUp(0))
+        {
+            overlap = false;
         }
     }
 }

@@ -16,7 +16,7 @@ public class CollisionDetection : MonoBehaviour
         mat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Selectable")
         {

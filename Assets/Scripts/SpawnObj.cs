@@ -7,7 +7,6 @@ public class SpawnObj : MonoBehaviour
     public GameObject prefab;
     SpawnManager spawnManager;
     ObjSelection outline;
-    public bool ticked;
 
     SimManager simulation;
 
@@ -20,28 +19,27 @@ public class SpawnObj : MonoBehaviour
 
     public void PressObj()
     {
+        spawnManager.ticked = !spawnManager.ticked;
+
         if (!simulation.Playing)
         {
             if (outline.tempObj != null)
             {
                 Destroy(outline.tempObj.GetComponent<Outline>());
             }
-            /*if (spawnManager.notPlaced)
+            if (!spawnManager.willSpawn && spawnManager.ticked)
+            {
+                GameObject a = Instantiate(prefab) as GameObject;
+                a.transform.position = new Vector3(0, -50f, 0);
+                spawnManager.prefab = a;
+                spawnManager.willSpawn = true;
+            }
+            else
             {
                 Destroy(spawnManager.prefab);
                 spawnManager.prefab = null;
                 outline.currentObj = null;
                 spawnManager.willSpawn = false;
-                spawnManager.notPlaced = false;
-            }*/
-
-            if (!spawnManager.willSpawn)
-            {
-                ticked = true;
-                GameObject a = Instantiate(prefab) as GameObject;
-                a.transform.position = new Vector3(0, -50f, 0);
-                spawnManager.prefab = a;
-                spawnManager.willSpawn = true;
             }
         }
 
