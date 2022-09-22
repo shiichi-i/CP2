@@ -12,6 +12,8 @@ public class ObjSelection : MonoBehaviour
     TransformManager arrow;
     AvoidCollision collision;
 
+    public bool play;
+
     SimManager sim;
     IsMouseOverUI ui;
 
@@ -87,7 +89,7 @@ public class ObjSelection : MonoBehaviour
             }
             else
             {
-                if (tempObj != null && !moving && arrow.dragAxis == null)
+                if (tempObj != null && !moving && arrow.dragAxis == null && !ui.IsMouseOnUI())
                 {
                     currentObj = null;
                     if (!sim.Playing)
@@ -102,6 +104,18 @@ public class ObjSelection : MonoBehaviour
                     tempObj = null;
                 }
             }
+        }
+
+        if (play)
+        {
+            currentObj = null;
+            GameObject arrow = tempObj.transform.parent.gameObject;
+            tempObj.transform.SetParent(null);
+            Destroy(arrow);
+            Destroy(tempObj.GetComponent<Outline>());
+            Destroy(tempObj.GetComponent<CollisionDetection>());
+            tempObj = null;
+            play = false;
         }
     }
 }
