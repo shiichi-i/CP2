@@ -6,6 +6,7 @@ public class RigidBodyControls : MonoBehaviour
 {
     SimManager simulation;
     ObjSelection select;
+    public string objType;
 
     void Start()
     {

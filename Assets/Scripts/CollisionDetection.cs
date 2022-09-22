@@ -18,7 +18,7 @@ public class CollisionDetection : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Selectable")
+        if(other.tag != "CodeArea")
         {
             avoidCollision.isColliding = true;
         }

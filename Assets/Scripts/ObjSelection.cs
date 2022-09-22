@@ -43,6 +43,7 @@ public class ObjSelection : MonoBehaviour
                             if (!sim.Playing)
                             {
                                 GameObject arrow = tempObj.transform.parent.gameObject;
+
                                 tempObj.transform.SetParent(null);
                                 Destroy(arrow);
                             }
@@ -56,6 +57,8 @@ public class ObjSelection : MonoBehaviour
                             {
                                 GameObject arrow = Instantiate(arrows) as GameObject;
                                 arrow.transform.position = currentObj.transform.position;
+                                Transform rot = arrow.transform.Find("R-Y");
+                                rot.transform.eulerAngles = currentObj.transform.eulerAngles;
                                 currentObj.transform.SetParent(arrow.transform);
                             }
                             currentObj.AddComponent<CollisionDetection>();
@@ -72,6 +75,7 @@ public class ObjSelection : MonoBehaviour
                         if (!sim.Playing)
                         {
                             GameObject arrow = tempObj.transform.parent.gameObject;
+
                             tempObj.transform.SetParent(null);
                             Destroy(arrow);
                         }
@@ -83,12 +87,13 @@ public class ObjSelection : MonoBehaviour
             }
             else
             {
-                if (tempObj != null && !moving)
+                if (tempObj != null && !moving && arrow.dragAxis == null)
                 {
                     currentObj = null;
                     if (!sim.Playing)
                     {
                         GameObject arrow = tempObj.transform.parent.gameObject;
+
                         tempObj.transform.SetParent(null);
                         Destroy(arrow);
                     }
