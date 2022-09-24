@@ -37,6 +37,10 @@ public class SimManager : MonoBehaviour
             }
             else
             {
+                if (selection.currentObj != null)
+                {
+                    selection.play = true;
+                }
                 bl1.SetActive(false);
                 bl2.SetActive(false);
                 bl3.SetActive(false);

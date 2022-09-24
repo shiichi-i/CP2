@@ -150,7 +150,7 @@ public class CodeAreaControls : MonoBehaviour
     {
         if (Input.mouseScrollDelta.y > 0)
         {
-            if(panelX <= 1 && panelY <= 1) { 
+            if(panelX <= 2 && panelY <= 2) { 
                 panelX += 0.1f;
                 panelY += 0.1f;
 

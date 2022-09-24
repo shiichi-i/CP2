@@ -109,9 +109,12 @@ public class ObjSelection : MonoBehaviour
         if (play)
         {
             currentObj = null;
-            GameObject arrow = tempObj.transform.parent.gameObject;
-            tempObj.transform.SetParent(null);
-            Destroy(arrow);
+            if (sim.Playing)
+            {
+                GameObject arrow = tempObj.transform.parent.gameObject;
+                tempObj.transform.SetParent(null);
+                Destroy(arrow);
+            }
             Destroy(tempObj.GetComponent<Outline>());
             Destroy(tempObj.GetComponent<CollisionDetection>());
             tempObj = null;
