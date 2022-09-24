@@ -14,6 +14,7 @@ public class CollisionDetection : MonoBehaviour
         selectedObj = this.gameObject;
         avoidCollision.selectedObj = selectedObj;
         mat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
+        
     }
 
     void OnTriggerEnter(Collider other)
@@ -28,5 +29,6 @@ public class CollisionDetection : MonoBehaviour
     {
         avoidCollision.isColliding = false;
         this.gameObject.GetComponent<Renderer>().material = mat.normal;
+        
     }
 }

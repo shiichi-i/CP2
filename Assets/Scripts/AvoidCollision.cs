@@ -27,6 +27,7 @@ public class AvoidCollision : MonoBehaviour
             {
                 selectedObj.GetComponent<Renderer>().material = temp;
             }
+            
         }  
     }
 }

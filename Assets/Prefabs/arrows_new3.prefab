@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7725885814234226793}
   m_Layer: 7
   m_Name: R-Y-axis
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 7283682467137444067}
   m_Layer: 7
   m_Name: Z-axis
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 9033915829939284453}
   m_Layer: 7
   m_Name: R-X-axis
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 8953157061321612006}
   m_Layer: 7
   m_Name: Y-axis
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 6152683091136651465}
   m_Layer: 7
   m_Name: X-axis
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 2742663827979792142}
   m_Layer: 7
   m_Name: R-Z-axis
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -944,7 +944,7 @@ GameObject:
   - component: {fileID: 7668831880672644082}
   m_Layer: 7
   m_Name: arrows_new3
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -978,7 +978,7 @@ GameObject:
   - component: {fileID: 7919457399326105813}
   m_Layer: 7
   m_Name: R-Y
-  m_TagString: Untagged
+  m_TagString: CodeArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
