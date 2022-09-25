@@ -8,26 +8,31 @@ public class AvoidCollision : MonoBehaviour
     public GameObject selectedObj;
     public Material red, temp;
     SpawnManager spawn;
+    ObjSelection moving;
 
     void Start()
     {
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
+        moving = GameObject.Find("SimBar").GetComponent<ObjSelection>();
     }
 
     void Update()
     {
-        if(selectedObj != null)
+        if (selectedObj != null)
         {
-            temp = selectedObj.GetComponent<Renderer>().material;
-            if (isColliding)
+            if (isColliding && moving.moving)
             {
-                selectedObj.GetComponent<Renderer>().material = red;
+                if (selectedObj.GetComponent<ObjInfo>().isSpecial)
+                {
+                    selectedObj.GetComponentInChildren<Renderer>().sharedMaterial = red;
+                }
+                else
+                {
+                    selectedObj.GetComponent<Renderer>().material = red;
+                }
+
             }
-            if (!isColliding)
-            {
-                selectedObj.GetComponent<Renderer>().material = temp;
-            }
-            
-        }  
+        }
+   
     }
 }

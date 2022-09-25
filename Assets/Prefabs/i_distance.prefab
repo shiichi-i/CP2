@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 2688982246641963305}
   - component: {fileID: 1227745892912998611}
   - component: {fileID: -8442802651587300583}
+  - component: {fileID: -2871327676962557449}
   m_Layer: 0
-  m_Name: i-distance
+  m_Name: i_distance
   m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,3 +144,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: cdccddf71f410a9498a3b10063667b0e, type: 3}
+--- !u!114 &-2871327676962557449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501347574996650594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21f2f52fa224f84e99fc2538317c0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpecial: 0
+  isPart: 0

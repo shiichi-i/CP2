@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7594655516991628887}
   - component: {fileID: 6718624682948698029}
   - component: {fileID: 6404495000117443869}
+  - component: {fileID: -2836359042720620448}
   m_Layer: 0
   m_Name: i_light
   m_TagString: Selectable
@@ -143,3 +144,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 4f7884b997713f6468d0d976b8de7b9c, type: 3}
+--- !u!114 &-2836359042720620448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6404495000117443868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21f2f52fa224f84e99fc2538317c0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpecial: 0
+  isPart: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4429280408618232414}
   - component: {fileID: 6614671001883596431}
   - component: {fileID: 8040318707386445685}
+  - component: {fileID: 4437980786313805513}
   m_Layer: 0
   m_Name: pb_cube
   m_TagString: Selectable
@@ -143,3 +144,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedObj: {fileID: 0}
+--- !u!114 &4437980786313805513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7658648842742894020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21f2f52fa224f84e99fc2538317c0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpecial: 0
+  isPart: 1

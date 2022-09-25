@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3808817124195138923}
   - component: {fileID: 36971661156172945}
   - component: {fileID: 5882876299784119231}
+  - component: {fileID: 1797651843806672467}
   m_Layer: 0
   m_Name: pb_wheel
   m_TagString: Selectable
@@ -143,3 +144,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: addab20722ccaa14fbe4a78f08771f82, type: 3}
+--- !u!114 &1797651843806672467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7836792986594166578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21f2f52fa224f84e99fc2538317c0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSpecial: 0
+  isPart: 1

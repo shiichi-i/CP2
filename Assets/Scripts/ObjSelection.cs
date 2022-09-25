@@ -39,39 +39,72 @@ public class ObjSelection : MonoBehaviour
                 {
                     if (!ui.IsMouseOnUI())
                     {
-                        if (tempObj != hit.collider.gameObject && tempObj != null)
+                        if (tempObj != null && hit.collider.gameObject.transform.parent == null)
                         {
-                            currentObj = null;
-                            if (!sim.Playing)
+                            if (tempObj != hit.collider.gameObject)
                             {
-                                GameObject arrow = tempObj.transform.parent.gameObject;
+                                currentObj = null;
+                                if (!sim.Playing)
+                                {
+                                    GameObject arrow = tempObj.transform.parent.gameObject;
 
-                                tempObj.transform.SetParent(null);
-                                Destroy(arrow);
+                                    tempObj.transform.SetParent(null);
+                                    Destroy(arrow);
+                                }
+                                Destroy(tempObj.GetComponent<Outline>());
+                                Destroy(tempObj.GetComponent<CollisionDetection>());
                             }
-                            Destroy(tempObj.GetComponent<Outline>());
-                            Destroy(tempObj.GetComponent<CollisionDetection>());
                         }
-                        if (hit.collider.gameObject.GetComponent<Outline>() == null)
+                        else if (tempObj != null && hit.collider.gameObject.transform.parent != null)
                         {
-                            currentObj = hit.collider.gameObject;
-                            if (!sim.Playing)
+
+                            if (tempObj != hit.collider.gameObject.transform.parent.gameObject)
                             {
-                                GameObject arrow = Instantiate(arrows) as GameObject;
-                                arrow.transform.position = currentObj.transform.position;
-                                Transform rot = arrow.transform.Find("R-Y");
-                                rot.transform.eulerAngles = currentObj.transform.eulerAngles;
-                                currentObj.transform.SetParent(arrow.transform);
+                                currentObj = null;
+                                if (!sim.Playing)
+                                {
+                                    GameObject arrow = tempObj.transform.parent.gameObject;
+
+                                    tempObj.transform.SetParent(null);
+                                    Destroy(arrow);
+                                }
+                                Destroy(tempObj.GetComponent<Outline>());
+                                Destroy(tempObj.GetComponent<CollisionDetection>());
                             }
-                            currentObj.AddComponent<CollisionDetection>();
-                            currentObj.AddComponent<Outline>();
                         }
-                        tempObj = hit.collider.gameObject;
+
+
+                        if (hit.collider.gameObject.GetComponent<ObjInfo>().isSpecial)
+                            {
+                                currentObj = hit.collider.gameObject.transform.parent.gameObject;
+                            }
+                            else
+                            {
+                                currentObj = hit.collider.gameObject;
+                            }
+
+                            tempObj = currentObj;
+
+                            if (currentObj.GetComponent<Outline>() == null)
+                            {
+                                if (!sim.Playing)
+                                {
+                                    GameObject arrow = Instantiate(arrows) as GameObject;
+                                    arrow.transform.position = currentObj.transform.position;
+                                    Transform rot = arrow.transform.Find("R-Y");
+                                    rot.transform.eulerAngles = currentObj.transform.eulerAngles;
+                                    currentObj.transform.SetParent(arrow.transform);
+                                }
+                                currentObj.AddComponent<CollisionDetection>();
+                                currentObj.AddComponent<Outline>();
+                            }
+                            
+
                     }
                 }
                 else
                 {
-                    if (tempObj != null && !moving && !arrow.overlap)
+                    if (tempObj != null && !moving && !arrow.overlap && !ui.IsMouseOnUI())
                     {
                         currentObj = null;
                         if (!sim.Playing)
@@ -119,6 +152,7 @@ public class ObjSelection : MonoBehaviour
             Destroy(tempObj.GetComponent<CollisionDetection>());
             tempObj = null;
             play = false;
+            moving = false;
         }
     }
 }

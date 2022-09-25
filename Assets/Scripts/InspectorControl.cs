@@ -9,6 +9,8 @@ public class InspectorControl : MonoBehaviour
     public Text txt;
     Animator anim;
 
+    public GameObject part, assign;
+
     void Start()
     {
         selection = GameObject.Find("SimBar").GetComponent<ObjSelection>();
@@ -21,11 +23,24 @@ public class InspectorControl : MonoBehaviour
         {
             anim.SetBool("isOpen", true);
             txt.text = selection.currentObj.GetComponent<RigidBodyControls>().objType;
+            if (selection.currentObj.GetComponent<ObjInfo>().isPart)
+            {
+                part.SetActive(true);
+                assign.SetActive(false);
+            }
+            else
+            {
+                assign.SetActive(true);
+                part.SetActive(false);
+            }
         }
         else
         {
+            part.SetActive(false);
+            assign.SetActive(false);
             anim.SetBool("isOpen", false);
             txt.text = "";
+            
         }
     }
 }

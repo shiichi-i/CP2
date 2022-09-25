@@ -20,13 +20,29 @@ public class RigidBodyControls : MonoBehaviour
         {
             if (!simulation.Playing)
             {
+                if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
+                {
+                    this.gameObject.GetComponentInChildren<MeshCollider>().isTrigger = true;
+                    this.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = true;
+                }
+                else
+                {
                     this.gameObject.GetComponent<MeshCollider>().isTrigger = true;
                     this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                }   
             }
             else
             {
+                if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
+                {
+                    this.gameObject.GetComponentInChildren<MeshCollider>().isTrigger = false;
+                    this.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
+                }
+                else
+                {
                     this.gameObject.GetComponent<MeshCollider>().isTrigger = false;
                     this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                }
             }
         }
     }

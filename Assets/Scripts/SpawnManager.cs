@@ -29,7 +29,14 @@ public class SpawnManager : MonoBehaviour
             outline.currentObj = prefab;
             if (!avoidCollision.isColliding)
             {
-                prefab.GetComponent<Renderer>().material = transparent;
+                if (prefab.GetComponent<ObjInfo>().isSpecial)
+                {
+                    prefab.GetComponentInChildren<Renderer>().material = transparent;
+                }
+                else
+                {
+                    prefab.GetComponent<Renderer>().material = transparent;
+                }
             }
             if (!mouseUI.IsMouseOnUI())
             {
@@ -46,11 +53,24 @@ public class SpawnManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !avoidCollision.isColliding && !mouseUI.IsMouseOnUI())
             {
-                prefab.GetComponent<Renderer>().material = normal;
+                if (outline.currentObj.GetComponent<ObjInfo>().isSpecial)
+                {
+                    prefab.GetComponentInChildren<Renderer>().material = normal;
+                    prefab.GetComponentInChildren<MeshCollider>().isTrigger = false;
+                    prefab.GetComponent<Rigidbody>().useGravity = true;
+                }
+                else
+                {
+                    prefab.GetComponent<Renderer>().material = normal;
+                    prefab.GetComponent<MeshCollider>().isTrigger = false;
+                    prefab.AddComponent<Rigidbody>();
+                }
+
                 willSpawn = false;
-                prefab.AddComponent<Rigidbody>();
+
+                
                 prefab.GetComponent<Rigidbody>().isKinematic = true;
-                prefab.GetComponent<MeshCollider>().isTrigger = false;
+
                 GameObject arrow = Instantiate(outline.arrows) as GameObject;
                 arrow.transform.position = outline.currentObj.transform.position;
                 outline.currentObj.transform.SetParent(arrow.transform);
@@ -58,6 +78,7 @@ public class SpawnManager : MonoBehaviour
                 outline.tempObj = prefab;
                 prefab = null;
                 ticked = false;
+                outline.moving = false;
             }
         }
 
