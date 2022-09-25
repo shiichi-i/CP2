@@ -10,16 +10,25 @@ public class InspectorControl : MonoBehaviour
     Animator anim;
 
     public GameObject part, assign;
+    //hue
+    public Slider m_SliderHue;
+
+    Renderer m_Renderer;
 
     void Start()
     {
         selection = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         anim = this.gameObject.GetComponent<Animator>();
+
+        //min-max values for hue and sat
+        m_SliderHue.maxValue = 1;
+        m_SliderHue.minValue = 0;
     }
 
     void Update()
     {
-        if(selection.currentObj != null)
+
+        if (selection.currentObj != null)
         {
             anim.SetBool("isOpen", true);
             txt.text = selection.currentObj.GetComponent<RigidBodyControls>().objType;
@@ -33,6 +42,11 @@ public class InspectorControl : MonoBehaviour
                 assign.SetActive(true);
                 part.SetActive(false);
             }
+
+            //hue
+            m_Renderer = selection.currentObj.GetComponent<Renderer>();
+            //made slider change saturation too so we can have white mesh color
+            m_Renderer.material.color = Color.HSVToRGB(m_SliderHue.value, m_SliderHue.value, 1);
         }
         else
         {
@@ -42,5 +56,6 @@ public class InspectorControl : MonoBehaviour
             txt.text = "";
             
         }
+        
     }
 }
