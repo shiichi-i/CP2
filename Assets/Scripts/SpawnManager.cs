@@ -30,6 +30,8 @@ public class SpawnManager : MonoBehaviour
         }else{
             control.motorCount++;
         }
+        
+        
     }
 
     void Update()
@@ -72,7 +74,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    if(prefab.GetComponent<ObjInfo>().isPart)
+                    if(prefab.GetComponent<ObjInfo>().isPart && !prefab.GetComponent<ObjInfo>().isMicrocontroller)
                         prefab.GetComponent<Renderer>().material = partNorm;
                     else
                         prefab.GetComponent<Renderer>().material = normal;

@@ -24,12 +24,10 @@ public class SpawnObj : MonoBehaviour
 
         if (!simulation.Playing)
         {
-            if (outline.tempObj != null)
+            if (outline.tempObj != null && spawnManager.ticked)
             {
                 Destroy(outline.tempObj.GetComponent<Outline>());
-
                 GameObject arrow = outline.tempObj.transform.parent.gameObject;
-
                 outline.tempObj.transform.SetParent(null);
                 Destroy(arrow);
             }

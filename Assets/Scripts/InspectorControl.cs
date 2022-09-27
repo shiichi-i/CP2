@@ -21,6 +21,8 @@ public class InspectorControl : MonoBehaviour
     public Dropdown inDrop, outDrop;
     AssignmentControl assignment;
 
+    public GameObject prop2;
+
     Renderer m_Renderer;
 
     void Start()
@@ -48,6 +50,9 @@ public class InspectorControl : MonoBehaviour
             txt.text = selection.currentObj.GetComponent<RigidBodyControls>().objType;
             if (selection.currentObj.GetComponent<ObjInfo>().isPart)
             {
+                if(selection.currentObj.GetComponent<ObjInfo>().isMicrocontroller){
+                    prop2.SetActive(false);
+                }
                 part.SetActive(true);
                 assign.SetActive(false);
             }

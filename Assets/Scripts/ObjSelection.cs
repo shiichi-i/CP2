@@ -12,6 +12,7 @@ public class ObjSelection : MonoBehaviour
     TransformManager arrow;
     AvoidCollision collision;
     InspectorControl inspector;
+    omMerge merge;
 
     public bool play;
 
@@ -25,11 +26,12 @@ public class ObjSelection : MonoBehaviour
         ui = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
         arrow = GameObject.Find("SimBar").GetComponent<TransformManager>();
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
+        merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding)
+        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding && !merge.merging)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -136,6 +138,25 @@ public class ObjSelection : MonoBehaviour
                     Destroy(tempObj.GetComponent<Outline>());
                     Destroy(tempObj.GetComponent<CollisionDetection>());
                     tempObj = null;
+                }
+            }
+        }
+        
+        if(merge.merging && Input.GetMouseButtonDown(0)){
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag == "Selectable")
+                {
+                    if(hit.collider.gameObject.transform.parent == null){
+                        merge.target = hit.collider.gameObject;
+                    }else{
+                        merge.target = hit.collider.gameObject.transform.parent.gameObject;
+                    }
+                    merge.OnMerge();
+                    
                 }
             }
         }
