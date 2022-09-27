@@ -51,6 +51,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpecial: 1
   isPart: 0
+  isSensor: 0
+  isMicrocontroller: 0
+  col: 0
+  transparent: 0
+  let_in: 0
+  let_out: 0
+  assignment: 
+  scale: 0
+  this_scale: {x: 0, y: 0, z: 0}
 --- !u!114 &760219042659658076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +181,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3c08a05316d715e4f90190a6214a44e0, type: 2}
+  - {fileID: 2100000, guid: 0ae60f872f5ed5b48b3c5128b45e5e33, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -208,6 +217,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpecial: 1
   isPart: 0
+  isSensor: 0
+  isMicrocontroller: 0
+  col: 0
+  transparent: 0
+  let_in: 0
+  let_out: 0
+  assignment: 
+  scale: 0
+  this_scale: {x: 0, y: 0, z: 0}
 --- !u!64 &760219043899706134
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -283,7 +301,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d69b60dcdff4d88468e568c58272367b, type: 2}
+  - {fileID: 2100000, guid: 0ae60f872f5ed5b48b3c5128b45e5e33, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -319,6 +337,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpecial: 1
   isPart: 0
+  isSensor: 0
+  isMicrocontroller: 0
+  col: 0
+  transparent: 0
+  let_in: 0
+  let_out: 0
+  assignment: 
+  scale: 0
+  this_scale: {x: 0, y: 0, z: 0}
 --- !u!64 &760219044058120420
 MeshCollider:
   m_ObjectHideFlags: 0

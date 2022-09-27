@@ -15,6 +15,7 @@ public class SpawnObj : MonoBehaviour
         spawnManager = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         simulation = GameObject.Find("SimBar").GetComponent<SimManager>();
+        
     }
 
     public void PressObj()

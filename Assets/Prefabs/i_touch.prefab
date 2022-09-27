@@ -158,3 +158,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpecial: 0
   isPart: 0
+  isSensor: 1
+  col: 0
+  transparent: 0
+  let_in: 
+  let_out: 
+  scale: 0
+  this_scale: {x: 0, y: 0, z: 0}

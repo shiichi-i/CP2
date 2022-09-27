@@ -30,14 +30,19 @@ public class CollisionDetection : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         avoidCollision.isColliding = false;
-        if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
+
+        if(outline.currentObj == this.gameObject)
         {
-            this.gameObject.GetComponentInChildren<Renderer>().sharedMaterial = mat.normal;
+            if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
+            {
+                this.gameObject.GetComponentInChildren<Renderer>().sharedMaterial = mat.normal;
+            }
+            else
+            {
+                this.gameObject.GetComponent<Renderer>().material = mat.normal;
+            }
         }
-        else
-        {
-            this.gameObject.GetComponent<Renderer>().material = mat.normal;
-        }
+        
         
         
     }

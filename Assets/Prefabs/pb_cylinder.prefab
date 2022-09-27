@@ -158,3 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpecial: 0
   isPart: 1
+  isSensor: 0
+  col: 0
+  transparent: 0
+  assign: 
+  scale: 0

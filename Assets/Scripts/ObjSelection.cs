@@ -11,6 +11,7 @@ public class ObjSelection : MonoBehaviour
     public bool moving = false;
     TransformManager arrow;
     AvoidCollision collision;
+    InspectorControl inspector;
 
     public bool play;
 

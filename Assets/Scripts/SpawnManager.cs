@@ -10,17 +10,27 @@ public class SpawnManager : MonoBehaviour
     IsMouseOverUI mouseUI;
     AvoidCollision avoidCollision;
 
-    public Material transparent, normal;
+    public Material transparent, normal, partNorm;
     ObjSelection outline;
     public LayerMask layerMask;
+
+    AssignmentControl control;
 
     void Start()
     {
         mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         avoidCollision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
+        control = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
     }
 
+    void OnSpawn(){
+        if(prefab.GetComponent<ObjInfo>().isSensor){
+            control.sensorCount++;
+        }else{
+            control.motorCount++;
+        }
+    }
 
     void Update()
     {
@@ -53,6 +63,7 @@ public class SpawnManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && !avoidCollision.isColliding && !mouseUI.IsMouseOnUI())
             {
+                OnSpawn();
                 if (outline.currentObj.GetComponent<ObjInfo>().isSpecial)
                 {
                     prefab.GetComponentInChildren<Renderer>().material = normal;
@@ -61,14 +72,25 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    prefab.GetComponent<Renderer>().material = normal;
+                    if(prefab.GetComponent<ObjInfo>().isPart)
+                        prefab.GetComponent<Renderer>().material = partNorm;
+                    else
+                        prefab.GetComponent<Renderer>().material = normal;
+                    
                     prefab.GetComponent<MeshCollider>().isTrigger = false;
                     prefab.AddComponent<Rigidbody>();
                 }
 
                 willSpawn = false;
 
-                
+                if(!prefab.GetComponent<ObjInfo>().isPart){
+                    if(prefab.GetComponent<ObjInfo>().isSensor){
+                        control.sensors[control.sensorCount-1] = prefab;
+                    }
+                    else{
+                        control.motors[control.motorCount-1] = prefab;
+                    }
+                }
                 prefab.GetComponent<Rigidbody>().isKinematic = true;
 
                 GameObject arrow = Instantiate(outline.arrows) as GameObject;
@@ -79,6 +101,7 @@ public class SpawnManager : MonoBehaviour
                 prefab = null;
                 ticked = false;
                 outline.moving = false;
+                
             }
         }
 
