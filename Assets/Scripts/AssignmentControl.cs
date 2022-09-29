@@ -25,8 +25,15 @@ public class AssignmentControl : MonoBehaviour
                 Image icon = mTab[i].transform.GetChild(0).GetComponent<Image>();
                 icon.color = new Color(icon.color.r, icon.color.g, icon.color.b, 0.5f);
             }
+        }else{
+            for(int i = 0; i < mTab.Length; i++){
+                mTab[i].interactable = true;
+                Image icon = mTab[i].transform.GetChild(0).GetComponent<Image>();
+                icon.color = new Color(icon.color.r, icon.color.g, icon.color.b, 1f);
+            }
         }
-        else if(sensorCount == 4){
+
+        if(sensorCount == 4){
             for(int i = 0; i < sTab.Length; i++){
                 sTab[i].interactable = false;
                 Image icon = sTab[i].transform.GetChild(0).GetComponent<Image>();
@@ -34,11 +41,6 @@ public class AssignmentControl : MonoBehaviour
             }
         }
         else{
-            for(int i = 0; i < mTab.Length; i++){
-                mTab[i].interactable = true;
-                Image icon = mTab[i].transform.GetChild(0).GetComponent<Image>();
-                icon.color = new Color(icon.color.r, icon.color.g, icon.color.b, 1f);
-            }
             for(int i = 0; i < sTab.Length; i++){
                 sTab[i].interactable = true;
                 Image icon = sTab[i].transform.GetChild(0).GetComponent<Image>();

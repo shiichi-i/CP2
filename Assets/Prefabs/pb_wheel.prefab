@@ -160,6 +160,8 @@ MonoBehaviour:
   isPart: 1
   isSensor: 0
   isMicrocontroller: 1
+  isMotor: 0
+  isMerged: 0
   col: 0
   transparent: 0
   let_in: 0

@@ -25,9 +25,9 @@ public class SpawnManager : MonoBehaviour
     }
 
     void OnSpawn(){
-        if(prefab.GetComponent<ObjInfo>().isSensor){
+        if(!prefab.GetComponent<ObjInfo>().isPart && prefab.GetComponent<ObjInfo>().isSensor){
             control.sensorCount++;
-        }else{
+        }else if(!prefab.GetComponent<ObjInfo>().isPart && !prefab.GetComponent<ObjInfo>().isSensor){
             control.motorCount++;
         }
         

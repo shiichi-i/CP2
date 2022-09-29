@@ -15,7 +15,6 @@ public class SpawnObj : MonoBehaviour
         spawnManager = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         simulation = GameObject.Find("SimBar").GetComponent<SimManager>();
-        
     }
 
     public void PressObj()
@@ -44,6 +43,7 @@ public class SpawnObj : MonoBehaviour
                 Destroy(spawnManager.prefab);
                 spawnManager.prefab = null;
                 outline.currentObj = null;
+                outline.tempObj = null;
                 outline.moving = false;
                 spawnManager.willSpawn = false;
             }

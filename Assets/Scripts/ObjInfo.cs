@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjInfo : MonoBehaviour
 {
     public bool isSpecial;
-    public bool isPart, isSensor, isMicrocontroller;
+    public bool isPart, isSensor, isMicrocontroller, isMotor, isMerged;
 
     public float col;
     public bool transparent;
