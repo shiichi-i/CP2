@@ -6,7 +6,7 @@ public class ObjSelection : MonoBehaviour
 {
     public GameObject tempObj = null;
     public GameObject currentObj = null;
-    GameObject unmerge;
+    GameObject b_unmerge, b_merge;
     SpawnManager spawn;
     public GameObject arrows;
     public bool moving = false;
@@ -14,6 +14,8 @@ public class ObjSelection : MonoBehaviour
     AvoidCollision collision;
     InspectorControl inspector;
     omMerge merge;
+
+    public bool checkChild;
 
     public bool play;
 
@@ -28,15 +30,22 @@ public class ObjSelection : MonoBehaviour
         arrow = GameObject.Find("SimBar").GetComponent<TransformManager>();
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
         merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
-        unmerge = GameObject.Find("UNMR");
+        b_unmerge = GameObject.Find("UNMR");
+        b_merge = GameObject.Find("MERG");
     }
 
     void Update()
     {
-            if(currentObj != null && currentObj.GetComponent<ObjInfo>().isMerged){
-                unmerge.SetActive(true);
+            if(currentObj != null && checkChild){
+                b_unmerge.SetActive(true);
             }else{
-                unmerge.SetActive(false);
+                b_unmerge.SetActive(false);
+            }
+
+            if(currentObj != null && !checkChild){
+                b_merge.SetActive(true);
+            }else{
+                b_merge.SetActive(false);
             }
 
         if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding && !merge.merging)
@@ -48,7 +57,7 @@ public class ObjSelection : MonoBehaviour
             {
                 if (hit.collider.tag == "Selectable" && arrow.dragAxis == null)
                 {
-                    if (!ui.IsMouseOnUI())
+                    if (!ui.IsMouseOnUI() && !checkChild)
                     {
                         if (tempObj != null && hit.collider.gameObject.transform.parent == null)
                         {
@@ -58,11 +67,11 @@ public class ObjSelection : MonoBehaviour
                                 if (!sim.Playing)
                                 {
                                     GameObject arrow = tempObj.transform.parent.gameObject;
-
                                     tempObj.transform.SetParent(null);
                                     Destroy(arrow);
                                 }
                                 Destroy(tempObj.GetComponent<Outline>());
+                                Destroy(tempObj.GetComponent<GreenOutline>());
                                 Destroy(tempObj.GetComponent<CollisionDetection>());
                             }
                         }
@@ -79,6 +88,7 @@ public class ObjSelection : MonoBehaviour
                                     Destroy(arrow);
                                 }
                                 Destroy(tempObj.GetComponent<Outline>());
+                                Destroy(tempObj.GetComponent<GreenOutline>());
                                 Destroy(tempObj.GetComponent<CollisionDetection>());
                             }
                         }
@@ -86,7 +96,7 @@ public class ObjSelection : MonoBehaviour
 
                         if (hit.collider.gameObject.GetComponent<ObjInfo>().isSpecial)
                             {
-                                currentObj = hit.collider.gameObject.transform.parent.gameObject;
+                                currentObj = hit.collider.gameObject.GetComponent<ObjInfo>().special;
                             }
                             else
                             {
@@ -94,28 +104,22 @@ public class ObjSelection : MonoBehaviour
                             }
 
                             tempObj = currentObj;
+                            
 
                             if (currentObj.GetComponent<Outline>() == null)
                             {
-                                if (!sim.Playing)
-                                {
-                                    GameObject arrow = Instantiate(arrows) as GameObject;
-                                    arrow.transform.position = currentObj.transform.position;
-                                    Transform rot = arrow.transform.Find("R-Y");
-                                    rot.transform.eulerAngles = currentObj.transform.eulerAngles;
-                                    currentObj.transform.SetParent(arrow.transform);
-                                }
-                                currentObj.AddComponent<CollisionDetection>();
+                                ArrowAdd();
                                 currentObj.AddComponent<Outline>();
-                                
+                                currentObj.AddComponent<CollisionDetection>();
                             }
                             
 
                     }
                 }
-                else if(hit.collider.tag == "Player" && !ui.IsMouseOnUI()){
+                else if(hit.collider.tag == "Player" && !ui.IsMouseOnUI() && !checkChild && arrow.dragAxis == null){
                     merge.pChild = hit.collider.gameObject;
                     merge.FindParent();
+                    currentObj = merge.FoundParent;
                     if(tempObj != null && tempObj != currentObj){
                         if (!sim.Playing)
                                 {
@@ -124,22 +128,38 @@ public class ObjSelection : MonoBehaviour
                                     Destroy(arrow);
                                 }
                                 Destroy(tempObj.GetComponent<Outline>());
+                                Destroy(tempObj.GetComponent<GreenOutline>());
                                 Destroy(tempObj.GetComponent<CollisionDetection>());
                     }
                     
-                    if (currentObj.GetComponent<Outline>() == null)
+                    if (currentObj.GetComponent<Outline>() == null && !checkChild)
                     {
                         tempObj = currentObj;
-                        if (!sim.Playing)
-                        {
-                            GameObject arrow = Instantiate(arrows) as GameObject;
-                            arrow.transform.position = currentObj.transform.position;
-                            Transform rot = arrow.transform.Find("R-Y");
-                            rot.transform.eulerAngles = currentObj.transform.eulerAngles;
-                            currentObj.transform.SetParent(arrow.transform);
-                        }
-                        currentObj.AddComponent<CollisionDetection>();
+                        ArrowAdd();
                         currentObj.AddComponent<Outline>();
+                        currentObj.AddComponent<CollisionDetection>();
+                    }else{
+                        if(!checkChild  && arrow.dragAxis == null){
+                            checkChild = true;
+                            if (!sim.Playing)
+                            {
+                                GameObject arrow = tempObj.transform.parent.gameObject;
+                                tempObj.transform.SetParent(null);
+                                Destroy(arrow);
+                            }
+                            Destroy(tempObj.GetComponent<Outline>());
+                            Destroy(tempObj.GetComponent<CollisionDetection>());
+
+                            if(hit.collider.gameObject.GetComponent<ObjInfo>().special != null){
+                                currentObj = hit.collider.gameObject.GetComponent<ObjInfo>().special;
+                            }else{
+                                currentObj = hit.collider.gameObject;
+                            }
+                                tempObj = currentObj;
+                                currentObj.AddComponent<GreenOutline>();
+                            
+                        }
+                
                     }
                 }
                 else
@@ -147,21 +167,23 @@ public class ObjSelection : MonoBehaviour
                     if (tempObj != null && !moving && !arrow.overlap && !ui.IsMouseOnUI())
                     {
                         currentObj = null;
-                        if (!sim.Playing)
+                        if (!sim.Playing && !checkChild)
                         {
                             GameObject arrow = tempObj.transform.parent.gameObject;
                             tempObj.transform.SetParent(null);
                             Destroy(arrow);
                         }
                         Destroy(tempObj.GetComponent<Outline>());
+                        Destroy(tempObj.GetComponent<GreenOutline>());
                         Destroy(tempObj.GetComponent<CollisionDetection>());
                         tempObj = null;
+                        checkChild = false;
                     }
                 }
             }
             else
             {
-                if (tempObj != null && !moving && arrow.dragAxis == null && !ui.IsMouseOnUI())
+                if (tempObj != null && !moving && arrow.dragAxis == null && !ui.IsMouseOnUI()  && !checkChild)
                 {
                     currentObj = null;
                     if (!sim.Playing)
@@ -172,8 +194,10 @@ public class ObjSelection : MonoBehaviour
                         Destroy(arrow);
                     }
                     Destroy(tempObj.GetComponent<Outline>());
+                    Destroy(tempObj.GetComponent<GreenOutline>());
                     Destroy(tempObj.GetComponent<CollisionDetection>());
                     tempObj = null;
+                    checkChild = false;
                 }
             }
         }
@@ -184,7 +208,7 @@ public class ObjSelection : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.tag == "Selectable")
+                if (hit.collider.tag == "Selectable" && !hit.collider.gameObject.GetComponent<ObjInfo>().isMerged)
                 {
                     if(hit.collider.gameObject.transform.parent == null){
                         merge.target = hit.collider.gameObject;
@@ -193,6 +217,18 @@ public class ObjSelection : MonoBehaviour
                     }
                     merge.OnMerge();
                     
+                }
+                else if(hit.collider.tag != "CodeArea"){
+                    if(hit.collider.tag == "Player" || hit.collider.gameObject.GetComponent<ObjInfo>().isMerged){
+                        if(!hit.collider.gameObject.GetComponent<ObjInfo>().isMerged){
+                            merge.pChild = hit.collider.gameObject;
+                            merge.FindParent();
+                            merge.target = merge.FoundParent;
+                        }else{
+                            merge.target = hit.collider.gameObject;
+                        }
+                            merge.OnMerge();
+                    }
                 }
             }
         }else if(merge.merging && Input.GetMouseButtonDown(1)){
@@ -214,11 +250,24 @@ public class ObjSelection : MonoBehaviour
                 Destroy(arrow);
             }
             Destroy(tempObj.GetComponent<Outline>());
+            Destroy(tempObj.GetComponent<GreenOutline>());
             Destroy(tempObj.GetComponent<CollisionDetection>());
             tempObj = null;
             play = false;
             moving = false;
         }
+    }
+
+    public void ArrowAdd(){
+         if (!sim.Playing)
+        {
+            GameObject arrow = Instantiate(arrows) as GameObject;
+            arrow.transform.position = currentObj.transform.position;
+            Transform rot = arrow.transform.Find("R-Y");
+            rot.transform.eulerAngles = currentObj.transform.eulerAngles;
+            currentObj.transform.SetParent(arrow.transform);
+        }
+        
     }
 }
 

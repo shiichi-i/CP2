@@ -5,7 +5,9 @@ using UnityEngine;
 public class ObjInfo : MonoBehaviour
 {
     public bool isSpecial;
-    public bool isPart, isSensor, isMicrocontroller, isMotor, isMerged;
+    public bool isPart, isSensor, isMicrocontroller, isMotor, isMerged, isParent;
+
+    public GameObject special;
 
     public float col;
     public bool transparent;
@@ -24,7 +26,10 @@ public class ObjInfo : MonoBehaviour
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         this_scale = this.gameObject.transform.localScale;
-
+        if(isSpecial && !isParent){
+            special = this.gameObject.transform.parent.gameObject;
+        }
+        
     }
 
     void Update(){

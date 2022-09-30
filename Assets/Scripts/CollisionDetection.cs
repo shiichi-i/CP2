@@ -39,7 +39,12 @@ public class CollisionDetection : MonoBehaviour
             }
             else
             {
-                this.gameObject.GetComponent<Renderer>().material = mat.normal;
+                if(this.gameObject.GetComponent<ObjInfo>().isPart && !this.gameObject.GetComponent<ObjInfo>().isMicrocontroller){
+                    this.gameObject.GetComponent<Renderer>().material = mat.partNorm;
+                }else{
+                    this.gameObject.GetComponent<Renderer>().material = mat.normal;
+                }
+                
             }
         }
         

@@ -110,9 +110,42 @@ public class InspectorControl : MonoBehaviour
 
     public void onScaleChange(){
         selection.currentObj.GetComponent<ObjInfo>().scale = m_SliderScale.value;
+        if(selection.currentObj.tag != "Player"){
+
+            GameObject arrow = selection.currentObj.transform.parent.gameObject;
+            Transform rot = arrow.transform.Find("R-Y");
+            
+
+            Transform[] children = selection.currentObj.GetComponentsInChildren<Transform>();
+            if (children != null){
+                foreach (Transform c in children){
+                    c.SetParent(null);
+                }
+            }
+            OnScale();
+            if (children != null){
+                foreach (Transform c in children){
+                    c.SetParent(selection.currentObj.transform);
+                }
+            }
+
+            rot.transform.eulerAngles = selection.currentObj.transform.eulerAngles;
+            selection.currentObj.transform.SetParent(arrow.transform);
+
+
+        }else{
+            GameObject temp = selection.currentObj.transform.parent.gameObject;
+            selection.currentObj.transform.SetParent(null);
+            OnScale();
+            selection.currentObj.transform.SetParent(temp.transform);
+        }
+        
+    }
+
+    void OnScale(){
         selection.currentObj.transform.localScale = new Vector3(selection.currentObj.GetComponent<ObjInfo>().this_scale.x + selection.currentObj.GetComponent<ObjInfo>().scale * 10f,
-         selection.currentObj.GetComponent<ObjInfo>().this_scale.y + selection.currentObj.GetComponent<ObjInfo>().scale * 10f,
-          selection.currentObj.GetComponent<ObjInfo>().this_scale.z + selection.currentObj.GetComponent<ObjInfo>().scale * 10f);
+        selection.currentObj.GetComponent<ObjInfo>().this_scale.y + selection.currentObj.GetComponent<ObjInfo>().scale * 10f,
+        selection.currentObj.GetComponent<ObjInfo>().this_scale.z + selection.currentObj.GetComponent<ObjInfo>().scale * 10f);
     }
 
     public void OnAssignment(){
