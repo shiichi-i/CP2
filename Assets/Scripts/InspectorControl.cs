@@ -21,7 +21,7 @@ public class InspectorControl : MonoBehaviour
     public Dropdown inDrop, outDrop;
     AssignmentControl assignment;
 
-    public GameObject prop2;
+    public GameObject prop2, prop3;
 
     Renderer m_Renderer;
 
@@ -52,6 +52,10 @@ public class InspectorControl : MonoBehaviour
             {
                 if(selection.currentObj.GetComponent<ObjInfo>().isMicrocontroller){
                     prop2.SetActive(false);
+                    prop3.SetActive(true);
+                }else{
+                    prop3.SetActive(false);
+                    prop2.SetActive(true);
                 }
                 part.SetActive(true);
                 assign.SetActive(false);

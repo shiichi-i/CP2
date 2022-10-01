@@ -24,9 +24,13 @@ public class AvoidCollision : MonoBehaviour
             {
                 if (selectedObj.GetComponent<ObjInfo>().isSpecial)
                 {
-                    selectedObj.GetComponentInChildren<Renderer>().sharedMaterial = red;
+                    for(int i = 0; i < selectedObj.transform.childCount; i++){
+                            if( selectedObj.transform.GetChild(i).GetComponent<Renderer>() != null){
+                                selectedObj.transform.GetChild(i).GetComponent<Renderer>().material = red;
+                            }
+                        }
                 }
-                else
+                else 
                 {
                     selectedObj.GetComponent<Renderer>().material = red;
                 }

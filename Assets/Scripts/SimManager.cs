@@ -11,11 +11,25 @@ public class SimManager : MonoBehaviour
     public GameObject bl1, bl2, bl3;
     AvoidCollision collision;
     ObjSelection selection;
+    public Button b_play;
+
+    omMerge merge;
+    VP_Start vp;
 
     void Start()
     {
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
         selection = GameObject.Find("SimBar").GetComponent<ObjSelection>();
+        merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
+        vp = GameObject.Find("Start").GetComponent<VP_Start>();
+    }
+    
+    void Update(){
+        if(selection.onFindMotor || merge.merging){
+            b_play.interactable = false;
+        }else{
+            b_play.interactable = true;
+        }
     }
 
     public void PlayButton()
@@ -34,6 +48,7 @@ public class SimManager : MonoBehaviour
                 bl3.SetActive(true);
                 status = "Pause";
                 display = "Status: SIMULATING";
+                vp.CountBlocks();
             }
             else
             {

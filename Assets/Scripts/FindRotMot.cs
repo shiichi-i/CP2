@@ -1,0 +1,101 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class FindRotMot : MonoBehaviour
+{
+    public Button find;
+    AssignmentControl assign;
+    ObjSelection select;
+    public GameObject parentMot;
+    public Material greeen;
+    omMerge merge;
+
+    SpawnManager normMat;
+
+    bool ticked;
+
+    void Start(){
+        select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
+        assign = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
+        normMat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
+        merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
+    }
+
+    void Update(){
+        if(select.currentObj != null){
+            if(select.checkChild || select.currentObj.GetComponent<ObjInfo>().isMerged){
+                find.interactable = false;
+            }else{
+                find.interactable = true;
+            }
+        }
+
+    
+    }
+
+    public void OnFindMotor(){
+        ticked = !ticked;
+            if(ticked){
+            select.currentObj.AddComponent<GreenOutline>();
+            
+
+            GameObject arrow = select.currentObj.transform.parent.gameObject;
+            select.currentObj.transform.SetParent(null);
+            Destroy(arrow);
+
+            for(int i = 0; i < assign.motors.Length; i++){
+                if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)"){
+                    assign.motors[i].transform.GetChild(0).GetComponent<Renderer>().material = greeen;
+                    assign.motors[i].transform.GetChild(1).GetComponent<Renderer>().material = greeen;
+                }
+            }
+            select.onFindMotor = true;
+        }else{
+            Destroy(select.currentObj.GetComponent<GreenOutline>());
+            select.ArrowAdd();
+
+            for(int i = 0; i < assign.motors.Length; i++){
+                if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)"){
+                    assign.motors[i].transform.GetChild(0).GetComponent<Renderer>().material = normMat.normal;
+                    assign.motors[i].transform.GetChild(1).GetComponent<Renderer>().material = normMat.normal;
+                }
+
+            }
+
+            select.onFindMotor = false;
+        }
+        
+        
+    }
+
+    public void SetTransform(){
+        Destroy(select.currentObj.GetComponent<GreenOutline>());
+        Destroy(select.currentObj.GetComponent<Outline>());
+        Destroy(select.currentObj.GetComponent<CollisionDetection>());
+
+        for(int i = 0; i < assign.motors.Length; i++){
+                if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)"){
+                    assign.motors[i].transform.GetChild(0).GetComponent<Renderer>().material = normMat.normal;
+                    assign.motors[i].transform.GetChild(1).GetComponent<Renderer>().material = normMat.normal;
+                }
+        }
+
+        parentMot.transform.GetChild(0).tag = "Player";
+        parentMot.transform.GetChild(1).tag = "Player";
+        select.currentObj.tag = "Player";
+        select.currentObj.transform.SetParent(parentMot.transform.GetChild(1));
+        select.currentObj.transform.position = parentMot.transform.GetChild(1).GetChild(0).position;
+        select.currentObj.AddComponent<FixedJoint>().connectedBody = parentMot.transform.GetChild(1).GetComponent<Rigidbody>();
+
+        select.currentObj.tag = "Player";
+        merge.pChild = select.currentObj;
+        merge.FindParent();
+        select.currentObj = merge.FoundParent;
+        select.tempObj = select.currentObj;
+
+        select.onFindMotor = false;
+
+    }
+}

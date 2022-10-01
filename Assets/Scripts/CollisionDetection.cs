@@ -12,30 +12,39 @@ public class CollisionDetection : MonoBehaviour
     void Start()
     {
         avoidCollision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
-        selectedObj = this.gameObject;
+        
+        if(this.GetComponent<ObjInfo>().isSpecial && transform.parent.tag != "CodeArea"){
+            selectedObj = this.transform.parent.gameObject;
+        }else{
+            selectedObj = this.gameObject;
+        }
+        
         avoidCollision.selectedObj = selectedObj;
         mat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if(other.tag != "CodeArea" && outline.moving)
+        if(other.tag != "CodeArea" && other.tag != "Untagged" && outline.moving)
         {
-            avoidCollision.isColliding = true;
+            if(!selectedObj.GetComponent<ObjInfo>().isSpecial){
+                avoidCollision.isColliding = true;
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         avoidCollision.isColliding = false;
-
         if(outline.currentObj == this.gameObject)
         {
             if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
             {
-                this.gameObject.GetComponentInChildren<Renderer>().sharedMaterial = mat.normal;
+                for(int i = 0; i < this.transform.parent.childCount; i++){
+                    this.gameObject.transform.GetChild(i).GetComponent<Renderer>().material = mat.normal;
+                }
             }
             else
             {

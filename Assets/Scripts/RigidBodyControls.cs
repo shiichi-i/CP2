@@ -22,14 +22,17 @@ public class RigidBodyControls : MonoBehaviour
             {
                 if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
                 {
-                    this.gameObject.GetComponentInChildren<MeshCollider>().isTrigger = true;
-                    this.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = true;
-                }
-                else
-                {
+                    for(int i = 0; i < this.transform.childCount; i++){
+                            if( this.transform.GetChild(i).GetComponent<Rigidbody>() != null){
+                                this.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = true;
+                                this.transform.GetChild(i).GetComponent<MeshCollider>().isTrigger = true;
+                            }
+                        }
+                }else{
                     this.gameObject.GetComponent<MeshCollider>().isTrigger = true;
-                    this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 }
+                    
+                    this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
                 if(this.transform.childCount > 0 && this.transform.GetChild(0).tag == "Player"){
                         for(int i = 0; i < this.transform.childCount; i++){
@@ -44,14 +47,17 @@ public class RigidBodyControls : MonoBehaviour
             {
                 if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
                 {
-                    this.gameObject.GetComponentInChildren<MeshCollider>().isTrigger = false;
-                    this.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
-                }
-                else
-                {
+                    for(int i = 0; i < this.transform.childCount; i++){
+                            if( this.transform.GetChild(i).GetComponent<Rigidbody>() != null){
+                                this.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
+                                this.transform.GetChild(i).GetComponent<MeshCollider>().isTrigger = false;
+                            }
+                        }
+                }else{
                     this.gameObject.GetComponent<MeshCollider>().isTrigger = false;
-                    this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 }
+                    
+                    this.gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
                 if(this.transform.childCount > 0 && this.transform.GetChild(0).tag == "Player"){
                         for(int i = 0; i < this.transform.childCount; i++){

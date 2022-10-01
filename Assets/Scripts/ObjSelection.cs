@@ -16,11 +16,13 @@ public class ObjSelection : MonoBehaviour
     omMerge merge;
 
     public bool checkChild;
+    public bool onFindMotor;
 
     public bool play;
 
     SimManager sim;
     IsMouseOverUI ui;
+    FindRotMot findRot;
 
     void Start()
     {
@@ -32,6 +34,7 @@ public class ObjSelection : MonoBehaviour
         merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
         b_unmerge = GameObject.Find("UNMR");
         b_merge = GameObject.Find("MERG");
+        findRot = GameObject.Find("Inspector").GetComponent<FindRotMot>();
     }
 
     void Update()
@@ -48,7 +51,7 @@ public class ObjSelection : MonoBehaviour
                 b_merge.SetActive(false);
             }
 
-        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding && !merge.merging)
+        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding && !merge.merging && !onFindMotor)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -64,7 +67,7 @@ public class ObjSelection : MonoBehaviour
                             if (tempObj != hit.collider.gameObject)
                             {
                                 currentObj = null;
-                                if (!sim.Playing)
+                                if (!sim.Playing && tempObj.transform.parent != null)
                                 {
                                     GameObject arrow = tempObj.transform.parent.gameObject;
                                     tempObj.transform.SetParent(null);
@@ -110,18 +113,22 @@ public class ObjSelection : MonoBehaviour
                             {
                                 ArrowAdd();
                                 currentObj.AddComponent<Outline>();
+                                if(currentObj.GetComponent<ObjInfo>().isSpecial){
+                                    currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
+                                    currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
+                                }
                                 currentObj.AddComponent<CollisionDetection>();
                             }
                             
 
                     }
                 }
-                else if(hit.collider.tag == "Player" && !ui.IsMouseOnUI() && !checkChild && arrow.dragAxis == null){
+                else if(hit.collider.tag == "Player" && !ui.IsMouseOnUI() && !checkChild && arrow.dragAxis == null && !onFindMotor){
                     merge.pChild = hit.collider.gameObject;
                     merge.FindParent();
                     currentObj = merge.FoundParent;
                     if(tempObj != null && tempObj != currentObj){
-                        if (!sim.Playing)
+                        if (!sim.Playing && tempObj.transform.parent != null)
                                 {
                                     GameObject arrow = tempObj.transform.parent.gameObject;
                                     tempObj.transform.SetParent(null);
@@ -137,11 +144,17 @@ public class ObjSelection : MonoBehaviour
                         tempObj = currentObj;
                         ArrowAdd();
                         currentObj.AddComponent<Outline>();
-                        currentObj.AddComponent<CollisionDetection>();
+                        if(currentObj.GetComponent<ObjInfo>().isSpecial){
+                            currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
+                            currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
+                        }else{
+                            currentObj.AddComponent<CollisionDetection>();
+                        }
+                        
                     }else{
                         if(!checkChild  && arrow.dragAxis == null){
                             checkChild = true;
-                            if (!sim.Playing)
+                            if (!sim.Playing && tempObj.transform.parent != null)
                             {
                                 GameObject arrow = tempObj.transform.parent.gameObject;
                                 tempObj.transform.SetParent(null);
@@ -167,7 +180,7 @@ public class ObjSelection : MonoBehaviour
                     if (tempObj != null && !moving && !arrow.overlap && !ui.IsMouseOnUI())
                     {
                         currentObj = null;
-                        if (!sim.Playing && !checkChild)
+                        if (!sim.Playing && !checkChild && tempObj.transform.parent != null)
                         {
                             GameObject arrow = tempObj.transform.parent.gameObject;
                             tempObj.transform.SetParent(null);
@@ -183,10 +196,10 @@ public class ObjSelection : MonoBehaviour
             }
             else
             {
-                if (tempObj != null && !moving && arrow.dragAxis == null && !ui.IsMouseOnUI()  && !checkChild)
+                if (tempObj != null && !moving && arrow.dragAxis == null && !ui.IsMouseOnUI()  && !checkChild && !onFindMotor)
                 {
                     currentObj = null;
-                    if (!sim.Playing)
+                    if (!sim.Playing && tempObj.transform.parent.gameObject != null)
                     {
                         GameObject arrow = tempObj.transform.parent.gameObject;
 
@@ -239,11 +252,25 @@ public class ObjSelection : MonoBehaviour
             merge.current = null;
             merge.target = null;
         }
+        
+        if(onFindMotor && Input.GetMouseButtonDown(0)){
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        if (play)
+            if (Physics.Raycast(ray, out hit))
+            {
+                if(hit.collider.gameObject.name == "rod" || hit.collider.gameObject.name == "rotational"){
+                    findRot.parentMot = hit.collider.transform.parent.gameObject;
+                    findRot.SetTransform();
+                }
+            }
+
+        }
+
+        if (play && currentObj != null)
         {
             currentObj = null;
-            if (sim.Playing)
+            if (sim.Playing  && tempObj != null && tempObj.transform.parent.gameObject != null)
             {
                 GameObject arrow = tempObj.transform.parent.gameObject;
                 tempObj.transform.SetParent(null);
@@ -256,6 +283,8 @@ public class ObjSelection : MonoBehaviour
             play = false;
             moving = false;
         }
+
+        
     }
 
     public void ArrowAdd(){

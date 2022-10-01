@@ -36,6 +36,7 @@ public class VP_shadow : MonoBehaviour
             taken = true;
             if (occupied == null)
             { 
+                this.gameObject.GetComponent<Image>().enabled = true;
                 manager.colliding = this.gameObject;
             }
             else if(occupied != null && occupied == manager.dragging)
