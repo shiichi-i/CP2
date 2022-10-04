@@ -20,7 +20,7 @@ public class InspectorControl : MonoBehaviour
         anim = this.gameObject.GetComponent<Animator>();
 
         //min-max values for hue and sat
-        m_SliderHue.maxValue = 1;
+        m_SliderHue.maxValue = (float)1.1;
         m_SliderHue.minValue = 0;
     }
 
@@ -34,8 +34,15 @@ public class InspectorControl : MonoBehaviour
 
             //hue
             m_Renderer = selection.currentObj.GetComponent<Renderer>();
-            //made slider change saturation too so we can have white mesh color
-            m_Renderer.material.color = Color.HSVToRGB(m_SliderHue.value, m_SliderHue.value, 1);
+            if (m_SliderHue.value <= 1.09)
+            {
+                //made slider change saturation too so we can have white mesh color
+                m_Renderer.material.color = Color.HSVToRGB(m_SliderHue.value, m_SliderHue.value, 1);
+            }
+            else
+            {
+                m_Renderer.material.color = Color.HSVToRGB(m_SliderHue.value, m_SliderHue.value, 0);
+            }
         }
         else
         {
