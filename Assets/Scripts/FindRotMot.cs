@@ -87,6 +87,8 @@ public class FindRotMot : MonoBehaviour
         select.currentObj.tag = "Player";
         select.currentObj.transform.SetParent(parentMot.transform.GetChild(1));
         select.currentObj.transform.position = parentMot.transform.GetChild(1).GetChild(0).position;
+        Vector3 t_rot = parentMot.transform.GetChild(1).GetChild(0).eulerAngles;
+        select.currentObj.transform.eulerAngles = new Vector3(t_rot.z, t_rot.y-90, t_rot.x);
         select.currentObj.AddComponent<FixedJoint>().connectedBody = parentMot.transform.GetChild(1).GetComponent<Rigidbody>();
 
         select.currentObj.tag = "Player";

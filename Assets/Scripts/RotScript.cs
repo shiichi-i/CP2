@@ -16,7 +16,10 @@ public class RotScript : MonoBehaviour
     VP_ControlExecute control;
     AssignmentControl assign;
 
-    string[] choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "i"};
+    string[] choices_rot = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    
+    string[] choices_spd = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10"};
 
     Dropdown letter;
 
@@ -44,8 +47,8 @@ public class RotScript : MonoBehaviour
     public void setValuesSpeed(){
         temp_spd = nm_spd.text;
         bool enter = false;
-        for(int i = 0; i < choices.Length-1; i++){
-            if(temp_spd == choices[i]){
+        for(int i = 0; i < choices_spd.Length-1; i++){
+            if(temp_spd == choices_spd[i]){
                 temp_spd = nm_spd.text;
                 enter = true;
             }
@@ -69,8 +72,8 @@ public class RotScript : MonoBehaviour
             nm_rt.text = "i";
             enter = true;
         }else{
-            for(int i = 0; i < choices.Length; i++){
-                if(temp_rt == choices[i]){
+            for(int i = 0; i < choices_rot.Length; i++){
+                if(temp_rt == choices_rot[i]){
                     temp_rt = nm_rt.text;
                     enter = true;
                 }

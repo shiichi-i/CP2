@@ -22,7 +22,7 @@ public class RigidBodyControls : MonoBehaviour
             {
                 if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
                 {
-                    for(int i = 0; i < this.transform.childCount; i++){
+                    for(int i = 0; i < 2; i++){
                             if( this.transform.GetChild(i).GetComponent<Rigidbody>() != null){
                                 this.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = true;
                                 this.transform.GetChild(i).GetComponent<MeshCollider>().isTrigger = true;
@@ -47,7 +47,7 @@ public class RigidBodyControls : MonoBehaviour
             {
                 if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
                 {
-                    for(int i = 0; i < this.transform.childCount; i++){
+                    for(int i = 0; i < 2; i++){
                             if( this.transform.GetChild(i).GetComponent<Rigidbody>() != null){
                                 this.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
                                 this.transform.GetChild(i).GetComponent<MeshCollider>().isTrigger = false;

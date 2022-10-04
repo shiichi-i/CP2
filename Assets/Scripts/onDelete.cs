@@ -55,9 +55,11 @@ public class onDelete : MonoBehaviour
             }
         }
 
-        GameObject arrows = select.currentObj.transform.parent.gameObject;
-        select.currentObj.transform.SetParent(null);
-        Destroy(arrows);
+        if(select.currentObj.transform.parent.gameObject != null){
+            GameObject arrows = select.currentObj.transform.parent.gameObject;
+            select.currentObj.transform.SetParent(null);
+            Destroy(arrows);
+        }
         Destroy(select.currentObj);
         
     }

@@ -35,14 +35,14 @@ public class TabOpen : MonoBehaviour
             if (Tab == "2")
             {
                 ITab.SetActive(false);
-                OTab.SetActive(true);
-                CTab.SetActive(false);
+                OTab.SetActive(false);
+                CTab.SetActive(true);
             }
             if (Tab == "3")
             {
-                OTab.SetActive(false);
+                OTab.SetActive(true);
                 ITab.SetActive(false);
-                CTab.SetActive(true);
+                CTab.SetActive(false);
             }
         }
         else
