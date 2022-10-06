@@ -116,7 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6403fbe3c3c69494a93f258a79267e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objType: Pyramid
 --- !u!114 &1286875407779441038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +159,11 @@ MonoBehaviour:
   isPart: 1
   isSensor: 0
   isMicrocontroller: 0
+  isMotor: 0
+  isMerged: 0
+  isParent: 0
+  special: {fileID: 0}
+  objType: Pyramid
   col: 0
   transparent: 0
   let_in: 0

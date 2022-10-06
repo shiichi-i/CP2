@@ -34,7 +34,7 @@ public class InspectorControl : MonoBehaviour
         assignment = this.gameObject.GetComponent<AssignmentControl>();
 
         //min-max values for hue and sat
-        m_SliderHue.maxValue = 1;
+        m_SliderHue.maxValue = 1.2f;
         m_SliderHue.minValue = 0;
 
         inObj = inDrop.gameObject;
@@ -47,7 +47,7 @@ public class InspectorControl : MonoBehaviour
         if (selection.currentObj != null)
         {
             anim.SetBool("isOpen", true);
-            txt.text = selection.currentObj.GetComponent<RigidBodyControls>().objType;
+            txt.text = selection.currentObj.GetComponent<ObjInfo>().objType;
             if (selection.currentObj.GetComponent<ObjInfo>().isPart)
             {
                 if(selection.currentObj.GetComponent<ObjInfo>().isMicrocontroller){
@@ -83,6 +83,14 @@ public class InspectorControl : MonoBehaviour
                 inObj.SetActive(false);
                 outObj.SetActive(false);
             }
+
+            if(selection.currentObj.GetComponent<ObjInfo>().isMerged || selection.currentObj.tag == "Player" ){
+                m_SliderScale.transform.parent.GetChild(1).gameObject.SetActive(true);
+                m_SliderScale.gameObject.SetActive(false);
+            }else{
+                m_SliderScale.transform.parent.GetChild(1).gameObject.SetActive(false);
+                m_SliderScale.gameObject.SetActive(true);
+            }
             
         }
         else
@@ -104,8 +112,7 @@ public class InspectorControl : MonoBehaviour
     }
 
     public void onColorChange(){
-        selection.currentObj.GetComponent<ObjInfo>().col = m_SliderHue.value;
-        
+        selection.currentObj.GetComponent<ObjInfo>().col = m_SliderHue.value;      
     }
 
     public void onTransparentChange(){
@@ -116,8 +123,11 @@ public class InspectorControl : MonoBehaviour
         selection.currentObj.GetComponent<ObjInfo>().scale = m_SliderScale.value;
         if(selection.currentObj.tag != "Player"){
 
-            GameObject arrow = selection.currentObj.transform.parent.gameObject;
-            Transform rot = arrow.transform.Find("R-Y");
+            if(selection.currentObj.transform.parent.gameObject != null){
+                GameObject arrow = selection.currentObj.transform.parent.gameObject;
+                Transform rot = arrow.transform.Find("R-Y");
+            
+            
             
 
             Transform[] children = selection.currentObj.GetComponentsInChildren<Transform>();
@@ -135,6 +145,7 @@ public class InspectorControl : MonoBehaviour
 
             rot.transform.eulerAngles = selection.currentObj.transform.eulerAngles;
             selection.currentObj.transform.SetParent(arrow.transform);
+            }
 
 
         }else{

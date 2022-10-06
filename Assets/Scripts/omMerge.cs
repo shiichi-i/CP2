@@ -87,8 +87,7 @@ public class omMerge : MonoBehaviour
 
         select.currentObj = current;
         select.tempObj = current;
-        current.AddComponent<Outline>();
-        current.AddComponent<CollisionDetection>();
+        select.AddCol();
         merging = false;
         current = null;
         target = null;
@@ -132,7 +131,6 @@ public class omMerge : MonoBehaviour
         collision.selectedObj = current;
         select.currentObj = current;
         select.tempObj = current;
-        target.AddComponent<Outline>();
         merging = false;
         current = null;
         target = null;

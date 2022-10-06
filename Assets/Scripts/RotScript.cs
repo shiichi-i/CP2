@@ -12,6 +12,7 @@ public class RotScript : MonoBehaviour
     public float num_rotations, num_speed;
     public InputField nm_rt, nm_spd;
     string temp_rt, temp_spd;
+    bool onStart;
 
     VP_ControlExecute control;
     AssignmentControl assign;
@@ -33,7 +34,11 @@ public class RotScript : MonoBehaviour
     void Update()
     {
         if(control.execute){
-            FindAssign();
+            if(onStart){
+                FindAssign();
+                onStart = false;
+            }
+            
                 rotZ = num_speed * 200f;
                 newRot = new Vector3(0f, 0f,rotZ);
             if(rod != null){
@@ -42,12 +47,15 @@ public class RotScript : MonoBehaviour
         }else if(!control.execute && rod != null){
             rod.transform.parent.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
+        if(!control.execute){
+            onStart = true;
+        }
     }
 
     public void setValuesSpeed(){
         temp_spd = nm_spd.text;
         bool enter = false;
-        for(int i = 0; i < choices_spd.Length-1; i++){
+        for(int i = 0; i <= choices_spd.Length-1; i++){
             if(temp_spd == choices_spd[i]){
                 temp_spd = nm_spd.text;
                 enter = true;
@@ -72,7 +80,7 @@ public class RotScript : MonoBehaviour
             nm_rt.text = "i";
             enter = true;
         }else{
-            for(int i = 0; i < choices_rot.Length; i++){
+            for(int i = 0; i <= choices_rot.Length; i++){
                 if(temp_rt == choices_rot[i]){
                     temp_rt = nm_rt.text;
                     enter = true;

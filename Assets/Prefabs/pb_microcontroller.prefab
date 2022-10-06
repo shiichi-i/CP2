@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 1310906009597272205}
   - component: {fileID: 5716633528250496750}
   - component: {fileID: 1129356588}
-  - component: {fileID: 1129356587}
+  - component: {fileID: 7758202490764359059}
+  - component: {fileID: 1145762887}
   m_Layer: 0
   m_Name: top
   m_TagString: Selectable
@@ -120,6 +121,7 @@ MonoBehaviour:
   isMerged: 0
   isParent: 0
   special: {fileID: 0}
+  objType: 
   col: 0
   transparent: 0
   let_in: 0
@@ -157,7 +159,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1129356587
+--- !u!114 &7758202490764359059
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,24 +168,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 90202533415787611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21f2f52fa224f84e99fc2538317c0b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a599f6460122584ab9ead7f95f863ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpecial: 1
-  isPart: 0
-  isSensor: 0
-  isMicrocontroller: 1
-  isMotor: 0
-  isMerged: 0
-  isParent: 0
-  special: {fileID: 0}
-  col: 0
-  transparent: 0
-  let_in: 0
-  let_out: 0
-  assignment: 
-  scale: 0
-  this_scale: {x: 0, y: 0, z: 0}
+  selectedObj: {fileID: 0}
+--- !u!138 &1145762887
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90202533415787611}
+  m_ConnectedBody: {fileID: 427697450}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &3547639807538922567
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +201,8 @@ GameObject:
   - component: {fileID: 3547639807538922616}
   - component: {fileID: 6912632528416197408}
   - component: {fileID: 427697450}
-  - component: {fileID: 427697449}
+  - component: {fileID: 1424107358877223745}
+  - component: {fileID: 1873931871}
   m_Layer: 0
   m_Name: body
   m_TagString: Selectable
@@ -303,6 +307,7 @@ MonoBehaviour:
   isMerged: 0
   isParent: 0
   special: {fileID: 0}
+  objType: 
   col: 0
   transparent: 0
   let_in: 0
@@ -326,7 +331,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &427697449
+--- !u!114 &1424107358877223745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,24 +340,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 3547639807538922567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21f2f52fa224f84e99fc2538317c0b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a599f6460122584ab9ead7f95f863ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSpecial: 1
-  isPart: 0
-  isSensor: 0
-  isMicrocontroller: 1
-  isMotor: 0
-  isMerged: 0
-  isParent: 0
-  special: {fileID: 0}
-  col: 0
-  transparent: 0
-  let_in: 0
-  let_out: 0
-  assignment: 
-  scale: 0
-  this_scale: {x: 0, y: 0, z: 0}
+  selectedObj: {fileID: 0}
+--- !u!138 &1873931871
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547639807538922567}
+  m_ConnectedBody: {fileID: 647810467259634894}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &7067358252788831688
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +443,7 @@ MonoBehaviour:
   isMerged: 0
   isParent: 1
   special: {fileID: 0}
+  objType: Microcontroller
   col: 0
   transparent: 0
   let_in: 0

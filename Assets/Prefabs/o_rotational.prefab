@@ -213,6 +213,7 @@ MonoBehaviour:
   isMerged: 0
   isParent: 0
   special: {fileID: 0}
+  objType: 
   col: 0
   transparent: 0
   let_in: 0
@@ -345,6 +346,7 @@ GameObject:
   - component: {fileID: 5578399781118552343}
   - component: {fileID: 4176012535252367169}
   - component: {fileID: -8014262996053430900}
+  - component: {fileID: -3241746185648942771}
   m_Layer: 0
   m_Name: o_rotational
   m_TagString: Selectable
@@ -389,6 +391,7 @@ MonoBehaviour:
   isMerged: 0
   isParent: 1
   special: {fileID: 0}
+  objType: Rotational Motor
   col: 0
   transparent: 0
   let_in: 0
@@ -408,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6403fbe3c3c69494a93f258a79267e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objType: Rotational Motor
+  objType: 
 --- !u!114 &4176012535252367169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,6 +446,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &-3241746185648942771
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731907557626689384}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &6384007333748038193
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c967055f825f2494a9646877dc3578f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fNum_rot: 0
 --- !u!1 &7821231102615530031
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +542,7 @@ GameObject:
   - component: {fileID: 5578399781374954398}
   - component: {fileID: 2567554236663050041}
   - component: {fileID: 2069458988246037812}
+  - component: {fileID: 2456340933320045863}
   m_Layer: 0
   m_Name: rotational
   m_TagString: Selectable
@@ -628,6 +647,7 @@ MonoBehaviour:
   isMerged: 0
   isParent: 0
   special: {fileID: 0}
+  objType: 
   col: 0
   transparent: 0
   let_in: 0
@@ -666,3 +686,16 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2456340933320045863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7821231102615530031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a599f6460122584ab9ead7f95f863ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedObj: {fileID: 0}

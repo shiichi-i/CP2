@@ -116,7 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6403fbe3c3c69494a93f258a79267e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objType: Color Sensor
 --- !u!114 &4801465960729184192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,9 +158,16 @@ MonoBehaviour:
   isSpecial: 0
   isPart: 0
   isSensor: 1
+  isMicrocontroller: 0
+  isMotor: 0
+  isMerged: 0
+  isParent: 0
+  special: {fileID: 0}
+  objType: Color Sensor
   col: 0
   transparent: 0
-  let_in: 
-  let_out: 
+  let_in: 0
+  let_out: 0
+  assignment: 
   scale: 0
   this_scale: {x: 0, y: 0, z: 0}

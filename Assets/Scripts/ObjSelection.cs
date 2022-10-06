@@ -51,7 +51,7 @@ public class ObjSelection : MonoBehaviour
                 b_merge.SetActive(false);
             }
 
-        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !collision.isColliding && !merge.merging && !onFindMotor)
+        if (Input.GetMouseButtonDown(0) && !spawn.willSpawn && !merge.merging && !onFindMotor)
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -75,7 +75,7 @@ public class ObjSelection : MonoBehaviour
                                 }
                                 Destroy(tempObj.GetComponent<Outline>());
                                 Destroy(tempObj.GetComponent<GreenOutline>());
-                                Destroy(tempObj.GetComponent<CollisionDetection>());
+                                DeleteCol(tempObj);
                             }
                         }
                         else if (tempObj != null && hit.collider.gameObject.transform.parent != null)
@@ -92,7 +92,7 @@ public class ObjSelection : MonoBehaviour
                                 }
                                 Destroy(tempObj.GetComponent<Outline>());
                                 Destroy(tempObj.GetComponent<GreenOutline>());
-                                Destroy(tempObj.GetComponent<CollisionDetection>());
+                                DeleteCol(tempObj);
                             }
                         }
 
@@ -112,12 +112,7 @@ public class ObjSelection : MonoBehaviour
                             if (currentObj.GetComponent<Outline>() == null)
                             {
                                 ArrowAdd();
-                                currentObj.AddComponent<Outline>();
-                                if(currentObj.GetComponent<ObjInfo>().isSpecial){
-                                    currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
-                                    currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
-                                }
-                                currentObj.AddComponent<CollisionDetection>();
+                                AddCol();   
                             }
                             
 
@@ -136,20 +131,14 @@ public class ObjSelection : MonoBehaviour
                                 }
                                 Destroy(tempObj.GetComponent<Outline>());
                                 Destroy(tempObj.GetComponent<GreenOutline>());
-                                Destroy(tempObj.GetComponent<CollisionDetection>());
+                                DeleteCol(tempObj);
                     }
                     
                     if (currentObj.GetComponent<Outline>() == null && !checkChild)
                     {
                         tempObj = currentObj;
                         ArrowAdd();
-                        currentObj.AddComponent<Outline>();
-                        if(currentObj.GetComponent<ObjInfo>().isSpecial){
-                            currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
-                            currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
-                        }else{
-                            currentObj.AddComponent<CollisionDetection>();
-                        }
+                        AddCol();
                         
                     }else{
                         if(!checkChild  && arrow.dragAxis == null){
@@ -161,7 +150,7 @@ public class ObjSelection : MonoBehaviour
                                 Destroy(arrow);
                             }
                             Destroy(tempObj.GetComponent<Outline>());
-                            Destroy(tempObj.GetComponent<CollisionDetection>());
+                            DeleteCol(tempObj);
 
                             if(hit.collider.gameObject.GetComponent<ObjInfo>().special != null){
                                 currentObj = hit.collider.gameObject.GetComponent<ObjInfo>().special;
@@ -188,7 +177,7 @@ public class ObjSelection : MonoBehaviour
                         }
                         Destroy(tempObj.GetComponent<Outline>());
                         Destroy(tempObj.GetComponent<GreenOutline>());
-                        Destroy(tempObj.GetComponent<CollisionDetection>());
+                        DeleteCol(tempObj);
                         tempObj = null;
                         checkChild = false;
                     }
@@ -208,7 +197,7 @@ public class ObjSelection : MonoBehaviour
                     }
                     Destroy(tempObj.GetComponent<Outline>());
                     Destroy(tempObj.GetComponent<GreenOutline>());
-                    Destroy(tempObj.GetComponent<CollisionDetection>());
+                    DeleteCol(tempObj);
                     tempObj = null;
                     checkChild = false;
                 }
@@ -225,6 +214,7 @@ public class ObjSelection : MonoBehaviour
                 {
                     if(hit.collider.gameObject.transform.parent == null){
                         merge.target = hit.collider.gameObject;
+
                     }else{
                         merge.target = hit.collider.gameObject.transform.parent.gameObject;
                     }
@@ -269,19 +259,22 @@ public class ObjSelection : MonoBehaviour
 
         if (play && currentObj != null)
         {
-            currentObj = null;
-            if (sim.Playing  && tempObj != null && tempObj.transform.parent.gameObject != null)
+            if (sim.Playing  && currentObj != null && currentObj.transform.parent.gameObject != null && currentObj.transform.parent.tag == "CodeArea")
             {
-                GameObject arrow = tempObj.transform.parent.gameObject;
-                tempObj.transform.SetParent(null);
+                GameObject arrow = currentObj.transform.parent.gameObject;
+                currentObj.transform.SetParent(null);
                 Destroy(arrow);
             }
-            Destroy(tempObj.GetComponent<Outline>());
-            Destroy(tempObj.GetComponent<GreenOutline>());
-            Destroy(tempObj.GetComponent<CollisionDetection>());
+            Destroy(currentObj.GetComponent<Outline>());
+            Destroy(currentObj.GetComponent<GreenOutline>());
+            DeleteCol(currentObj);
+            currentObj = null;
             tempObj = null;
             play = false;
             moving = false;
+            if(checkChild){
+                checkChild = false;
+            }
         }
 
         
@@ -295,8 +288,28 @@ public class ObjSelection : MonoBehaviour
             Transform rot = arrow.transform.Find("R-Y");
             rot.transform.eulerAngles = currentObj.transform.eulerAngles;
             currentObj.transform.SetParent(arrow.transform);
+            currentObj.AddComponent<Outline>();
         }
         
+    }
+
+    void DeleteCol(GameObject obj){
+        if(obj.GetComponent<ObjInfo>().isSpecial){
+            Destroy(obj.transform.GetChild(0).gameObject.GetComponent<CollisionDetection>());
+            Destroy(obj.transform.GetChild(1).gameObject.GetComponent<CollisionDetection>());
+        }else{
+            Destroy(obj.GetComponent<CollisionDetection>());
+
+        }
+    }
+
+    public void AddCol(){
+        if(currentObj.GetComponent<ObjInfo>().isSpecial){
+            currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
+            currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
+        }else{
+            currentObj.AddComponent<CollisionDetection>();
+        }
     }
 }
 

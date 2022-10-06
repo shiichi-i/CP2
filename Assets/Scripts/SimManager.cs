@@ -7,7 +7,7 @@ public class SimManager : MonoBehaviour
 {
     public bool Playing = true;
     public string status, display;
-    public Text test, disp;
+    public Text disp;
     public GameObject bl1, bl2, bl3;
     AvoidCollision collision;
     ObjSelection selection;
@@ -46,8 +46,9 @@ public class SimManager : MonoBehaviour
                 bl1.SetActive(true);
                 bl2.SetActive(true);
                 bl3.SetActive(true);
-                status = "Pause";
                 display = "Status: SIMULATING";
+                b_play.transform.GetChild(0).gameObject.SetActive(false);
+                b_play.transform.GetChild(1).gameObject.SetActive(true);
                 vp.CountBlocks();
             }
             else
@@ -59,10 +60,10 @@ public class SimManager : MonoBehaviour
                 bl1.SetActive(false);
                 bl2.SetActive(false);
                 bl3.SetActive(false);
-                status = "Play";
                 display = "Status: PAUSED";
+                b_play.transform.GetChild(0).gameObject.SetActive(true);
+                b_play.transform.GetChild(1).gameObject.SetActive(false);
             }
-            test.text = status;
             disp.text = display;
         }
         

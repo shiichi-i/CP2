@@ -8,6 +8,8 @@ public class CollisionDetection : MonoBehaviour
     public GameObject selectedObj;
     SpawnManager mat;
     ObjSelection outline;
+    Color this_color;
+    float this_transparency;
 
     void Start()
     {
@@ -18,18 +20,25 @@ public class CollisionDetection : MonoBehaviour
         }else{
             selectedObj = this.gameObject;
         }
-        
         avoidCollision.selectedObj = selectedObj;
         mat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
-
     }
 
     void OnTriggerStay(Collider other)
     {
-        if(other.tag != "CodeArea" && other.tag != "Untagged" && outline.moving)
+        if(other.tag != "CodeArea" && other.tag != "Untagged")
         {
-            if(!selectedObj.GetComponent<ObjInfo>().isSpecial){
+            if(!mat.willSpawn){
+                this_color = this.gameObject.GetComponent<Renderer>().material.color;
+                this_transparency = this_color.a;
+            }
+            
+            if(this.GetComponent<ObjInfo>().isSpecial){
+                if(other.transform.parent != this.transform.parent){
+                    avoidCollision.isColliding = true;
+                }
+            }else{
                 avoidCollision.isColliding = true;
             }
         }
@@ -37,27 +46,25 @@ public class CollisionDetection : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        avoidCollision.isColliding = false;
-        if(outline.currentObj == this.gameObject)
+        if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
         {
-            if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
-            {
-                for(int i = 0; i < this.transform.parent.childCount; i++){
-                    this.gameObject.transform.GetChild(i).GetComponent<Renderer>().material = mat.normal;
+            for(int i = 0; i < 2; i++){
+                if(selectedObj.transform.GetChild(i).GetComponent<Renderer>() != null){
+                    selectedObj.transform.GetChild(i).GetComponent<Renderer>().material = mat.normal;
                 }
-            }
-            else
-            {
-                if(this.gameObject.GetComponent<ObjInfo>().isPart && !this.gameObject.GetComponent<ObjInfo>().isMicrocontroller){
-                    this.gameObject.GetComponent<Renderer>().material = mat.partNorm;
-                }else{
-                    this.gameObject.GetComponent<Renderer>().material = mat.normal;
-                }
-                
             }
         }
-        
-        
-        
+        else
+        {
+            if(this.gameObject.GetComponent<ObjInfo>().isPart && !this.gameObject.GetComponent<ObjInfo>().isMicrocontroller){
+                this.gameObject.GetComponent<Renderer>().material = mat.partNorm;
+            }else{
+                this.gameObject.GetComponent<Renderer>().material = mat.normal;
+            }
+        }
+        avoidCollision.isColliding = false;
+        if(!mat.willSpawn && this.gameObject.GetComponent<ObjInfo>().isPart){
+            this.gameObject.GetComponent<Renderer>().material.color = new Color(this_color.r, this_color.g, this_color.b, this_transparency);
+        }
     }
 }

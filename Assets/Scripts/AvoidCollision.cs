@@ -20,9 +20,9 @@ public class AvoidCollision : MonoBehaviour
     {
         if (selectedObj != null)
         {
-            if (isColliding && moving.moving)
+            if (isColliding)
             {
-                if (selectedObj.GetComponent<ObjInfo>().isSpecial)
+                if (moving.currentObj != null && moving.currentObj.GetComponent<ObjInfo>().isSpecial)
                 {
                     for(int i = 0; i < selectedObj.transform.childCount; i++){
                             if( selectedObj.transform.GetChild(i).GetComponent<Renderer>() != null){
@@ -34,7 +34,6 @@ public class AvoidCollision : MonoBehaviour
                 {
                     selectedObj.GetComponent<Renderer>().material = red;
                 }
-
             }
         }
    

@@ -54,7 +54,10 @@ public class FindRotMot : MonoBehaviour
             select.onFindMotor = true;
         }else{
             Destroy(select.currentObj.GetComponent<GreenOutline>());
-            select.ArrowAdd();
+            if(select.currentObj.transform.parent == null){
+                select.ArrowAdd();
+            }
+            
 
             for(int i = 0; i < assign.motors.Length; i++){
                 if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)"){

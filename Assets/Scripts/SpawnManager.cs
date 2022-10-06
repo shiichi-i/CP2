@@ -69,7 +69,8 @@ public class SpawnManager : MonoBehaviour
                 if (outline.currentObj.GetComponent<ObjInfo>().isSpecial)
                 {
                     prefab.GetComponentInChildren<Renderer>().material = normal;
-                    prefab.GetComponentInChildren<MeshCollider>().isTrigger = false;
+                    prefab.transform.GetChild(0).GetComponent<MeshCollider>().isTrigger = false;
+                    prefab.transform.GetChild(1).GetComponent<MeshCollider>().isTrigger = false;
                     prefab.GetComponent<Rigidbody>().useGravity = true;
                 }
                 else

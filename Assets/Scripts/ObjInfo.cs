@@ -9,6 +9,7 @@ public class ObjInfo : MonoBehaviour
 
     public GameObject special;
 
+    public string objType;
     public float col;
     public bool transparent;
     public int let_in, let_out;

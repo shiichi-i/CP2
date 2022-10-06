@@ -20,10 +20,13 @@ public class SpawnObj : MonoBehaviour
     public void PressObj()
     {
         spawnManager.ticked = !spawnManager.ticked;
-
         if (!simulation.Playing)
         {
-            if (outline.tempObj != null && spawnManager.ticked && outline.tempObj.transform.parent != null)
+            if(outline.checkChild){
+                Destroy(outline.currentObj.GetComponent<GreenOutline>());
+                outline.checkChild = false;
+            }
+            if (outline.tempObj != null && spawnManager.ticked && outline.tempObj.transform.parent != null && outline.tempObj.transform.parent.tag == "CodeArea")
             {
                 Destroy(outline.tempObj.GetComponent<Outline>());
                 GameObject arrow = outline.tempObj.transform.parent.gameObject;
