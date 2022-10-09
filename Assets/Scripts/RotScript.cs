@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class RotScript : MonoBehaviour
 {
-    public GameObject rod;
+    public GameObject[] rod;
+    int rod_i;
     float rotZ;
     public Vector3 newRot;
     public bool execute;
@@ -39,37 +40,48 @@ public class RotScript : MonoBehaviour
             FindAssign();
             if(onStart){
                 onStart = false;
-            }
-            
-            if(num_rotations == 1101001){
-                rotZ = num_speed * 200f;
-                newRot = new Vector3(0f, 0f,rotZ);
-                if(rod != null){
-                    rod.transform.Rotate(newRot * Time.deltaTime);
-                }
-                control.done = false;
-            }else{
-                if(rod != null && rod.transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations){
+                if(num_rotations == 1101001){
                     rotZ = num_speed * 200f;
                     newRot = new Vector3(0f, 0f,rotZ);
-                    if(rod != null){
-                        rod.transform.Rotate(newRot * Time.deltaTime);
+                    if(rod[0] != null){
+                        rod[0].transform.Rotate(newRot * Time.deltaTime);
                     }
-                }else if(rod != null && rod.transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations){
-                    control.done = true;
-                    start.index++;
-                    control.execute = false;
+                    if(rod[1] != null){
+                        rod[1].transform.Rotate(newRot * Time.deltaTime);
+                    }
+                    }
+                    control.done = false;
+                }else{
+                    if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations){
+                        rotZ = num_speed * 200f;
+                        newRot = new Vector3(0f, 0f,rotZ);
+                        if(rod[0] != null){
+                            rod[0].transform.Rotate(newRot * Time.deltaTime);
+                        }
+                        if(rod[1] != null){
+                            rod[1].transform.Rotate(newRot * Time.deltaTime);
+                        }
+                    }else if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations){
+                        control.done = true;
+                        start.index++;
+                        control.execute = false;
+                    }
+                }
+            }else if(!control.execute && rod[0] != null){
+                if(rod[0] != null){
+                    rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+                }
+                if(rod[1] != null){
+                   rod[1].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
                 }
             }
-            
+                
 
-        }else if(!control.execute && rod != null){
-            rod.transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
-        }
         if(!control.execute){
             onStart = true;
         }
     }
+
 
     public void setValuesSpeed(){
         temp_spd = nm_spd.text;
@@ -122,14 +134,30 @@ public class RotScript : MonoBehaviour
 
 
     public void FindAssign(){
-        rod = null;
+        for(int i = 0; i < rod_i ;i++){
+            rod[i] = null;
+        }
+        rod_i = 0;
         for(int i = 0; i < assign.motors.Length; i++){
             if(assign.motors[i] != null){
                 if(assign.outTake[i] == letter.value+6){
-                    rod = assign.motors[i].transform.Find("rod").gameObject;
+                    rod[rod_i] = assign.motors[i].transform.Find("rod").gameObject;
+                    rod_i++;
+                }else{
+                    if(letter.value+6 == 10){
+                        if(assign.outTake[i] == 6 || assign.outTake[i] == 7){
+                            rod[rod_i] = assign.motors[i].transform.Find("rod").gameObject;
+                            rod_i++;
+                        }
+                    }else if(letter.value+6 == 11){
+                        if(assign.outTake[i] == 8 || assign.outTake[i] == 9){
+                            rod[rod_i] = assign.motors[i].transform.Find("rod").gameObject;
+                            rod_i++;
+                        }
+                    }
                 }
             }
         }
     }
-
+    
 }

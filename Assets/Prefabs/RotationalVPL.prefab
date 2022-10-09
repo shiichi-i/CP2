@@ -1216,7 +1216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0967e770bc2173340bba271a44d7126c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rod: {fileID: 0}
+  rod:
+  - {fileID: 0}
+  - {fileID: 0}
   newRot: {x: 0, y: 0, z: 0}
   execute: 0
   num_rotations: 0
