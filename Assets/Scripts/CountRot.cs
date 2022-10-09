@@ -7,7 +7,7 @@ public class CountRot : MonoBehaviour
     public float fNum_rot;
 
     void OnTriggerEnter(Collider other){
-        if(other.tag == "Untagged"){
+        if(other.name == "CountRot"){
             fNum_rot++;
         }
     }

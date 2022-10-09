@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AvoidCollision : MonoBehaviour
 {
-    public bool isColliding = false;
+    public bool isColliding = false, ghostCol;
     public GameObject selectedObj;
     public Material red, temp;
     SpawnManager spawn;

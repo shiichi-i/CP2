@@ -72,7 +72,11 @@ public class SpawnManager : MonoBehaviour
                 {
                     prefab.GetComponentInChildren<Renderer>().material = normal;
                     prefab.transform.GetChild(0).GetComponent<MeshCollider>().isTrigger = false;
-                    prefab.transform.GetChild(1).GetComponent<MeshCollider>().isTrigger = false;
+                    
+                    if(prefab.transform.GetChild(1).name != "rod"){
+                        prefab.transform.GetChild(1).GetComponent<MeshCollider>().isTrigger = false;
+                    }
+                    
                     prefab.GetComponent<Rigidbody>().useGravity = true;
                 }
                 else

@@ -28,7 +28,7 @@ public class CollisionDetection : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         if(other.GetComponent<ObjInfo>() != null){
-            if(this.gameObject.GetComponent<Renderer>().material.color != null){
+            if(this.gameObject.GetComponent<ObjInfo>().isPart){
                 this_color = this.gameObject.GetComponent<Renderer>().material.color;
                 this_transparency = this_color.a;
             }

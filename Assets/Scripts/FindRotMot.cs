@@ -54,6 +54,7 @@ public class FindRotMot : MonoBehaviour
                 }
             }
             select.onFindMotor = true;
+            select.showOnce = true;
         }else{
             Destroy(select.currentObj.GetComponent<GreenOutline>());
             if(select.currentObj.transform.parent == null){
@@ -75,7 +76,24 @@ public class FindRotMot : MonoBehaviour
         
     }
 
+    public void Cancel(){
+        Destroy(select.currentObj.GetComponent<GreenOutline>());
+        Destroy(select.currentObj.GetComponent<Outline>());
+        Destroy(select.currentObj.GetComponent<CollisionDetection>());
+
+        for(int i = 0; i < assign.motors.Length; i++){
+                if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)"){
+                    assign.motors[i].transform.GetChild(0).GetComponent<Renderer>().material = normMat.normal;
+                    assign.motors[i].transform.GetChild(1).GetComponent<Renderer>().material = normMat.normal;
+                }
+        }
+        select.currentObj = null;
+        select.tempObj = null;
+        coll.isColliding = false;
+    }
+
     public void SetTransform(){
+        Destroy(select.w);
         Destroy(select.currentObj.GetComponent<GreenOutline>());
         Destroy(select.currentObj.GetComponent<Outline>());
         Destroy(select.currentObj.GetComponent<CollisionDetection>());
@@ -109,6 +127,7 @@ public class FindRotMot : MonoBehaviour
         merge.FindParent();
         select.currentObj = null;
         select.tempObj = null;
+        coll.isColliding = false;
 
         select.onFindMotor = false;
 

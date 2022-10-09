@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjSelection : MonoBehaviour
 {
+    public GameObject wheelPref, w;
     public GameObject tempObj = null;
     public GameObject currentObj = null;
     GameObject b_unmerge, b_merge;
@@ -18,7 +19,7 @@ public class ObjSelection : MonoBehaviour
     public bool checkChild;
     public bool onFindMotor;
 
-    public bool play;
+    public bool play, showOnce;
 
     SimManager sim;
     IsMouseOverUI ui;
@@ -84,7 +85,7 @@ public class ObjSelection : MonoBehaviour
                             if (tempObj != hit.collider.gameObject.transform.parent.gameObject)
                             {
                                 currentObj = null;
-                                if (!sim.Playing)
+                                if (!sim.Playing && tempObj.transform.parent.gameObject != null)
                                 {
                                     GameObject arrow = tempObj.transform.parent.gameObject;
                                     tempObj.transform.SetParent(null);
@@ -243,16 +244,38 @@ public class ObjSelection : MonoBehaviour
             merge.target = null;
         }
         
-        if(onFindMotor && Input.GetMouseButtonDown(0)){
+        if(onFindMotor){
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit))
             {
                 if(hit.collider.gameObject.name == "rod" || hit.collider.gameObject.name == "rotational"){
-                    findRot.parentMot = hit.collider.transform.parent.gameObject;
-                    findRot.SetTransform();
+                    if(showOnce){
+                        Ghost(hit.collider.transform.parent.GetChild(1).GetChild(0));
+                    }
+                    
+                    if(Input.GetMouseButtonDown(0) && !collision.ghostCol){
+                        findRot.parentMot = hit.collider.transform.parent.gameObject;
+                        findRot.SetTransform();
+                    }
+                }else{
+                    if(w != null){
+                        Destroy(w);
+                        showOnce = true;
+                        w = null;
+                    }
                 }
+            }else{
+                if(w != null){
+                    Destroy(w);
+                    showOnce = true;
+                    w = null;
+                }
+            }
+
+            if(Input.GetMouseButtonDown(1)){
+                findRot.Cancel();
+                onFindMotor = false;
             }
 
         }
@@ -280,6 +303,16 @@ public class ObjSelection : MonoBehaviour
         
     }
 
+    void Ghost(Transform perent){
+        GameObject u = Instantiate(wheelPref) as GameObject;
+        u.transform.position = perent.transform.position;
+        u.transform.localScale = currentObj.transform.localScale;
+        u.transform.parent = perent;
+        u.transform.rotation = perent.transform.parent.transform.parent.rotation;
+        showOnce = false;
+        w = u;
+    }
+
     public void ArrowAdd(){
          if (!sim.Playing)
         {
@@ -296,7 +329,6 @@ public class ObjSelection : MonoBehaviour
     void DeleteCol(GameObject obj){
         if(obj.GetComponent<ObjInfo>().isSpecial){
             Destroy(obj.transform.GetChild(0).gameObject.GetComponent<CollisionDetection>());
-            Destroy(obj.transform.GetChild(1).gameObject.GetComponent<CollisionDetection>());
         }else{
             Destroy(obj.GetComponent<CollisionDetection>());
 
@@ -313,7 +345,6 @@ public class ObjSelection : MonoBehaviour
         }
         else if(currentObj.GetComponent<ObjInfo>().isSpecial){
             currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
-            currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
         }else{
             currentObj.AddComponent<CollisionDetection>();
         }

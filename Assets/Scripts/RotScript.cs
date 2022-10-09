@@ -39,7 +39,6 @@ public class RotScript : MonoBehaviour
         if(control.execute){
             FindAssign();
             if(onStart){
-                onStart = false;
                 if(num_rotations == 1101001){
                     rotZ = num_speed * 200f;
                     newRot = new Vector3(0f, 0f,rotZ);
@@ -49,10 +48,9 @@ public class RotScript : MonoBehaviour
                     if(rod[1] != null){
                         rod[1].transform.Rotate(newRot * Time.deltaTime);
                     }
-                    }
                     control.done = false;
                 }else{
-                    if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations){
+                    if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations+1){
                         rotZ = num_speed * 200f;
                         newRot = new Vector3(0f, 0f,rotZ);
                         if(rod[0] != null){
@@ -61,20 +59,18 @@ public class RotScript : MonoBehaviour
                         if(rod[1] != null){
                             rod[1].transform.Rotate(newRot * Time.deltaTime);
                         }
-                    }else if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations){
+                    }else if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations+1){
                         control.done = true;
                         start.index++;
                         control.execute = false;
                     }
                 }
             }
-        
-        if(control.done){
-            Reset();
         }
 
         if(!control.execute){
             onStart = true;
+            Reset();
         }
     }
 
@@ -92,7 +88,7 @@ public class RotScript : MonoBehaviour
     public void setValuesSpeed(){
         temp_spd = nm_spd.text;
         bool enter = false;
-        if(temp_rt != ""){
+        if(temp_spd != ""){
             for(int i = 0; i <= choices_spd.Length-1; i++){
                 if(temp_spd == choices_spd[i]){
                     temp_spd = nm_spd.text;

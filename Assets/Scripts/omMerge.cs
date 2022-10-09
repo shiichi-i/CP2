@@ -51,6 +51,9 @@ public class omMerge : MonoBehaviour
                     select.tempObj = current;
                     Destroy(target.GetComponent<GreenOutline>());
                 }
+                else if(current.name == "pb_microcontroller" && target.name != "pb_microcontroller"){
+                    Destroy(target.GetComponent<GreenOutline>());
+                }
                 else if(target.transform.childCount > 2 && target.transform.GetChild(2).gameObject.tag == "Player"){
                     GameObject temp = target;
                     target = current;
