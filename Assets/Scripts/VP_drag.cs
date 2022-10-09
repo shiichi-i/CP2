@@ -12,6 +12,7 @@ public class VP_drag : MonoBehaviour
     void Start()
     {
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
+
     }
 
     public void Dragging()
@@ -43,7 +44,8 @@ public class VP_drag : MonoBehaviour
             manager.dropped = true;
         }
         if(manager.colliding == null){
-            manager.dragging = null;
+            manager.dragging = null; 
         }
+        manager.spawnEmpty = true;
     }
 }

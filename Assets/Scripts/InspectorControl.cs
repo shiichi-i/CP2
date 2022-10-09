@@ -120,41 +120,41 @@ public class InspectorControl : MonoBehaviour
     }
 
     public void onScaleChange(){
-        selection.currentObj.GetComponent<ObjInfo>().scale = m_SliderScale.value;
-        if(selection.currentObj.tag != "Player"){
+        if(!spawn.willSpawn){
+            selection.currentObj.GetComponent<ObjInfo>().scale = m_SliderScale.value;
+            if(selection.currentObj.tag != "Player"){
+                if(selection.currentObj.transform.parent.gameObject != null){
+                    GameObject arrow = selection.currentObj.transform.parent.gameObject;
+                    Transform rot = arrow.transform.Find("R-Y");
+                
+                
+                
 
-            if(selection.currentObj.transform.parent.gameObject != null){
-                GameObject arrow = selection.currentObj.transform.parent.gameObject;
-                Transform rot = arrow.transform.Find("R-Y");
-            
-            
-            
-
-            Transform[] children = selection.currentObj.GetComponentsInChildren<Transform>();
-            if (children != null){
-                foreach (Transform c in children){
-                    c.SetParent(null);
+                Transform[] children = selection.currentObj.GetComponentsInChildren<Transform>();
+                if (children != null){
+                    foreach (Transform c in children){
+                        c.SetParent(null);
+                    }
                 }
-            }
-            OnScale();
-            if (children != null){
-                foreach (Transform c in children){
-                    c.SetParent(selection.currentObj.transform);
+                OnScale();
+                if (children != null){
+                    foreach (Transform c in children){
+                        c.SetParent(selection.currentObj.transform);
+                    }
                 }
+
+                rot.transform.eulerAngles = selection.currentObj.transform.eulerAngles;
+                selection.currentObj.transform.SetParent(arrow.transform);
+                }
+
+
+            }else{
+                GameObject temp = selection.currentObj.transform.parent.gameObject;
+                selection.currentObj.transform.SetParent(null);
+                OnScale();
+                selection.currentObj.transform.SetParent(temp.transform);
             }
-
-            rot.transform.eulerAngles = selection.currentObj.transform.eulerAngles;
-            selection.currentObj.transform.SetParent(arrow.transform);
-            }
-
-
-        }else{
-            GameObject temp = selection.currentObj.transform.parent.gameObject;
-            selection.currentObj.transform.SetParent(null);
-            OnScale();
-            selection.currentObj.transform.SetParent(temp.transform);
         }
-        
     }
 
     void OnScale(){

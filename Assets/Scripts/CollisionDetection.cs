@@ -27,19 +27,24 @@ public class CollisionDetection : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if(other.tag != "CodeArea" && other.tag != "Untagged")
+        
+        if(!this.GetComponent<ObjInfo>().isMerged && other.tag != "CodeArea" && other.tag != "Untagged")
         {
-            if(!mat.willSpawn){
-                this_color = this.gameObject.GetComponent<Renderer>().material.color;
-                this_transparency = this_color.a;
-            }
-            
-            if(this.GetComponent<ObjInfo>().isSpecial){
-                if(other.transform.parent != this.transform.parent){
-                    avoidCollision.isColliding = true;
+            if(other.GetComponent<ObjInfo>() != null){
+                if(this.gameObject.GetComponent<Renderer>().material.color != null){
+                    this_color = this.gameObject.GetComponent<Renderer>().material.color;
+                    this_transparency = this_color.a;
                 }
-            }else{
-                avoidCollision.isColliding = true;
+                
+                if(this.GetComponent<ObjInfo>().isSpecial){
+                    if(other.transform.parent != this.transform.parent && !other.GetComponent<ObjInfo>().connected){
+                        avoidCollision.isColliding = true;
+                    }
+                }else{
+                    if(!other.GetComponent<ObjInfo>().isSpecial){
+                        avoidCollision.isColliding = true;
+                    }
+                }
             }
         }
     }
@@ -62,8 +67,9 @@ public class CollisionDetection : MonoBehaviour
                 this.gameObject.GetComponent<Renderer>().material = mat.normal;
             }
         }
+
         avoidCollision.isColliding = false;
-        if(!mat.willSpawn && this.gameObject.GetComponent<ObjInfo>().isPart){
+        if(this.gameObject.GetComponent<ObjInfo>().isPart){
             this.gameObject.GetComponent<Renderer>().material.color = new Color(this_color.r, this_color.g, this_color.b, this_transparency);
         }
     }

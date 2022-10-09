@@ -11,7 +11,7 @@ public class VP_spawnpoint : MonoBehaviour
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         manager.spawnEmpty = false;
     }

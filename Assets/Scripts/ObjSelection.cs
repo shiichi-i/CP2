@@ -39,13 +39,13 @@ public class ObjSelection : MonoBehaviour
 
     void Update()
     {
-            if(currentObj != null && checkChild){
+            if(currentObj != null && checkChild && !currentObj.GetComponent<ObjInfo>().connected){
                 b_unmerge.SetActive(true);
             }else{
                 b_unmerge.SetActive(false);
             }
 
-            if(currentObj != null && !checkChild){
+            if(currentObj != null && !checkChild && !collision.isColliding){
                 b_merge.SetActive(true);
             }else{
                 b_merge.SetActive(false);
@@ -259,7 +259,7 @@ public class ObjSelection : MonoBehaviour
 
         if (play && currentObj != null)
         {
-            if (sim.Playing  && currentObj != null && currentObj.transform.parent.gameObject != null && currentObj.transform.parent.tag == "CodeArea")
+            if (sim.Playing && currentObj.transform.parent.gameObject != null && currentObj.transform.parent.tag == "CodeArea" && !checkChild)
             {
                 GameObject arrow = currentObj.transform.parent.gameObject;
                 currentObj.transform.SetParent(null);
@@ -270,11 +270,11 @@ public class ObjSelection : MonoBehaviour
             DeleteCol(currentObj);
             currentObj = null;
             tempObj = null;
-            play = false;
             moving = false;
             if(checkChild){
                 checkChild = false;
             }
+            play = false;
         }
 
         
@@ -288,8 +288,8 @@ public class ObjSelection : MonoBehaviour
             Transform rot = arrow.transform.Find("R-Y");
             rot.transform.eulerAngles = currentObj.transform.eulerAngles;
             currentObj.transform.SetParent(arrow.transform);
-            currentObj.AddComponent<Outline>();
         }
+        currentObj.AddComponent<Outline>();
         
     }
 

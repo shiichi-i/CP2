@@ -32,10 +32,11 @@ public class AvoidCollision : MonoBehaviour
                 }
                 else 
                 {
-                    selectedObj.GetComponent<Renderer>().material = red;
+                    if(selectedObj.GetComponent<Renderer>() != null){
+                        selectedObj.GetComponent<Renderer>().material = red;
+                    }
                 }
             }
         }
-   
     }
 }

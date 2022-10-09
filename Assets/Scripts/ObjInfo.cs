@@ -6,7 +6,8 @@ public class ObjInfo : MonoBehaviour
 {
     public bool isSpecial;
     public bool isPart, isSensor, isMicrocontroller, isMotor, isMerged, isParent;
-
+    public bool connected;
+    public GameObject connection;
     public GameObject special;
 
     public string objType;
@@ -34,7 +35,7 @@ public class ObjInfo : MonoBehaviour
     }
 
     void Update(){
-        if(isPart && select.currentObj == this.gameObject && !collision.isColliding && !spawn.willSpawn){
+        if(isPart && select.currentObj == this.gameObject && !collision.isColliding){
             inspector.m_SliderHue.value = col;
             inspector.toggle.isOn = transparent;
             inspector.m_SliderScale.value = scale;

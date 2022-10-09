@@ -43,7 +43,15 @@ public class omMerge : MonoBehaviour
                     Destroy(target.GetComponent<GreenOutline>());
                 }
             }else{
-                if(target.transform.childCount > 2 && target.transform.GetChild(2).gameObject.tag == "Player"){
+                if(target.name == "pb_microcontroller"){
+                    GameObject temp = target;
+                    target = current;
+                    current = temp;
+                    select.currentObj = current;
+                    select.tempObj = current;
+                    Destroy(target.GetComponent<GreenOutline>());
+                }
+                else if(target.transform.childCount > 2 && target.transform.GetChild(2).gameObject.tag == "Player"){
                     GameObject temp = target;
                     target = current;
                     current = temp;

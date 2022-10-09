@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     public LayerMask layerMask;
 
     AssignmentControl control;
+    TransformManager arrow;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class SpawnManager : MonoBehaviour
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         avoidCollision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
         control = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
+        arrow = GameObject.Find("SimBar").GetComponent<TransformManager>();
     }
 
     void OnSpawn(){
@@ -36,7 +38,7 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
-        if(prefab != null && willSpawn && ticked)
+        if(prefab != null && willSpawn && ticked && arrow.dragAxis == null)
         {
             outline.currentObj = prefab;
             if (!avoidCollision.isColliding)

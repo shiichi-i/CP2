@@ -37,26 +37,28 @@ public class SimManager : MonoBehaviour
         if (!collision.isColliding)
         {
             Playing = !Playing;
-            if (Playing)
-            {
-                if(selection.currentObj != null)
+            
+            if(selection.currentObj != null)
                 {
                     selection.play = true;
                 }
+            
+            if (Playing)
+            {
+                vp.CountBlocks();
+                vp.ChangeColor();
+                vp.index = 0;
+                vp.StartProgram();
                 bl1.SetActive(true);
                 bl2.SetActive(true);
                 bl3.SetActive(true);
                 display = "Status: SIMULATING";
                 b_play.transform.GetChild(0).gameObject.SetActive(false);
                 b_play.transform.GetChild(1).gameObject.SetActive(true);
-                vp.CountBlocks();
             }
             else
             {
-                if (selection.currentObj != null)
-                {
-                    selection.play = true;
-                }
+                vp.EndProgram();
                 bl1.SetActive(false);
                 bl2.SetActive(false);
                 bl3.SetActive(false);

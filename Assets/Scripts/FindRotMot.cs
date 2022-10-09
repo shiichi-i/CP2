@@ -12,15 +12,18 @@ public class FindRotMot : MonoBehaviour
     public Material greeen;
     omMerge merge;
 
+    AvoidCollision coll;
+
     SpawnManager normMat;
 
-    bool ticked;
+    bool ticked = true;
 
     void Start(){
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         assign = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
         normMat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
+        coll = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
     }
 
     void Update(){
@@ -36,17 +39,16 @@ public class FindRotMot : MonoBehaviour
     }
 
     public void OnFindMotor(){
-        ticked = !ticked;
             if(ticked){
             select.currentObj.AddComponent<GreenOutline>();
             
-
             GameObject arrow = select.currentObj.transform.parent.gameObject;
             select.currentObj.transform.SetParent(null);
             Destroy(arrow);
 
             for(int i = 0; i < assign.motors.Length; i++){
-                if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)"){
+                if(assign.motors[i] != null && assign.motors[i].name == "o_rotational(Clone)" &&
+                !assign.motors[i].GetComponent<ObjInfo>().connected){
                     assign.motors[i].transform.GetChild(0).GetComponent<Renderer>().material = greeen;
                     assign.motors[i].transform.GetChild(1).GetComponent<Renderer>().material = greeen;
                 }
@@ -87,18 +89,26 @@ public class FindRotMot : MonoBehaviour
 
         parentMot.transform.GetChild(0).tag = "Player";
         parentMot.transform.GetChild(1).tag = "Player";
+        parentMot.GetComponent<ObjInfo>().connected = true;
+
+        parentMot.transform.GetChild(0).GetComponent<ObjInfo>().connected = true;
+        parentMot.transform.GetChild(1).GetComponent<ObjInfo>().connected = true;
+
         select.currentObj.tag = "Player";
+        select.currentObj.GetComponent<ObjInfo>().connection = parentMot;
+        select.currentObj.GetComponent<ObjInfo>().connected = true;
+
         select.currentObj.transform.SetParent(parentMot.transform.GetChild(1));
         select.currentObj.transform.position = parentMot.transform.GetChild(1).GetChild(0).position;
-        Vector3 t_rot = parentMot.transform.GetChild(1).GetChild(0).eulerAngles;
-        select.currentObj.transform.eulerAngles = new Vector3(t_rot.z, t_rot.y-90, t_rot.x);
+        select.currentObj.transform.rotation = parentMot.transform.rotation;  
+        
         select.currentObj.AddComponent<FixedJoint>().connectedBody = parentMot.transform.GetChild(1).GetComponent<Rigidbody>();
 
         select.currentObj.tag = "Player";
         merge.pChild = select.currentObj;
         merge.FindParent();
-        select.currentObj = merge.FoundParent;
-        select.tempObj = select.currentObj;
+        select.currentObj = null;
+        select.tempObj = null;
 
         select.onFindMotor = false;
 

@@ -65,8 +65,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 987339190862897277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0043, y: 0, z: 0.0384}
-  m_LocalScale: {x: 0.01105277, y: 0.001982868, z: 0.003558628}
+  m_LocalPosition: {x: 0.006567, y: 0, z: 0.0384}
+  m_LocalScale: {x: 0.015587023, y: 0.001982868, z: 0.003558628}
   m_Children: []
   m_Father: {fileID: 1106462998604120625}
   m_RootOrder: 1
@@ -212,6 +212,8 @@ MonoBehaviour:
   isMotor: 0
   isMerged: 0
   isParent: 0
+  connected: 0
+  connection: {fileID: 0}
   special: {fileID: 0}
   objType: 
   col: 0
@@ -367,7 +369,6 @@ Transform:
   m_Children:
   - {fileID: 3754482835692468708}
   - {fileID: 1106462998604120625}
-  - {fileID: 7714921267477621697}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -390,6 +391,8 @@ MonoBehaviour:
   isMotor: 0
   isMerged: 0
   isParent: 1
+  connected: 0
+  connection: {fileID: 0}
   special: {fileID: 0}
   objType: Rotational Motor
   col: 0
@@ -486,12 +489,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6384007333748038193}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -0.4183237, y: -0.09368706, z: -0.0003490448}
-  m_LocalScale: {x: 0.03876715, y: 0.009649673, z: 0.03876715}
+  m_LocalRotation: {x: -0.0000001937151, y: -0.000000029802322, z: -0.010688335, w: 0.9999429}
+  m_LocalPosition: {x: 0.00859804, y: -0.00018381255, z: 0.03840001}
+  m_LocalScale: {x: 0.0035586283, y: 0.0008857911, z: 0.003558629}
   m_Children: []
-  m_Father: {fileID: 5395537164004191698}
-  m_RootOrder: 2
+  m_Father: {fileID: 3754482835692468708}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7961967312652469050
 MeshFilter:
@@ -560,7 +563,8 @@ Transform:
   m_LocalRotation: {x: 0.49462742, y: -0.5053157, z: -0.4946272, w: 0.50531554}
   m_LocalPosition: {x: 0, y: 0, z: -0.0003490448}
   m_LocalScale: {x: 10.893846, y: 10.893846, z: 10.893845}
-  m_Children: []
+  m_Children:
+  - {fileID: 7714921267477621697}
   m_Father: {fileID: 5395537164004191698}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -646,6 +650,8 @@ MonoBehaviour:
   isMotor: 0
   isMerged: 0
   isParent: 0
+  connected: 0
+  connection: {fileID: 0}
   special: {fileID: 0}
   objType: 
   col: 0
