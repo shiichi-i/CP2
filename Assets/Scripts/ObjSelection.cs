@@ -109,7 +109,7 @@ public class ObjSelection : MonoBehaviour
                             tempObj = currentObj;
                             
 
-                            if (currentObj.GetComponent<Outline>() == null)
+                            if (currentObj.GetComponent<Outline>() == null && !checkChild)
                             {
                                 ArrowAdd();
                                 AddCol();   
@@ -304,7 +304,14 @@ public class ObjSelection : MonoBehaviour
     }
 
     public void AddCol(){
-        if(currentObj.GetComponent<ObjInfo>().isSpecial){
+        if(currentObj.GetComponent<ObjInfo>().isMerged){
+            for(int i = 0; i < currentObj.transform.childCount; i++){
+                if(currentObj.transform.GetChild(i).GetComponent<CollisionDetection>() == null){
+                     currentObj.transform.GetChild(i).gameObject.AddComponent<CollisionDetection>();
+                }
+            }
+        }
+        else if(currentObj.GetComponent<ObjInfo>().isSpecial){
             currentObj.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
             currentObj.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
         }else{

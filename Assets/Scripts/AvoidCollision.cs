@@ -22,13 +22,20 @@ public class AvoidCollision : MonoBehaviour
         {
             if (isColliding)
             {
-                if (moving.currentObj != null && moving.currentObj.GetComponent<ObjInfo>().isSpecial)
+                if(moving.currentObj != null && moving.currentObj.GetComponent<ObjInfo>().isMerged){
+                    for(int i = 0; i < moving.currentObj .transform.childCount; i++){
+                        if( moving.currentObj.transform.GetChild(i).GetComponent<Renderer>() != null){
+                            moving.currentObj.transform.GetChild(i).GetComponent<Renderer>().material = red;
+                        }
+                    }
+                }
+                else if (moving.currentObj != null && moving.currentObj.GetComponent<ObjInfo>().isSpecial)
                 {
                     for(int i = 0; i < selectedObj.transform.childCount; i++){
-                            if( selectedObj.transform.GetChild(i).GetComponent<Renderer>() != null){
-                                selectedObj.transform.GetChild(i).GetComponent<Renderer>().material = red;
-                            }
+                        if( selectedObj.transform.GetChild(i).GetComponent<Renderer>() != null){
+                            selectedObj.transform.GetChild(i).GetComponent<Renderer>().material = red;
                         }
+                    }
                 }
                 else 
                 {

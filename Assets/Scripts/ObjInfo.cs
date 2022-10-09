@@ -65,4 +65,16 @@ public class ObjInfo : MonoBehaviour
         
     }
 
+    public void SetColor(){
+        if(transparent){
+                this.gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(col, col, 1);
+                this.gameObject.GetComponent<Renderer>().material.color = new Color(this.gameObject.GetComponent<Renderer>().material.color.r, this.gameObject.GetComponent<Renderer>().material.color.g, 
+                this.gameObject.GetComponent<Renderer>().material.color.b, 0.5f);
+            }else{
+                this.gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(col, col, 1);
+                this.gameObject.GetComponent<Renderer>().material.color = new Color(this.gameObject.GetComponent<Renderer>().material.color.r, this.gameObject.GetComponent<Renderer>().material.color.g, 
+                this.gameObject.GetComponent<Renderer>().material.color.b, 1f);
+            }
+    }
+
 }

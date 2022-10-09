@@ -65,7 +65,7 @@ public class omMerge : MonoBehaviour
             current.AddComponent<FixedJoint>().connectedBody = target.GetComponent<Rigidbody>();
             Destroy(current.GetComponent<GreenOutline>());
 
-
+            current.GetComponent<ObjInfo>().isMerged = true;
             target.transform.SetParent(current.transform);
                 target.tag = "Player";
                 if(target.GetComponent<ObjInfo>().isSpecial){
@@ -91,6 +91,14 @@ public class omMerge : MonoBehaviour
                 }
             }
                 current.GetComponent<ObjInfo>().isMerged = true;
+
+                if(current.GetComponent<ObjInfo>().isSpecial){
+                    current.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
+                    current.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
+                }else{
+                    current.AddComponent<CollisionDetection>();
+                }
+                
         
 
         select.currentObj = current;
