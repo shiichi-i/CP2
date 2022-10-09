@@ -30,7 +30,7 @@ public class VP_manager : MonoBehaviour
         {
             colliding.GetComponent<Image>().enabled = true;
         }
-        if (dragging != null && colliding != null && dropped)
+        if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)
         {
             colliding.GetComponent<Image>().enabled = false;
             dragging.transform.position = colliding.transform.position;

@@ -250,13 +250,15 @@ public class ObjSelection : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 if(hit.collider.gameObject.name == "rod" || hit.collider.gameObject.name == "rotational"){
-                    if(showOnce){
-                        Ghost(hit.collider.transform.parent.GetChild(1).GetChild(0));
-                    }
-                    
-                    if(Input.GetMouseButtonDown(0) && !collision.ghostCol){
-                        findRot.parentMot = hit.collider.transform.parent.gameObject;
-                        findRot.SetTransform();
+                    if(!hit.collider.GetComponent<ObjInfo>().connected){
+                        if(showOnce){
+                            Ghost(hit.collider.transform.parent.GetChild(1).GetChild(0));
+                        }
+                        
+                        if(Input.GetMouseButtonDown(0) && !collision.ghostCol){
+                            findRot.parentMot = hit.collider.transform.parent.gameObject;
+                            findRot.SetTransform();
+                        }
                     }
                 }else{
                     if(w != null){

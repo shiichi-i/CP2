@@ -71,7 +71,7 @@ public class RotScript2 : MonoBehaviour
 
                 if(num_rotations2 == 1101001){
                     rotZ2 = num_speed2 * 200f;
-                    newRot2 = new Vector3(0f, 0f,rotZ);
+                    newRot2 = new Vector3(0f, 0f,rotZ2);
                     if(rod2[0] != null){
                         rod2[0].transform.Rotate(newRot * Time.deltaTime);
                     }
@@ -80,16 +80,16 @@ public class RotScript2 : MonoBehaviour
                     }
                     control.done = false;
                 }else{
-                    if(rod2[0] != null && rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations+1){
+                    if(rod2[0] != null && rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations2+1){
                         rotZ2 = num_speed2 * 200f;
-                        newRot2 = new Vector3(0f, 0f,rotZ);
+                        newRot2 = new Vector3(0f, 0f,rotZ2);
                         if(rod2[0] != null){
                             rod2[0].transform.Rotate(newRot * Time.deltaTime);
                         }
                         if(rod2[1] != null){
                             rod2[1].transform.Rotate(newRot * Time.deltaTime);
                         }
-                    }else if(rod2[0] != null && rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations+1){
+                    }else if(rod2[0] != null && rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations2+1){
                         setB = true;
                     }
                 }
@@ -106,11 +106,14 @@ public class RotScript2 : MonoBehaviour
             }
         }
 
+        if(control.done){
+            Reset();
+        }
+
         if(!control.execute){
             onStart = true;
             setA = false;
             setB = false;
-            Reset();
         }
     }
 

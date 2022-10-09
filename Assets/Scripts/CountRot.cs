@@ -7,7 +7,7 @@ public class CountRot : MonoBehaviour
     public float fNum_rot;
 
     void OnTriggerEnter(Collider other){
-        if(other.name == "CountRot"){
+        if(other.name == "CountRotAngle"){
             fNum_rot++;
         }
     }

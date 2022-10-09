@@ -67,10 +67,12 @@ public class RotScript : MonoBehaviour
                 }
             }
         }
+        if(control.done){
+            Reset();
+        }
 
         if(!control.execute){
             onStart = true;
-            Reset();
         }
     }
 
