@@ -29,7 +29,7 @@ public class RotScript : MonoBehaviour
 
     void Start(){
         control = this.GetComponent<VP_ControlExecute>();
-        letter = this.transform.GetChild(0).GetComponent<Dropdown>();
+        letter = this.transform.GetChild(1).GetComponent<Dropdown>();
         assign = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
         start = GameObject.Find("Start").GetComponent<VP_Start>();
     }
@@ -67,19 +67,25 @@ public class RotScript : MonoBehaviour
                         control.execute = false;
                     }
                 }
-            }else if(!control.execute && rod[0] != null){
-                if(rod[0] != null){
-                    rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
-                }
-                if(rod[1] != null){
-                   rod[1].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
-                }
             }
-                
+        
+        if(control.done){
+            Reset();
+        }
 
         if(!control.execute){
             onStart = true;
         }
+    }
+
+    void Reset(){
+        if(rod[0] != null){
+            rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+        }
+        if(rod[1] != null){
+            rod[1].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+        }
+
     }
 
 

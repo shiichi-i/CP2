@@ -19,6 +19,7 @@ public class VP_Start : MonoBehaviour
     public void CountBlocks(){
         GameObject bock = this.gameObject;
         count = true;
+        index = 0;
         int i = 0; 
         while(count){   
             if(i < bock.transform.childCount && bock.transform.GetChild(i).tag == "Player"){
@@ -34,28 +35,10 @@ public class VP_Start : MonoBehaviour
         }
     }
 
-    /*public void StartProgram(){
-        int i = 0;
-        bool notDone = true; 
-        while(notDone){
-            if(i >= blockSize){
-                notDone = false;
-            }else{
-                if(codes[i].GetComponent<VP_ControlExecute>().execute && codes[i].GetComponent<VP_ControlExecute>().done){
-                    i++;
-                }
-                else if(!codes[i].GetComponent<VP_ControlExecute>().execute && !codes[i].GetComponent<VP_ControlExecute>().done)
-                { 
-                    codes[i].GetComponent<VP_ControlExecute>().execute = true;
-                }
-            }
-        }
-    }*/
-
     public void ChangeColor(){
         for(int i = 0; i < blockSize; i++){
-            codes[i].GetComponent<Image>().color = new Color(codes[i].GetComponent<Image>().color.r, codes[i].GetComponent<Image>().color.g,
-            codes[i].GetComponent<Image>().color.b, 0.5f);
+            codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color.r, codes[i].gameObject.transform.GetChild(0).GetComponent<Image>().color.g,
+            codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color.b, 0.5f);
         }
     }
 
@@ -64,8 +47,8 @@ public class VP_Start : MonoBehaviour
             if(!codes[index].GetComponent<VP_ControlExecute>().execute && !codes[index].GetComponent<VP_ControlExecute>().done)
             { 
                 codes[index].GetComponent<VP_ControlExecute>().execute = true;
-                codes[index].GetComponent<Image>().color = new Color(codes[index].GetComponent<Image>().color.r, codes[index].GetComponent<Image>().color.g,
-                codes[index].GetComponent<Image>().color.b, 1);
+                codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color.r, codes[index].gameObject.transform.GetChild(0).GetComponent<Image>().color.g,
+                codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color.b, 1);
             }
         }
     }
@@ -74,9 +57,10 @@ public class VP_Start : MonoBehaviour
         for(int i = 0; i < blockSize; i++){
             codes[i].GetComponent<VP_ControlExecute>().execute = false;
             codes[i].GetComponent<VP_ControlExecute>().done = false;
-            codes[i].GetComponent<Image>().color = new Color(codes[i].GetComponent<Image>().color.r, codes[i].GetComponent<Image>().color.g,
-            codes[i].GetComponent<Image>().color.b, 1);
+            codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color.r, codes[i].gameObject.transform.GetChild(0).GetComponent<Image>().color.g,
+            codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color.b, 1);
         }
+
         blockSize = 0;
         for(int c =0; c < codes.Length; c++){
             codes[c] = null;

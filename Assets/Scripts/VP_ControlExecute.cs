@@ -27,7 +27,7 @@ public class VP_ControlExecute : MonoBehaviour
     }
 
     void DarkColor(){
-        this.GetComponent<Image>().color = new Color(this.GetComponent<Image>().color.r, 
-        this.GetComponent<Image>().color.g, this.GetComponent<Image>().color.b, 0.5f);
+        this.transform.GetChild(0).GetComponent<Image>().color = new Color(this.transform.GetChild(0).GetComponent<Image>().color.r, 
+        this.transform.GetChild(0).GetComponent<Image>().color.g, this.transform.GetChild(0).GetComponent<Image>().color.b, 0.5f);
     }
 }
