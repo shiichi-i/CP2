@@ -40,13 +40,13 @@ public class ObjSelection : MonoBehaviour
 
     void Update()
     {
-            if(currentObj != null && checkChild && !currentObj.GetComponent<ObjInfo>().connected){
+            if(currentObj != null && checkChild && currentObj.name != "pb_wheel(Clone)"){
                 b_unmerge.SetActive(true);
             }else{
                 b_unmerge.SetActive(false);
             }
 
-            if(currentObj != null && !checkChild && !collision.isColliding){
+            if(currentObj != null && !checkChild && !collision.isColliding && currentObj.name != "pb_wheel(Clone)"){
                 b_merge.SetActive(true);
             }else{
                 b_merge.SetActive(false);

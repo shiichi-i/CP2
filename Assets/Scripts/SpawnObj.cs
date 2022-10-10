@@ -33,7 +33,7 @@ public class SpawnObj : MonoBehaviour
                 outline.tempObj.transform.SetParent(null);
                 Destroy(arrow);
             }
-            if (!spawnManager.willSpawn && spawnManager.ticked)
+            if (!spawnManager.willSpawn && spawnManager.ticked && !outline.checkChild)
             {
                 GameObject a = Instantiate(prefab) as GameObject;
                 a.transform.position = new Vector3(0, -50f, 0);

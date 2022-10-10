@@ -120,7 +120,17 @@ public class FindRotMot : MonoBehaviour
         select.currentObj.transform.position = parentMot.transform.GetChild(1).GetChild(0).position;
         select.currentObj.transform.rotation = parentMot.transform.rotation;  
         
-        select.currentObj.AddComponent<FixedJoint>().connectedBody = parentMot.transform.GetChild(1).GetComponent<Rigidbody>();
+        select.currentObj.AddComponent<ConfigurableJoint>().connectedBody = parentMot.transform.GetChild(1).GetComponent<Rigidbody>();
+        select.currentObj.GetComponent<ConfigurableJoint>().anchor = new Vector3(0,0,0);
+        select.currentObj.GetComponent<ConfigurableJoint>().axis = new Vector3(0,0,0);
+        select.currentObj.GetComponent<ConfigurableJoint>().secondaryAxis = new Vector3(0,0,0);
+        
+        select.currentObj.GetComponent<ConfigurableJoint>().xMotion = ConfigurableJointMotion.Locked;
+        select.currentObj.GetComponent<ConfigurableJoint>().yMotion = ConfigurableJointMotion.Locked;
+        select.currentObj.GetComponent<ConfigurableJoint>().zMotion = ConfigurableJointMotion.Locked;
+        select.currentObj.GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Free;
+        select.currentObj.GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Locked;
+        select.currentObj.GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Locked;
 
         select.currentObj.tag = "Player";
         merge.pChild = select.currentObj;

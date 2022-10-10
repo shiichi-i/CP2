@@ -23,6 +23,7 @@ public class RotScript2 : MonoBehaviour
     VP_ControlExecute control;
     AssignmentControl assign;
     VP_Start start;
+    SimManager sim;
 
     string[] choices_rot = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     
@@ -37,6 +38,8 @@ public class RotScript2 : MonoBehaviour
         letter = this.transform.GetChild(1).GetComponent<Dropdown>();
         assign = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
         start = GameObject.Find("Start").GetComponent<VP_Start>();
+        sim = GameObject.Find("SimBar").GetComponent<SimManager>();
+
     }
 
     void Update()
@@ -55,7 +58,7 @@ public class RotScript2 : MonoBehaviour
                     }
                     control.done = false;
                 }else{
-                    if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations+1){
+                    if(rod[0] != null && rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot < num_rotations+1){
                         rotZ = num_speed * 200f;
                         newRot = new Vector3(0f, 0f,rotZ);
                         if(rod[0] != null){
@@ -64,7 +67,7 @@ public class RotScript2 : MonoBehaviour
                         if(rod[1] != null){
                             rod[1].transform.Rotate(newRot * Time.deltaTime);
                         }
-                    }else if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations+1){
+                    }else if(rod[0] != null && rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot == num_rotations+1){
                         setA = true;
                     }
                 }
@@ -73,23 +76,23 @@ public class RotScript2 : MonoBehaviour
                     rotZ2 = num_speed2 * 200f;
                     newRot2 = new Vector3(0f, 0f,rotZ2);
                     if(rod2[0] != null){
-                        rod2[0].transform.Rotate(newRot * Time.deltaTime);
+                        rod2[0].transform.Rotate(newRot2 * Time.deltaTime);
                     }
                     if(rod2[1] != null){
-                        rod2[1].transform.Rotate(newRot * Time.deltaTime);
+                        rod2[1].transform.Rotate(newRot2 * Time.deltaTime);
                     }
                     control.done = false;
                 }else{
-                    if(rod2[0] != null && rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations2+1){
+                    if(rod2[0] != null && rod2[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot < num_rotations2+1){
                         rotZ2 = num_speed2 * 200f;
                         newRot2 = new Vector3(0f, 0f,rotZ2);
                         if(rod2[0] != null){
-                            rod2[0].transform.Rotate(newRot * Time.deltaTime);
+                            rod2[0].transform.Rotate(newRot2 * Time.deltaTime);
                         }
                         if(rod2[1] != null){
-                            rod2[1].transform.Rotate(newRot * Time.deltaTime);
+                            rod2[1].transform.Rotate(newRot2 * Time.deltaTime);
                         }
-                    }else if(rod2[0] != null && rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations2+1){
+                    }else if(rod2[0] != null && rod2[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot == num_rotations2+1){
                         setB = true;
                     }
                 }
@@ -115,20 +118,24 @@ public class RotScript2 : MonoBehaviour
             setA = false;
             setB = false;
         }
+
+        if(!sim.Playing){
+            Reset();
+        }
     }
 
     void Reset(){
         if(rod[0] != null){
-            rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+            rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
         if(rod[1] != null){
-            rod[1].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+            rod[1].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
         if(rod2[0] != null){
-            rod2[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+            rod2[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
         if(rod2[1] != null){
-            rod2[1].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+            rod2[1].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
 
     }
@@ -149,7 +156,7 @@ public class RotScript2 : MonoBehaviour
         if(temp_spd2 != ""){
             for(int i = 0; i <= choices_spd.Length-1; i++){
                 if(temp_spd2 == choices_spd[i]){
-                    temp_spd2 = nm_spd.text;
+                    temp_spd2 = nm_spd2.text;
                     enter2 = true;
                 }
             }

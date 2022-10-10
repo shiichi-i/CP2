@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6403fbe3c3c69494a93f258a79267e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objType: 
 --- !u!114 &8040318707386445685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +163,8 @@ MonoBehaviour:
   isMotor: 0
   isMerged: 0
   isParent: 0
+  connected: 0
+  connection: {fileID: 0}
   special: {fileID: 0}
   objType: Cube
   col: 0

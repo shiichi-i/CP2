@@ -87,7 +87,9 @@ public class SpawnManager : MonoBehaviour
                         prefab.GetComponent<Renderer>().material = normal;
                     
                     prefab.GetComponent<MeshCollider>().isTrigger = false;
-                    prefab.AddComponent<Rigidbody>();
+                    if(prefab.GetComponent<Rigidbody>() == null){
+                        prefab.AddComponent<Rigidbody>();
+                    }
                 }
 
                 willSpawn = false;

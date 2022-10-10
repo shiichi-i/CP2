@@ -50,7 +50,7 @@ public class RotScript : MonoBehaviour
                     }
                     control.done = false;
                 }else{
-                    if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot < num_rotations+1){
+                    if(rod[0] != null && rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot < num_rotations+1){
                         rotZ = num_speed * 200f;
                         newRot = new Vector3(0f, 0f,rotZ);
                         if(rod[0] != null){
@@ -59,7 +59,7 @@ public class RotScript : MonoBehaviour
                         if(rod[1] != null){
                             rod[1].transform.Rotate(newRot * Time.deltaTime);
                         }
-                    }else if(rod[0] != null && rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot == num_rotations+1){
+                    }else if(rod[0] != null && rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot == num_rotations+1){
                         control.done = true;
                         start.index++;
                         control.execute = false;
@@ -78,10 +78,10 @@ public class RotScript : MonoBehaviour
 
     void Reset(){
         if(rod[0] != null){
-            rod[0].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+            rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
         if(rod[1] != null){
-            rod[1].transform.parent.GetChild(0).GetChild(0).GetComponent<CountRot>().fNum_rot = 0;
+            rod[1].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot = 0;
         }
 
     }
