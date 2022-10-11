@@ -340,7 +340,9 @@ public class ObjSelection : MonoBehaviour
     public void AddCol(){
         if(currentObj.GetComponent<ObjInfo>().isMerged){
             for(int i = 0; i < currentObj.transform.childCount; i++){
-                if(currentObj.transform.GetChild(i).GetComponent<CollisionDetection>() == null){
+                if(currentObj.transform.GetChild(i).GetComponent<CollisionDetection>() == null &&
+                    currentObj.transform.GetChild(i).name != "CountRot" &&
+                    !currentObj.transform.GetComponent<ObjInfo>().isParent){
                      currentObj.transform.GetChild(i).gameObject.AddComponent<CollisionDetection>();
                 }
             }

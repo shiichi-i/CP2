@@ -12,6 +12,8 @@ public class FindRotMot : MonoBehaviour
     public Material greeen;
     omMerge merge;
 
+    public Sprite arrow, eks;
+
     AvoidCollision coll;
 
     SpawnManager normMat;
@@ -29,18 +31,60 @@ public class FindRotMot : MonoBehaviour
     void Update(){
         if(select.currentObj != null){
             if(select.checkChild || select.currentObj.GetComponent<ObjInfo>().isMerged){
-                find.interactable = false;
+                find.transform.GetChild(0).GetComponent<Image>().sprite = eks;
+                find.GetComponent<Image>().color = new Color(0.85f, 0.33f, 0.4f, 1);
             }else{
-                find.interactable = true;
+                find.transform.GetChild(0).GetComponent<Image>().sprite = arrow;
+                find.GetComponent<Image>().color = new Color(0.18f, 0.8f, 0.6f, 1);    
             }
         }
-
-    
     }
 
-    public void OnFindMotor(){
-            if(ticked){
-            select.currentObj.AddComponent<GreenOutline>();
+    public void Determiner(){
+        if(select.currentObj != null){
+            if(select.checkChild || select.currentObj.GetComponent<ObjInfo>().isMerged){
+                OnReleaseMotor();
+            }else{
+                OnFindMotor();
+            }
+        }
+    }
+
+    void OnReleaseMotor(){
+        GameObject wheel, motor;
+        wheel = select.currentObj;
+        motor = wheel.transform.parent.transform.parent.gameObject;
+        
+        wheel.transform.localPosition = new Vector3(wheel.transform.localPosition.x, wheel.transform.localPosition.y, wheel.transform.localPosition.z + 0.03f);
+        wheel.transform.SetParent(null);
+
+        wheel.tag = "Selectable";
+        motor.transform.GetChild(0).tag = motor.tag;
+        motor.transform.GetChild(1).tag = motor.tag;
+
+        wheel.GetComponent<ObjInfo>().connected = false;
+        wheel.GetComponent<ObjInfo>().connection = null;
+        motor.GetComponent<ObjInfo>().connected = false;
+        motor.transform.GetChild(0).GetComponent<ObjInfo>().connected = false;
+        motor.transform.GetChild(1).GetComponent<ObjInfo>().connected = false;
+
+        Destroy(wheel.GetComponent<ConfigurableJoint>());
+
+        select.tempObj = wheel;
+        select.checkChild = false;
+        select.ArrowAdd();
+        select.AddCol();
+    }
+
+    void OnFindMotor(){
+        if(ticked){
+            if(select.currentObj.GetComponent<Outline>() != null){
+                Destroy(select.currentObj.GetComponent<Outline>());
+            }
+            if(select.currentObj.GetComponent<GreenOutline>() == null){
+                select.currentObj.AddComponent<GreenOutline>();
+            }
+            
             
             GameObject arrow = select.currentObj.transform.parent.gameObject;
             select.currentObj.transform.SetParent(null);
@@ -112,7 +156,7 @@ public class FindRotMot : MonoBehaviour
         parentMot.transform.GetChild(0).GetComponent<ObjInfo>().connected = true;
         parentMot.transform.GetChild(1).GetComponent<ObjInfo>().connected = true;
 
-        select.currentObj.tag = "Player";
+    
         select.currentObj.GetComponent<ObjInfo>().connection = parentMot;
         select.currentObj.GetComponent<ObjInfo>().connected = true;
 

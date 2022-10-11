@@ -31,7 +31,7 @@ public class omMerge : MonoBehaviour
     }
 
     public void OnMerge(){
-        if(target != null && target != current){
+        if(target != null && target != current && !collision.isColliding){
             
             if(!target.GetComponent<ObjInfo>().isSpecial){
                 if(target.transform.childCount > 0 && target.transform.GetChild(0).gameObject.tag == "Player"){
@@ -51,10 +51,11 @@ public class omMerge : MonoBehaviour
                     select.tempObj = current;
                     Destroy(target.GetComponent<GreenOutline>());
                 }
-                else if(current.name == "pb_microcontroller" && target.name != "pb_microcontroller"){
+                else if(current.name == "pb_microcontroller"){
                     Destroy(target.GetComponent<GreenOutline>());
                 }
-                else if(target.transform.childCount > 2 && target.transform.GetChild(2).gameObject.tag == "Player"){
+                else if(target.transform.childCount > 2 && target.transform.GetChild(2).gameObject.GetComponent<ObjInfo>() != null &&
+                 target.transform.GetChild(2).gameObject.GetComponent<ObjInfo>().isPart){
                     GameObject temp = target;
                     target = current;
                     current = temp;
@@ -83,21 +84,33 @@ public class omMerge : MonoBehaviour
                 target.GetComponent<ObjInfo>().isMerged = false;
                 int startCount;
 
-                if(current.GetComponent<ObjInfo>().isSpecial){
-                    startCount = 2;
+                if(target.name == "pb_rotational(Clone)"){
+                    startCount = 3;
                 }else{
                     startCount = 0;
                 }
 
                 for(int i = startCount; i < target.transform.childCount; i++){
-                    target.transform.GetChild(i).transform.SetParent(current.transform);
+                    if(target.transform.GetChild(i).GetComponent<ObjInfo>() != null){
+                        if(target.transform.GetChild(i).GetComponent<ObjInfo>().isPart ||
+                        target.transform.GetChild(i).GetComponent<ObjInfo>().isParent){
+
+                            target.transform.GetChild(i).transform.SetParent(current.transform);
+                            
+                        }
+                    }
+                    
+                    
                 }
             }
                 current.GetComponent<ObjInfo>().isMerged = true;
 
                 if(current.GetComponent<ObjInfo>().isSpecial){
                     current.transform.GetChild(0).gameObject.AddComponent<CollisionDetection>();
-                    current.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
+                    if(current.transform.GetChild(1).gameObject.name != "rod"){
+                        current.transform.GetChild(1).gameObject.AddComponent<CollisionDetection>();
+                    }
+                    
                 }else{
                     current.AddComponent<CollisionDetection>();
                 }

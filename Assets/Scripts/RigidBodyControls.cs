@@ -24,7 +24,7 @@ public class RigidBodyControls : MonoBehaviour
                 {
                     for(int i = 0; i < 2; i++){
                             if( this.transform.GetChild(i).GetComponent<Rigidbody>() != null){
-                                if(this.transform.GetChild(1).name != "rod"){
+                                if(this.transform.GetChild(i).GetComponent<MeshCollider>() != null){
                                     this.transform.GetChild(i).GetComponent<MeshCollider>().isTrigger = true;
                                 }
                                 this.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = true;
@@ -52,7 +52,7 @@ public class RigidBodyControls : MonoBehaviour
                     for(int i = 0; i < 2; i++){
                             if( this.transform.GetChild(i).GetComponent<Rigidbody>() != null){
                                 this.transform.GetChild(i).GetComponent<Rigidbody>().isKinematic = false;
-                                if(this.transform.GetChild(1).name != "rod"){
+                                if(this.transform.GetChild(i).GetComponent<MeshCollider>() != null){
                                     this.transform.GetChild(i).GetComponent<MeshCollider>().isTrigger = false;
                                 }
                             }

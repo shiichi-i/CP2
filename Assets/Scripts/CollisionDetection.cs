@@ -14,12 +14,15 @@ public class CollisionDetection : MonoBehaviour
     void Start()
     {
         avoidCollision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
-        
-        if(this.GetComponent<ObjInfo>().isSpecial && transform.parent.tag != "CodeArea"){
-            selectedObj = this.transform.parent.gameObject;
+
+        if(this.GetComponent<ObjInfo>().isSpecial && this.transform.parent.tag != "CodeArea"){      
+            if(!this.GetComponent<ObjInfo>().isParent){          
+                selectedObj = this.transform.parent.gameObject;
+            }
         }else{
             selectedObj = this.gameObject;
         }
+
         avoidCollision.selectedObj = selectedObj;
         mat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         outline = GameObject.Find("SimBar").GetComponent<ObjSelection>();
@@ -37,7 +40,7 @@ public class CollisionDetection : MonoBehaviour
         if(other.tag != "CodeArea" && other.tag != "Untagged")
         {
             if(this.GetComponent<ObjInfo>().isSpecial){
-                if(other.transform.parent != this.transform.parent && !other.GetComponent<ObjInfo>().connected){
+                if(other.transform.parent != null && other.transform.parent != this.transform.parent && !other.GetComponent<ObjInfo>().connected){
                     avoidCollision.isColliding = true;
                 }
             }else{
@@ -75,7 +78,7 @@ public class CollisionDetection : MonoBehaviour
             }
             else if (this.gameObject.GetComponent<ObjInfo>().isSpecial)
             {
-                for(int i = 0; i < 2; i++){
+                for(int i = 0; i < selectedObj.transform.childCount; i++){
                     if(selectedObj.transform.GetChild(i).GetComponent<Renderer>() != null){
                         selectedObj.transform.GetChild(i).GetComponent<Renderer>().material = mat.normal;
                     }
