@@ -1563,7 +1563,12 @@ MonoBehaviour:
   taken: 0
   inSide: 0
   occupied: {fileID: 0}
-  parent: {fileID: 0}
+  parent: {fileID: 547799389729106456}
+  loopParent: {fileID: 0}
+  onEnter: 0
+  onExit: 0
+  onCallEnter: 0
+  onCallExit: 0
 --- !u!50 &8381253749742251369
 Rigidbody2D:
   serializedVersion: 4

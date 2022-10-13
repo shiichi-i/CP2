@@ -24,12 +24,13 @@ public class VP_loopSize : MonoBehaviour
         total = thisWidth;
             if(inside){
                 startC.GetComponentInChildren<VP_shadow>().inSide = true;
+                startC.GetComponentInChildren<VP_shadow>().loopParent = transform.parent.gameObject;
             }else{
                 startC.GetComponentInChildren<VP_shadow>().inSide = false;
+                startC.GetComponentInChildren<VP_shadow>().loopParent = null;
             }
             
             total += startC.GetComponent<RectTransform>().sizeDelta.x - 80f;
-            startC.GetComponentInChildren<VP_shadow>().loopParent = transform.parent.gameObject;
             children++;
 
             bool count = true;

@@ -93,7 +93,6 @@ public class VP_shadow : MonoBehaviour
                     if(manager.dragging.GetComponentInChildren<VP_shadow>().inSide){
                         manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                         manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
-                        
                     }else{
                         if(this.name == "shad_Loop_in" && occupied == null){
                             GetComponent<VP_loopSize>().counted =false;
@@ -128,7 +127,7 @@ public class VP_shadow : MonoBehaviour
                 if (this.name == "shad_Loop_in" && occupied == null){
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
-                }else if(loopParent !=null && occupied == null){
+                }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected){
                     loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     loopParent.GetComponentInChildren<VP_loopSize>().shrink();
                 }

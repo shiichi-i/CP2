@@ -39,7 +39,6 @@ public class VP_manager : MonoBehaviour
         else
         {
             onShadow = false;
-            onSize = true;
         }
 
         if (colliding != null && onShadow)
@@ -83,11 +82,10 @@ public class VP_manager : MonoBehaviour
         
         if(dragging != null && colliding == null)
         {
-
             if(dragging.transform.Find("shad_Loop_in") != null){
                 dragging.GetComponentInChildren<VP_shadow>().inSide = true;
                 dragging.GetComponentInChildren<VP_shadow>().onCallExit = true;
-            }else if(dragging.GetComponentInChildren<VP_shadow>().loopParent != null){
+            }else if(dragging.GetComponentInChildren<VP_shadow>() != null && dragging.GetComponentInChildren<VP_shadow>().loopParent != null){
                 dragging.GetComponentInChildren<VP_shadow>().onCallExit = true;
             }
             
