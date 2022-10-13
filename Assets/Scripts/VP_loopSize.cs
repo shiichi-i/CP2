@@ -22,13 +22,14 @@ public class VP_loopSize : MonoBehaviour
         GameObject startC = manager.dragging;
         children = 0;
         total = thisWidth;
-            if(inside && manager.dropped){
+            if(inside){
                 startC.GetComponentInChildren<VP_shadow>().inSide = true;
-            }else if(!inside && manager.dropped){
+            }else{
                 startC.GetComponentInChildren<VP_shadow>().inSide = false;
             }
             
-            total += startC.GetComponent<RectTransform>().sizeDelta.x - 50f;
+            total += startC.GetComponent<RectTransform>().sizeDelta.x - 80f;
+            startC.GetComponentInChildren<VP_shadow>().loopParent = transform.parent.gameObject;
             children++;
 
             bool count = true;
@@ -37,10 +38,12 @@ public class VP_loopSize : MonoBehaviour
                 if(i < startC.transform.childCount && startC.transform.GetChild(i).tag == "Player"){
                     if(inside){
                         startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = true;
+                        startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().loopParent = transform.parent.gameObject;
                     }else{
                         startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = false;
+                        startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().loopParent = null;
                     }
-                    total += startC.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x - 15f;
+                    total += startC.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x - 30f;
                     startC = startC.transform.GetChild(i).gameObject; 
                     i = 0;
                     children++;
@@ -69,12 +72,11 @@ public class VP_loopSize : MonoBehaviour
             loopm.GetComponent<RectTransform>().sizeDelta = new Vector2(totWidth, 
             loopm.GetComponent<RectTransform>().sizeDelta.y);
             counted = true;
-            Debug.Log("taken: "+children+ ",,//,,Total: "+totchildren);
         }
     }
 
     public void shrink(){
-        if(manager.dragging != null && !counted && children > 0){
+        if(manager.dragging != null && !counted && totchildren > 0){
             counter(false);
             totWidth -= total;
             totchildren -= children;

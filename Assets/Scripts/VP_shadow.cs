@@ -10,6 +10,7 @@ public class VP_shadow : MonoBehaviour
     public bool taken, inSide;
     public GameObject occupied, parent;
     float childC;
+    public GameObject loopParent;
 
     public bool onEnter, onExit, onCallEnter, onCallExit;
 
@@ -47,18 +48,20 @@ public class VP_shadow : MonoBehaviour
         }
     }
 
-    public GameObject findLoopP(){
+    /*public GameObject findLoopP(){
         bool foundLoop = false;
         Transform loop = this.transform;        
             while(!foundLoop){
-                if(loop.GetComponent<VP_loopSize>() != null){
+                if(loop.GetComponentInChildren<VP_loopSize>() != null){
                      foundLoop = true;
                 }else{
                    loop = loop.transform.parent;
                 }
             }
         return loop.gameObject;
-    }
+    }*/
+
+    
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -87,12 +90,15 @@ public class VP_shadow : MonoBehaviour
                 manager.colliding = this.gameObject;
 
                 if(inSide && onEnter){
-                    findLoopP().GetComponent<VP_loopSize>().counted = false;
                     if(manager.dragging.GetComponentInChildren<VP_shadow>().inSide){
-                        findLoopP().GetComponent<VP_loopSize>().shrink();
+                        manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                        manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
+                        
                     }else{
                         if(this.name == "shad_Loop_in" && occupied == null){
+                            GetComponent<VP_loopSize>().counted =false;
                             GetComponent<VP_loopSize>().extend();
+                            
                         }
                     }
                     onEnter = false;
@@ -118,9 +124,11 @@ public class VP_shadow : MonoBehaviour
             taken = false;
             if(inSide && onExit){
                 if (this.name == "shad_Loop_in" && occupied == null){
-                    findLoopP().GetComponent<VP_loopSize>().counted = false;
-                    findLoopP().GetComponent<VP_loopSize>().shrink();
+                    GetComponent<VP_loopSize>().counted = false;
+                    GetComponent<VP_loopSize>().shrink();
                 }
+                    //other.GetComponentInChildren<VP_shadow>().loopParent.GetComponent<VP_loopSize>().shrink();
+
                 onExit = false;
             }
 
