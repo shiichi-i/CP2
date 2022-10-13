@@ -9,6 +9,7 @@ public class VP_shadow : MonoBehaviour
     public VP_manager manager;
     public bool taken, inSide;
     public GameObject occupied, parent;
+    float childC;
 
     public bool onEnter, onExit, onCallEnter, onCallExit;
 
@@ -16,6 +17,7 @@ public class VP_shadow : MonoBehaviour
 
     void Start()
     {
+        childC = transform.parent.childCount;
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
         parent = this.gameObject.transform.parent.gameObject;
         if(this.name == "shad_Loop"){
@@ -35,15 +37,19 @@ public class VP_shadow : MonoBehaviour
         {
             this.gameObject.GetComponent<Image>().enabled = false;
         }
-        if(manager.dropped && occupied !=null && !taken)
-        {
+
+        if(this.GetComponent<VP_loopSize>() != null){
+            if(transform.childCount == 0){
+                occupied = null;
+            }
+        }else if(transform.parent.childCount == childC){
             occupied = null;
         }
     }
 
     public GameObject findLoopP(){
         bool foundLoop = false;
-        Transform loop = this.transform;            
+        Transform loop = this.transform;        
             while(!foundLoop){
                 if(loop.GetComponent<VP_loopSize>() != null){
                      foundLoop = true;
@@ -56,17 +62,23 @@ public class VP_shadow : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
+        
         if(onCallEnter && other.gameObject == manager.dragging){
             onEnter = true;
             onExit = false;
             onCallExit = true;
             onCallEnter = false;
 
-            if(inSide)
-                findLoopP().GetComponent<VP_loopSize>().counted = false;
-            }
-        if (other.tag != "Selectable" && other.gameObject == manager.dragging && !drag.selected && manager.onShadow && 
-        other.GetComponent<VP_drag>()!= null && other.GetComponent<VP_drag>().selected)
+            //if(inSide && occupied == null)
+                //findLoopP().GetComponent<VP_loopSize>().counted = false;
+        }
+
+        
+        if(other.GetComponentInChildren<VP_loopSize>() != null){
+            taken = true;
+        }
+        if (other.tag != "Selectable" && other.gameObject == manager.dragging && !drag.selected && manager.onShadow)
+        //&& other.GetComponent<VP_drag>()!= null && other.GetComponent<VP_drag>().selected)
         {
             taken = true;
             if (occupied == null)
@@ -76,17 +88,17 @@ public class VP_shadow : MonoBehaviour
 
                 if(inSide && onEnter){
                     findLoopP().GetComponent<VP_loopSize>().counted = false;
-                    if(other.GetComponentInChildren<VP_shadow>().inSide){
+                    if(manager.dragging.GetComponentInChildren<VP_shadow>().inSide){
                         findLoopP().GetComponent<VP_loopSize>().shrink();
                     }else{
-                       findLoopP(). GetComponent<VP_loopSize>().extend();
+                        if(this.name == "shad_Loop_in" && occupied == null){
+                            GetComponent<VP_loopSize>().extend();
+                        }
                     }
                     onEnter = false;
                 }
             }
-            else if(occupied != null && occupied == manager.dragging){
-                occupied = null;
-            }else{
+            else{
                 manager.colliding = null;
             }
         }
@@ -94,9 +106,6 @@ public class VP_shadow : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if(occupied == null){
-            taken = false;
-        }
         if(onCallExit && other.gameObject == manager.dragging){
             onEnter = false;
             onExit = true;
@@ -106,10 +115,12 @@ public class VP_shadow : MonoBehaviour
 
         if (other.tag != "Selectable" || other.gameObject.name != parent.name)
         {
-
+            taken = false;
             if(inSide && onExit){
-                findLoopP().GetComponent<VP_loopSize>().counted = false;
-                findLoopP().GetComponent<VP_loopSize>().shrink();
+                if (this.name == "shad_Loop_in" && occupied == null){
+                    findLoopP().GetComponent<VP_loopSize>().counted = false;
+                    findLoopP().GetComponent<VP_loopSize>().shrink();
+                }
                 onExit = false;
             }
 

@@ -17,7 +17,6 @@ public class VP_manager : MonoBehaviour
 
     void Update()
     {
-
         if (isSelect && Input.GetMouseButton(0))
         {
             onShadow = true;
@@ -30,21 +29,31 @@ public class VP_manager : MonoBehaviour
         if (colliding != null && onShadow)
         {
             colliding.GetComponent<Image>().enabled = true;
+
         }
             
         if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)
         {  
+            
+            colliding.GetComponent<VP_shadow>().occupied = dragging;
+            dragging.GetComponent<VP_drag>().selected = false;
+
             colliding.GetComponent<Image>().enabled = false;
             dragging.transform.position = colliding.transform.position;
-            colliding.GetComponent<VP_shadow>().occupied = dragging;
+
+            if(colliding.GetComponent<VP_shadow>().inSide){
+                colliding.GetComponent<VP_shadow>().findLoopP().GetComponent<VP_loopSize>().counter(true);
+            }
+            
+            
 
             if(colliding.name == "shad_Loop_in"){
                 dragging.transform.SetParent(colliding.transform);
-                colliding.GetComponent<VP_loopSize>().counted = false;
             }else{
                 dragging.transform.SetParent(colliding.transform.parent);
-
             }
+
+            
 
 
             dragging = null;
@@ -53,12 +62,15 @@ public class VP_manager : MonoBehaviour
         }
         else if (dragging != null && colliding == null)
         {
+
             if(dragging.transform.Find("shad_Loop_in") != null){
                 dragging.GetComponentInChildren<VP_shadow>().inSide = true;
-            }else if(dragging.GetComponentInChildren<VP_shadow>() != null){
+                dragging.GetComponentInChildren<VP_shadow>().onCallEnter = true;
+            }else if(dragging.GetComponentInChildren<VP_shadow>().inSide){
                 dragging.GetComponentInChildren<VP_shadow>().inSide = false;
+                dragging.GetComponentInChildren<VP_shadow>().onCallEnter = true;
             }
-            dragging.GetComponentInChildren<VP_shadow>().onCallEnter = true;
+            
             dragging.transform.SetParent(start.transform.parent);
             
         }

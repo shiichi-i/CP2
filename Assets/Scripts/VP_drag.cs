@@ -19,15 +19,16 @@ public class VP_drag : MonoBehaviour
     {
         if (!isStart)
         {
-            manager.dropped = false;
-            manager.isSelect = true;
-            manager.dragging = this.gameObject;
-            selected = true;
-            newPos.x = Input.mousePosition.x;
-            newPos.y = Input.mousePosition.y;
-            newPos.z = 0;
-
-            transform.position = newPos;
+            if(Input.GetMouseButton(0)){
+                manager.dropped = false;
+                manager.isSelect = true;
+                manager.dragging = this.gameObject;
+                selected = true;
+                newPos.x = Input.mousePosition.x;
+                newPos.y = Input.mousePosition.y;
+                newPos.z = 0;
+                transform.position = newPos;
+            }
         }
         
     }

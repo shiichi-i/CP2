@@ -8,36 +8,40 @@ public class VP_loopSize : MonoBehaviour
     float thisWidth;
     public bool counted;
     public GameObject loopm, loope;
-    public float totWidth, total;
+    public float totWidth, total, children, totchildren;
 
     void Start(){
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
         thisWidth = this.GetComponent<RectTransform>().sizeDelta.x;
         total = 0;
         totWidth = thisWidth;
+        totchildren = 0;
     }
-    void counter(bool inside){
+
+    public void counter(bool inside){
         GameObject startC = manager.dragging;
-        float children = 0;
+        children = 0;
         total = thisWidth;
-            if(inside){
-                manager.dragging.GetComponentInChildren<VP_shadow>().inSide = true;
-            }else{
-                manager.dragging.GetComponentInChildren<VP_shadow>().inSide = false;
+            if(inside && manager.dropped){
+                startC.GetComponentInChildren<VP_shadow>().inSide = true;
+            }else if(!inside && manager.dropped){
+                startC.GetComponentInChildren<VP_shadow>().inSide = false;
             }
-            total += manager.dragging.GetComponent<RectTransform>().sizeDelta.x - 50f;
+            
+            total += startC.GetComponent<RectTransform>().sizeDelta.x - 50f;
+            children++;
 
             bool count = true;
             int i = 0; 
             while(count){
                 if(i < startC.transform.childCount && startC.transform.GetChild(i).tag == "Player"){
-                    total += startC.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x - 15f;
-                    startC = startC.transform.GetChild(i).gameObject;
                     if(inside){
-                        manager.dragging.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = true;
+                        startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = true;
                     }else{
-                        manager.dragging.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = false;
+                        startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = false;
                     }
+                    total += startC.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x - 15f;
+                    startC = startC.transform.GetChild(i).gameObject; 
                     i = 0;
                     children++;
                 }else if(i == startC.transform.childCount-1){
@@ -53,6 +57,7 @@ public class VP_loopSize : MonoBehaviour
         if(manager.dragging != null && !counted){
             counter(true);
             totWidth += total; 
+            totchildren += children;
             grow();
         }
     }
@@ -64,13 +69,15 @@ public class VP_loopSize : MonoBehaviour
             loopm.GetComponent<RectTransform>().sizeDelta = new Vector2(totWidth, 
             loopm.GetComponent<RectTransform>().sizeDelta.y);
             counted = true;
+            Debug.Log("taken: "+children+ ",,//,,Total: "+totchildren);
         }
     }
 
     public void shrink(){
-        if(manager.dragging != null && !counted){
+        if(manager.dragging != null && !counted && children > 0){
             counter(false);
             totWidth -= total;
+            totchildren -= children;
             grow();
         }
     }

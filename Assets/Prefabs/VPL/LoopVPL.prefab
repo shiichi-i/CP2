@@ -298,7 +298,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -23.163649, y: 1.3271179}
+  m_Offset: {x: -47.982307, y: 22.657265}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -309,7 +309,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 30.273357, y: 98.91066}
+  m_Size: {x: 13.508179, y: 125.31839}
   m_EdgeRadius: 0
 --- !u!114 &720032411333836771
 MonoBehaviour:
@@ -480,6 +480,10 @@ MonoBehaviour:
   inSide: 0
   occupied: {fileID: 0}
   parent: {fileID: 0}
+  onEnter: 0
+  onExit: 0
+  onCallEnter: 0
+  onCallExit: 0
 --- !u!50 &8319393513465344737
 Rigidbody2D:
   serializedVersion: 4
@@ -688,10 +692,10 @@ GameObject:
   - component: {fileID: 8532524488849894795}
   - component: {fileID: 8532524488849894800}
   - component: {fileID: 8532524488849894799}
-  - component: {fileID: 8532524488849894798}
   - component: {fileID: 8532524488849894797}
   - component: {fileID: 8532524488849894796}
   - component: {fileID: 1374931441}
+  - component: {fileID: 2087805836}
   m_Layer: 5
   m_Name: shad_Loop_in
   m_TagString: Selectable
@@ -756,24 +760,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8532524488849894798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8532524488849894794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13968cff3cea27b4b88a9bed7d830155, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drag: {fileID: 0}
-  manager: {fileID: 0}
-  taken: 0
-  inSide: 0
-  occupied: {fileID: 0}
-  parent: {fileID: 0}
 --- !u!50 &8532524488849894797
 Rigidbody2D:
   serializedVersion: 4
@@ -833,13 +819,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a551085d3ba4c14bbb2a3a81aeb7997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeSize: 0
-  reset: 0
   counted: 0
   loopm: {fileID: 8532524488552368172}
   loope: {fileID: 8532524489945284360}
   totWidth: 0
   total: 0
+  children: 0
+  totchildren: 0
+--- !u!114 &2087805836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532524488849894794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13968cff3cea27b4b88a9bed7d830155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drag: {fileID: 0}
+  manager: {fileID: 0}
+  taken: 0
+  inSide: 0
+  occupied: {fileID: 0}
+  parent: {fileID: 0}
+  onEnter: 0
+  onExit: 0
+  onCallEnter: 0
+  onCallExit: 0
 --- !u!1 &8532524489945284360
 GameObject:
   m_ObjectHideFlags: 0
