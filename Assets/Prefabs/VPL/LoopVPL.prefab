@@ -845,7 +845,7 @@ MonoBehaviour:
   inSide: 1
   occupied: {fileID: 0}
   parent: {fileID: 53604589743437200}
-  loopParent: {fileID: 0}
+  loopParent: {fileID: 53604589743437200}
   onEnter: 1
   onExit: 0
   onCallEnter: 0

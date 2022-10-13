@@ -98,7 +98,9 @@ public class VP_shadow : MonoBehaviour
                         if(this.name == "shad_Loop_in" && occupied == null){
                             GetComponent<VP_loopSize>().counted =false;
                             GetComponent<VP_loopSize>().extend();
-                            
+                        }else if(loopParent !=null && occupied == null){
+                            loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                            loopParent.GetComponentInChildren<VP_loopSize>().extend();
                         }
                     }
                     onEnter = false;
@@ -126,8 +128,10 @@ public class VP_shadow : MonoBehaviour
                 if (this.name == "shad_Loop_in" && occupied == null){
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
+                }else if(loopParent !=null && occupied == null){
+                    loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                    loopParent.GetComponentInChildren<VP_loopSize>().shrink();
                 }
-                    //other.GetComponentInChildren<VP_shadow>().loopParent.GetComponent<VP_loopSize>().shrink();
 
                 onExit = false;
             }

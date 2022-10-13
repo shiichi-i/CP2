@@ -20,10 +20,10 @@ public class VP_manager : MonoBehaviour
 
     void resize(GameObject looop, bool action, bool start){
          if(onSize && start){
-            Debug.Log("execute");
             if(action){
                 looop.GetComponentInChildren<VP_loopSize>().extend();
             }else{
+                Debug.Log("execute shrink");
                 looop.GetComponentInChildren<VP_loopSize>().shrink();
             }
             onSize = false;
@@ -39,6 +39,7 @@ public class VP_manager : MonoBehaviour
         else
         {
             onShadow = false;
+            onSize = true;
         }
 
         if (colliding != null && onShadow)
@@ -46,18 +47,19 @@ public class VP_manager : MonoBehaviour
             colliding.GetComponent<Image>().enabled = true;
         }
         
-        if(dragging != null && colliding != null && colliding.GetComponentInChildren<VP_shadow>().loopParent != null && 
+        /*if(dragging != null && colliding != null && colliding.GetComponentInChildren<VP_shadow>().loopParent != null && 
         dragging.GetComponentInChildren<VP_shadow>().loopParent == null && colliding.GetComponentInChildren<VP_loopSize>() == null){
             colliding.GetComponent<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
             resize(colliding.GetComponent<VP_shadow>().loopParent,true, true);
         }
 
-        if(dragging != null && dragging.GetComponentInChildren<VP_loopSize>() == null && dragging.GetComponentInChildren<VP_shadow>().loopParent != null){
+        if(!onShadow && dragging != null && dragging.GetComponentInChildren<VP_loopSize>() == null && dragging.GetComponentInChildren<VP_shadow>().loopParent != null){
             if(colliding == null || !colliding.GetComponent<VP_shadow>().inSide){
                 dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                 resize(dragging.GetComponentInChildren<VP_shadow>().loopParent,false, true); 
             }
         }
+        */
             
         if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)
         {  
@@ -84,14 +86,9 @@ public class VP_manager : MonoBehaviour
 
             if(dragging.transform.Find("shad_Loop_in") != null){
                 dragging.GetComponentInChildren<VP_shadow>().inSide = true;
-                dragging.GetComponentInChildren<VP_shadow>().onCallEnter = true;
+                dragging.GetComponentInChildren<VP_shadow>().onCallExit = true;
             }else if(dragging.GetComponentInChildren<VP_shadow>().loopParent != null){
-                dragging.GetComponentInChildren<VP_shadow>().onCallEnter = true;
-                dragging.GetComponentInChildren<VP_shadow>().loopParent = null;
-                dragging.GetComponentInChildren<VP_shadow>().inSide = false;
-            }
-            if(dropped){
-                onSize = true;
+                dragging.GetComponentInChildren<VP_shadow>().onCallExit = true;
             }
             
             dragging.transform.SetParent(start.transform.parent);
