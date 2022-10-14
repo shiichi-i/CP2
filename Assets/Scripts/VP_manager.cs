@@ -44,7 +44,11 @@ public class VP_manager : MonoBehaviour
 
         if (colliding != null && onShadow)
         {
-            colliding.GetComponent<Image>().enabled = true;
+            if(dragging.GetComponentInChildren<VP_loopSize>() == null && 
+            colliding.GetComponent<VP_loopSize>() == null){
+                colliding.GetComponent<Image>().enabled = true;
+            }
+            
             tempColliding = colliding;
         }
         
@@ -64,7 +68,7 @@ public class VP_manager : MonoBehaviour
         }*/
         
             
-        if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)
+        if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)    
         {  
             colliding.GetComponent<VP_shadow>().occupied = dragging;
             onSize = true;
