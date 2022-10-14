@@ -30,7 +30,7 @@ public class VP_loopSize : MonoBehaviour
                 startC.GetComponentInChildren<VP_shadow>().loopParent = null;
             }
             
-            total += startC.GetComponent<RectTransform>().sizeDelta.x - 80f;
+            total += startC.GetComponent<RectTransform>().sizeDelta.x - thisWidth;
             children++;
 
             bool count = true;
@@ -44,7 +44,7 @@ public class VP_loopSize : MonoBehaviour
                         startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().inSide = false;
                         startC.transform.GetChild(i).GetComponentInChildren<VP_shadow>().loopParent = null;
                     }
-                    total += startC.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x - 30f;
+                    total += startC.transform.GetChild(i).GetComponent<RectTransform>().sizeDelta.x - 15f;
                     startC = startC.transform.GetChild(i).gameObject; 
                     i = 0;
                     children++;

@@ -70,7 +70,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -5.9855156, y: 0.35931396}
+  m_Offset: {x: -19.815128, y: 0.35931396}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -81,7 +81,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 81.04661, y: 102.08191}
+  m_Size: {x: 108.70583, y: 102.08191}
   m_EdgeRadius: 0
 --- !u!114 &1070251537773912171
 MonoBehaviour:
@@ -2775,7 +2775,7 @@ GameObject:
   - component: {fileID: 8381253749742251369}
   - component: {fileID: 7329069682755322144}
   m_Layer: 5
-  m_Name: shad_Rotational
+  m_Name: shad_Rotational2
   m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -32,19 +32,27 @@ public class VP_shadow : MonoBehaviour
         onCallEnter = true;
     }
 
-    void LateUpdate()
+    void Update()
     {
         if (manager.colliding !=null && manager.colliding != this.gameObject)
         {
             this.gameObject.GetComponent<Image>().enabled = false;
         }
 
-        if(this.GetComponent<VP_loopSize>() != null){
+        if(manager.dropped && this.GetComponent<VP_loopSize>() != null){
             if(transform.childCount == 0){
                 occupied = null;
             }
-        }else if(transform.parent.childCount == childC){
+        }else if(manager.dropped && transform.parent.childCount == childC){
             occupied = null;
+        }else if(manager.dropped && this.name == "shad_Loop_in" && transform.childCount == 0){
+            occupied = null;
+        }
+
+        if(occupied != null || manager.dragging == this.parent){
+            GetComponent<BoxCollider2D>().isTrigger = false;
+        }else{
+            GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
 
@@ -61,11 +69,10 @@ public class VP_shadow : MonoBehaviour
         return loop.gameObject;
     }*/
 
-    
-
     void OnTriggerStay2D(Collider2D other)
     {
-        
+        taken = true;
+
         if(onCallEnter && other.gameObject == manager.dragging){
             onEnter = true;
             onExit = false;
@@ -75,33 +82,25 @@ public class VP_shadow : MonoBehaviour
             //if(inSide && occupied == null)
                 //findLoopP().GetComponent<VP_loopSize>().counted = false;
         }
-
-        
-        if(other.GetComponentInChildren<VP_loopSize>() != null){
-            taken = true;
-        }
-        if (other.tag != "Selectable" && other.gameObject == manager.dragging && !drag.selected && manager.onShadow)
-        //&& other.GetComponent<VP_drag>()!= null && other.GetComponent<VP_drag>().selected)
+        if (other.tag != "Selectable" && other.gameObject == manager.dragging && !drag.selected && manager.onShadow
+        && other.GetComponent<VP_drag>()!= null && other.GetComponent<VP_drag>().selected)
         {
-            taken = true;
+            
             if (occupied == null)
             {
                 this.gameObject.GetComponent<Image>().enabled = true;
                 manager.colliding = this.gameObject;
 
                 if(inSide && onEnter){
-                    if(manager.dragging.GetComponentInChildren<VP_shadow>().inSide){
-                        manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
-                        manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
-                    }else{
-                        if(this.name == "shad_Loop_in" && occupied == null){
-                            GetComponent<VP_loopSize>().counted =false;
-                            GetComponent<VP_loopSize>().extend();
-                        }else if(loopParent !=null && occupied == null){
-                            loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
-                            loopParent.GetComponentInChildren<VP_loopSize>().extend();
-                        }
+                    if(this.name == "shad_Loop_in" && occupied == null){
+                        GetComponent<VP_loopSize>().counted =false;
+                        GetComponent<VP_loopSize>().extend();
+                    }else if(loopParent !=null && occupied == null){
+                        loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                        loopParent.GetComponentInChildren<VP_loopSize>().extend();
+                        Debug.Log(this.name+" parentnull extend");
                     }
+
                     onEnter = false;
                 }
             }
@@ -113,6 +112,8 @@ public class VP_shadow : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
+        taken = false;
+        
         if(onCallExit && other.gameObject == manager.dragging){
             onEnter = false;
             onExit = true;
@@ -122,14 +123,25 @@ public class VP_shadow : MonoBehaviour
 
         if (other.tag != "Selectable" || other.gameObject.name != parent.name)
         {
-            taken = false;
+            
             if(inSide && onExit){
-                if (this.name == "shad_Loop_in" && occupied == null){
+                if (this.name == "shad_Loop_in" && this.occupied == null){
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
-                }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected){
+                }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected &&
+                other.GetComponentInChildren<VP_shadow>().loopParent == null && manager.dropped){
                     loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     loopParent.GetComponentInChildren<VP_loopSize>().shrink();
+                    Debug.Log(this.name+" shadow shrink");
+                }
+
+                if(manager.dragging.GetComponentInChildren<VP_shadow>()!= null &&  
+                manager.dragging.GetComponentInChildren<VP_shadow>().loopParent == loopParent
+                ){
+                    manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                    manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
+                    Debug.Log(this.name+" shadloopin"+ " dragging: "+manager.dragging.name);
+                     
                 }
 
                 onExit = false;
