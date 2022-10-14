@@ -39,13 +39,13 @@ public class VP_shadow : MonoBehaviour
             this.gameObject.GetComponent<Image>().enabled = false;
         }
 
-        if(manager.dropped && this.GetComponent<VP_loopSize>() != null){
+        if(this.GetComponent<VP_loopSize>() != null){
             if(transform.childCount == 0){
                 occupied = null;
             }
-        }else if(manager.dropped && transform.parent.childCount == childC){
+        }else if(transform.parent.childCount == childC){
             occupied = null;
-        }else if(manager.dropped && this.name == "shad_Loop_in" && transform.childCount == 0){
+        }else if(this.name == "shad_Loop_in" && transform.childCount == 0){
             occupied = null;
         }
 
@@ -95,7 +95,8 @@ public class VP_shadow : MonoBehaviour
                     if(this.name == "shad_Loop_in" && occupied == null){
                         GetComponent<VP_loopSize>().counted =false;
                         GetComponent<VP_loopSize>().extend();
-                    }else if(loopParent !=null && occupied == null){
+                        Debug.Log(this.name + " extend inside loop");
+                    }else if(loopParent !=null){
                         loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                         loopParent.GetComponentInChildren<VP_loopSize>().extend();
                         Debug.Log(this.name+" parentnull extend");
@@ -137,7 +138,7 @@ public class VP_shadow : MonoBehaviour
 
                 if(manager.dragging.GetComponentInChildren<VP_shadow>()!= null &&  
                 manager.dragging.GetComponentInChildren<VP_shadow>().loopParent == loopParent
-                ){
+                && occupied == null){
                     manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
                     Debug.Log(this.name+" shadloopin"+ " dragging: "+manager.dragging.name);
