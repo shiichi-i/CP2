@@ -49,6 +49,7 @@ public class SimManager : MonoBehaviour
                 vp.ChangeColor();
                 vp.index = 0;
                 vp.StartProgram();
+
                 bl1.SetActive(true);
                 bl2.SetActive(true);
                 bl3.SetActive(true);
@@ -59,6 +60,8 @@ public class SimManager : MonoBehaviour
             else
             {
                 vp.EndProgram();
+                vp.index = 0;
+                
                 bl1.SetActive(false);
                 bl2.SetActive(false);
                 bl3.SetActive(false);

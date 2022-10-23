@@ -9,7 +9,6 @@ public class RotScript : MonoBehaviour
     int rod_i;
     float rotZ;
     public Vector3 newRot;
-    public bool execute;
     public float num_rotations, num_speed;
     public InputField nm_rt, nm_spd;
     string temp_rt, temp_spd;
@@ -32,12 +31,17 @@ public class RotScript : MonoBehaviour
         letter = this.transform.GetChild(1).GetComponent<Dropdown>();
         assign = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
         start = GameObject.Find("Start").GetComponent<VP_Start>();
+        onStart = true;
     }
 
     void Update()
     {
         if(control.execute){
             FindAssign();
+            if(this.GetComponentInChildren<VP_shadow>().loopParent != null){
+                onStart = control.onStart;
+            }
+            
             if(onStart){
                 if(num_rotations == 1101001){
                     rotZ = num_speed * 200f;
@@ -60,9 +64,15 @@ public class RotScript : MonoBehaviour
                             rod[1].transform.Rotate(newRot * Time.deltaTime);
                         }
                     }else if(rod[0] != null && rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot == num_rotations+1){
-                        control.done = true;
-                        start.index++;
+                        if(GetComponentInChildren<VP_shadow>().loopParent == null){
+                            start.index++;
+                        }else{
+                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
+                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().Looper();
+                        }
                         control.execute = false;
+                        control.done = true;
+                        
                     }
                 }
             }

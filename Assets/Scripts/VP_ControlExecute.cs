@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class VP_ControlExecute : MonoBehaviour
 {
     public bool execute;
-    public bool done;
+    public bool done, onStart;
     SimManager sim;
     VP_Start start;
 
@@ -18,9 +18,17 @@ public class VP_ControlExecute : MonoBehaviour
     void Update(){
         if(!sim.Playing){
             execute = false;
+            onStart = true;
         }
+
         if(done){
-            start.StartProgram();
+            execute = false;
+            if(GetComponent<LopScript>() == null){
+                start.StartProgram();
+            }else if(transform.GetComponentInChildren<VP_shadow>().loopParent == null){
+                start.StartProgram();
+            }
+
             DarkColor();
             done = false;
         }
@@ -29,5 +37,12 @@ public class VP_ControlExecute : MonoBehaviour
     void DarkColor(){
         this.transform.GetChild(0).GetComponent<Image>().color = new Color(this.transform.GetChild(0).GetComponent<Image>().color.r, 
         this.transform.GetChild(0).GetComponent<Image>().color.g, this.transform.GetChild(0).GetComponent<Image>().color.b, 0.5f);
+        if(this.gameObject.GetComponent<LopScript>() != null){
+            this.transform.GetChild(2).GetComponent<Image>().color = new Color(this.transform.GetChild(2).GetComponent<Image>().color.r, 
+            this.transform.GetChild(2).GetComponent<Image>().color.g, this.transform.GetChild(2).GetComponent<Image>().color.b, 0.5f);
+
+            this.transform.GetChild(3).GetComponent<Image>().color = new Color(this.transform.GetChild(3).GetComponent<Image>().color.r, 
+            this.transform.GetChild(3).GetComponent<Image>().color.g, this.transform.GetChild(3).GetComponent<Image>().color.b, 0.5f);
+        }
     }
 }

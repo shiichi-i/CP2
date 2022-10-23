@@ -98,9 +98,14 @@ public class RotScript2 : MonoBehaviour
                 }
 
                 if(setA && setB){
-                    control.done = true;
-                    start.index++;
-                    control.execute = false;
+                    if(GetComponentInChildren<VP_shadow>().loopParent == null){
+                            start.index++;
+                        }else{
+                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
+                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().StartP();
+                        }
+                        control.done = true;
+                        control.execute = false;
                 }else if(!setA && !setB){
                     control.done = false;
                 }

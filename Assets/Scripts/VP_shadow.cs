@@ -88,16 +88,21 @@ public class VP_shadow : MonoBehaviour
             
             if (occupied == null)
             {
-                this.gameObject.GetComponent<Image>().enabled = true;
+                manager.colliding = this.gameObject;
+                
                 if(this.name =="shad_Loop_in"){
                     if(other.GetComponentInChildren<VP_loopSize>() == null){
                         manager.colliding = this.gameObject;
+                        this.gameObject.GetComponent<Image>().enabled = true;
                     }else{
-                        GetComponent<Image>().enabled = false;
+                        this.gameObject.GetComponent<Image>().enabled = false;
                     }
                 }else{
                     manager.colliding = this.gameObject;
+                    this.gameObject.GetComponent<Image>().enabled = true;
                 }
+
+
                 if(inSide && onEnter){
                     if(this.name == "shad_Loop_in" && occupied == null &&
                     other.GetComponentInChildren<VP_shadow>().loopParent == null){
@@ -140,12 +145,12 @@ public class VP_shadow : MonoBehaviour
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
                 }else if(this.name == "shad_Loop_in" && occupied != null &&
-                manager.colliding == this){
+                manager.colliding == other){
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
                     Debug.Log("ehfhejh " + other.name);
                 }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected &&
-                other.GetComponentInChildren<VP_shadow>().loopParent == null && manager.dropped){
+                other.GetComponentInChildren<VP_shadow>().loopParent == null){
                     loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     loopParent.GetComponentInChildren<VP_loopSize>().shrink();
                     Debug.Log(this.name+" shadow shrink");

@@ -21,7 +21,7 @@ public class VP_loopSize : MonoBehaviour
     public void counter(bool inside){
         GameObject startC = manager.dragging;
         children = 0;
-        total = thisWidth;
+        total = 30;
             if(inside){
                 startC.GetComponentInChildren<VP_shadow>().inSide = true;
                 startC.GetComponentInChildren<VP_shadow>().loopParent = transform.parent.gameObject;
@@ -30,7 +30,7 @@ public class VP_loopSize : MonoBehaviour
                 startC.GetComponentInChildren<VP_shadow>().loopParent = null;
             }
             
-            total += startC.GetComponent<RectTransform>().sizeDelta.x - 80f;
+            total += startC.GetComponent<RectTransform>().sizeDelta.x - 50f;
             children++;
 
             bool count = true;
@@ -57,7 +57,7 @@ public class VP_loopSize : MonoBehaviour
 
     }
 
-    public void extend(){  
+    public void extend (){  
         if(manager.dragging != null && !counted){
             counter(true);
             totWidth += total; 

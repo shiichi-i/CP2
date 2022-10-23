@@ -44,8 +44,9 @@ public class VP_manager : MonoBehaviour
 
         if (colliding != null && onShadow)
         {
+            dragging.GetComponentInChildren<Image>().color = new Color(1,1,1,1);
             if(dragging.GetComponentInChildren<VP_loopSize>() == null && 
-            colliding.GetComponent<VP_loopSize>() == null){
+                colliding.GetComponent<VP_loopSize>() == null){
                 colliding.GetComponent<Image>().enabled = true;
             }
             
@@ -66,10 +67,16 @@ public class VP_manager : MonoBehaviour
                 Debug.Log("closer");
             }
         }*/
-        
+        if(dragging != null && colliding != null && colliding.name == "Trash" && colliding.GetComponent<VP_shadow>() == null)
+        {
+            dragging.GetComponentInChildren<Image>().color = new Color(1,0,0,1);
+
+            if(dropped)
+                Destroy(dragging);
             
-        if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)    
+        }else if (dragging != null && colliding != null && colliding.GetComponent<VP_shadow>().occupied == null && dropped)    
         {  
+            dragging.GetComponentInChildren<Image>().color = new Color(1,1,1,1);
             colliding.GetComponent<VP_shadow>().occupied = dragging;
             onSize = true;
             dragging.GetComponent<VP_drag>().selected = false;
@@ -77,7 +84,6 @@ public class VP_manager : MonoBehaviour
             colliding.GetComponent<Image>().enabled = false;
             dragging.transform.position = colliding.transform.position;
 
-            Debug.Log("dropped");
             if(colliding.name == "shad_Loop_in"){
                 dragging.transform.SetParent(colliding.transform);
             }else{
@@ -97,7 +103,7 @@ public class VP_manager : MonoBehaviour
             }else if(dragging.GetComponentInChildren<VP_shadow>() != null && dragging.GetComponentInChildren<VP_shadow>().loopParent != null){
                 dragging.GetComponentInChildren<VP_shadow>().onCallExit = true;
             }
-            
+            dragging.GetComponentInChildren<Image>().color = new Color(1,1,1,1);
             dragging.transform.SetParent(start.transform.parent);
             
         }
