@@ -64,6 +64,7 @@ public class LopScript : MonoBehaviour
             if(iterations == 1){
                 control.done = true;
                 control.execute = false;
+                control.DarkColor();
                 start.index++;
             }else{
                 b_indx = 0;
@@ -109,6 +110,17 @@ public class LopScript : MonoBehaviour
                 setter = true;
                 starter = true;
                 onStart = true;
+                if(transform.Find("shad_Loop_in").childCount > 0){
+                    transform.Find("shad_Loop_in").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color = new Color(transform.Find("shad_Loop_in").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.r, transform.Find("shad_Loop_in").GetChild(0).GetChild(0).GetComponent<Image>().color.g,
+                    transform.Find("shad_Loop_in").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.b, 1);
+                }
+
+                for(int i = 0; i < blockIn.Length; i++){
+                    if(blockIn[i] != null){
+                        blockIn[i].transform.GetChild(0).GetComponent<Image>().color = new Color(blockIn[i].transform.GetChild(0).GetComponent<Image>().color.r, 
+                        blockIn[i].transform.GetChild(0).GetComponent<Image>().color.g, blockIn[i].transform.GetChild(0).GetComponent<Image>().color.b, 1);
+                    }
+                }
             }
         }
         if(start.sim.Playing){

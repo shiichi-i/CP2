@@ -12,7 +12,7 @@ public class RotScript : MonoBehaviour
     public float num_rotations, num_speed;
     public InputField nm_rt, nm_spd;
     string temp_rt, temp_spd;
-    bool onStart;
+    bool onStart, setter;
 
     VP_ControlExecute control;
     AssignmentControl assign;
@@ -37,12 +37,18 @@ public class RotScript : MonoBehaviour
     void Update()
     {
         if(control.execute){
-            FindAssign();
+            if(!setter){
+                FindAssign();
+                setter = true;
+            }
+            
             if(this.GetComponentInChildren<VP_shadow>().loopParent != null){
                 onStart = control.onStart;
             }
             
             if(onStart){
+                setValuesSpeed();
+                setValuesRot();
                 if(num_rotations == 1101001){
                     rotZ = num_speed * 200f;
                     newRot = new Vector3(0f, 0f,rotZ);
@@ -64,14 +70,17 @@ public class RotScript : MonoBehaviour
                             rod[1].transform.Rotate(newRot * Time.deltaTime);
                         }
                     }else if(rod[0] != null && rod[0].transform.parent.transform.Find("CountRot").GetComponent<CountRot>().fNum_rot == num_rotations+1){
+                        control.done = true;
+                        control.execute = false;
+                        control.DarkColor();
+                        
                         if(GetComponentInChildren<VP_shadow>().loopParent == null){
                             start.index++;
                         }else{
                             GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
                             GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().Looper();
                         }
-                        control.execute = false;
-                        control.done = true;
+                        
                         
                     }
                 }
@@ -83,6 +92,7 @@ public class RotScript : MonoBehaviour
 
         if(!control.execute){
             onStart = true;
+            setter = false;
         }
     }
 
@@ -148,6 +158,7 @@ public class RotScript : MonoBehaviour
 
 
     public void FindAssign(){
+        
         for(int i = 0; i < rod_i ;i++){
             rod[i] = null;
         }
@@ -172,6 +183,7 @@ public class RotScript : MonoBehaviour
                 }
             }
         }
+        control.done = true;
     }
     
 }

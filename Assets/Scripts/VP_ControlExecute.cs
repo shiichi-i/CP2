@@ -22,19 +22,16 @@ public class VP_ControlExecute : MonoBehaviour
         }
 
         if(done){
-            execute = false;
             if(GetComponent<LopScript>() == null){
                 start.StartProgram();
             }else if(transform.GetComponentInChildren<VP_shadow>().loopParent == null){
                 start.StartProgram();
             }
-
-            DarkColor();
             done = false;
         }
     }
 
-    void DarkColor(){
+    public void DarkColor(){
         this.transform.GetChild(0).GetComponent<Image>().color = new Color(this.transform.GetChild(0).GetComponent<Image>().color.r, 
         this.transform.GetChild(0).GetComponent<Image>().color.g, this.transform.GetChild(0).GetComponent<Image>().color.b, 0.5f);
         if(this.gameObject.GetComponent<LopScript>() != null){

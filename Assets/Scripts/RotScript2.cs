@@ -18,7 +18,7 @@ public class RotScript2 : MonoBehaviour
     public float num_rotations, num_speed, num_rotations2, num_speed2;
     public InputField nm_rt, nm_spd, nm_rt2, nm_spd2;
     string temp_rt, temp_spd, temp_rt2, temp_spd2;
-    bool onStart, setA, setB;
+    bool onStart, setA, setB, setter;
 
     VP_ControlExecute control;
     AssignmentControl assign;
@@ -45,8 +45,14 @@ public class RotScript2 : MonoBehaviour
     void Update()
     {
         if(control.execute){
-            FindAssign();
+            if(!setter){
+                FindAssign();
+                setter = true;
+            }
+            
             if(onStart){
+                setValuesSpeed();
+                setValuesRot();
                 if(num_rotations == 1101001){
                     rotZ = num_speed * 200f;
                     newRot = new Vector3(0f, 0f,rotZ);
@@ -98,14 +104,16 @@ public class RotScript2 : MonoBehaviour
                 }
 
                 if(setA && setB){
-                    if(GetComponentInChildren<VP_shadow>().loopParent == null){
+                        control.done = true;
+                        control.execute = false;
+                        control.DarkColor();
+                        if(GetComponentInChildren<VP_shadow>().loopParent == null){
                             start.index++;
                         }else{
                             GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
-                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().StartP();
+                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().Looper();
                         }
-                        control.done = true;
-                        control.execute = false;
+                        
                 }else if(!setA && !setB){
                     control.done = false;
                 }
@@ -122,6 +130,7 @@ public class RotScript2 : MonoBehaviour
             onStart = true;
             setA = false;
             setB = false;
+            setter = false;
         }
 
         if(!sim.Playing){
@@ -283,6 +292,7 @@ public class RotScript2 : MonoBehaviour
                 }
             }
         }
+        control.done = true;
     }
 
     public void Avail1(){

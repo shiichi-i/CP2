@@ -12,6 +12,7 @@ public class SimManager : MonoBehaviour
     AvoidCollision collision;
     ObjSelection selection;
     public Button b_play;
+    public GameObject del;
 
     omMerge merge;
     VP_Start vp;
@@ -53,6 +54,7 @@ public class SimManager : MonoBehaviour
                 bl1.SetActive(true);
                 bl2.SetActive(true);
                 bl3.SetActive(true);
+                del.SetActive(false);
                 display = "Status: SIMULATING";
                 b_play.transform.GetChild(0).gameObject.SetActive(false);
                 b_play.transform.GetChild(1).gameObject.SetActive(true);
@@ -65,6 +67,7 @@ public class SimManager : MonoBehaviour
                 bl1.SetActive(false);
                 bl2.SetActive(false);
                 bl3.SetActive(false);
+                del.SetActive(true);
                 display = "Status: PAUSED";
                 b_play.transform.GetChild(0).gameObject.SetActive(true);
                 b_play.transform.GetChild(1).gameObject.SetActive(false);

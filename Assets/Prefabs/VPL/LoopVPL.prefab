@@ -131,9 +131,9 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: RotScript, orbo.orbo
-        m_MethodName: setValuesSpeed
+      - m_Target: {fileID: 324242871}
+        m_TargetAssemblyTypeName: LopScript, orbo.orbo
+        m_MethodName: SetValuesIter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 720032411333836771}
   - component: {fileID: 720032411333836781}
   - component: {fileID: 6290383065180180135}
+  - component: {fileID: 324242871}
   m_Layer: 5
   m_Name: LoopVPL
   m_TagString: Player
@@ -305,6 +306,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   execute: 0
   done: 0
+  onStart: 0
+--- !u!114 &324242871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53604589743437200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577b4fd651a24ce44983439e09785066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iterations: 0
+  onStart: 0
+  setter: 0
+  count: 0
+  starter: 0
+  nm_i: {fileID: 53604589674360557}
+  blockIn:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  b_indx: 0
+  c_indx: 0
 --- !u!1 &3786210476189039279
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +651,7 @@ GameObject:
   - component: {fileID: 8532524488552368173}
   - component: {fileID: 8532524488552368175}
   - component: {fileID: 8532524488552368174}
+  - component: {fileID: 1619575064}
   m_Layer: 5
   m_Name: LoopM
   m_TagString: Untagged
@@ -665,14 +699,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5882353, b: 0.10980393, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 12ccb3dcb39cd5043b53a51446cb4307, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -682,6 +716,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1619575064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532524488552368172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25ddd3fc26b7fc41a0f86be6caab406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8532524488849894794
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,6 +907,7 @@ GameObject:
   - component: {fileID: 8532524489945284361}
   - component: {fileID: 8532524489945284363}
   - component: {fileID: 8532524489945284362}
+  - component: {fileID: 105837645}
   m_Layer: 5
   m_Name: BackGround (1)
   m_TagString: Untagged
@@ -927,3 +974,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &105837645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532524489945284360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25ddd3fc26b7fc41a0f86be6caab406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

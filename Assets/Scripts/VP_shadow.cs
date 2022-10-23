@@ -108,12 +108,10 @@ public class VP_shadow : MonoBehaviour
                     other.GetComponentInChildren<VP_shadow>().loopParent == null){
                         GetComponent<VP_loopSize>().counted =false;
                         GetComponent<VP_loopSize>().extend();
-                        Debug.Log(this.name + " extend inside loop");
                     }else if(loopParent !=null && this.name != "shad_Loop_in" &&
                     other.GetComponentInChildren<VP_shadow>().loopParent == null){
                         loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                         loopParent.GetComponentInChildren<VP_loopSize>().extend();
-                        Debug.Log(this.name+" parentnull extend");
                     }
 
                     onEnter = false;
@@ -148,12 +146,10 @@ public class VP_shadow : MonoBehaviour
                 manager.colliding == other){
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
-                    Debug.Log("ehfhejh " + other.name);
                 }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected &&
                 other.GetComponentInChildren<VP_shadow>().loopParent == null){
                     loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     loopParent.GetComponentInChildren<VP_loopSize>().shrink();
-                    Debug.Log(this.name+" shadow shrink");
                 }
 
                 if(manager.dragging.GetComponentInChildren<VP_shadow>()!= null &&  
@@ -161,7 +157,6 @@ public class VP_shadow : MonoBehaviour
                 && occupied == null && this.name != "shad_Loop_in" && other != occupied){
                     manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
-                    Debug.Log(this.name+" shadloopin"+ " dragging: "+manager.dragging.name);
                      
                 }
 
