@@ -14,6 +14,8 @@ public class FindRotMot : MonoBehaviour
 
     public Sprite arrow, eks;
 
+    public AudioSource click;
+
     AvoidCollision coll;
 
     SpawnManager normMat;
@@ -148,6 +150,8 @@ public class FindRotMot : MonoBehaviour
                     assign.motors[i].transform.GetChild(1).GetComponent<Renderer>().material = normMat.normal;
                 }
         }
+        
+        click.Play();
 
         parentMot.transform.GetChild(0).tag = "Player";
         parentMot.transform.GetChild(1).tag = "Player";

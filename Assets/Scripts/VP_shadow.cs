@@ -11,6 +11,7 @@ public class VP_shadow : MonoBehaviour
     public GameObject occupied, parent;
     float childC;
     public GameObject loopParent;
+    public bool isLoopParent;
 
     public bool onEnter, onExit, onCallEnter, onCallExit;
 
@@ -21,9 +22,9 @@ public class VP_shadow : MonoBehaviour
         childC = transform.parent.childCount;
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
         parent = this.gameObject.transform.parent.gameObject;
-        if(this.name == "shad_Loop"){
+        if(this.name == "shad_Loop" || this.name == "shad_if"){
             drag = parent.transform.parent.GetComponent<VP_drag>();
-        }else if(this.name == "shad_Loop_in"){
+        }else if(this.name == "shad_Loop_in" || this.name == "shad_ifT" || this.name == "shad_ifF"){
             drag = parent.GetComponent<VP_drag>();
             inSide = true;
         }else{
@@ -39,7 +40,7 @@ public class VP_shadow : MonoBehaviour
             this.gameObject.GetComponent<Image>().enabled = false;
         }
 
-        if(this.GetComponent<VP_loopSize>() != null){
+        if(this.GetComponent<VP_loopSize>() != null || this.GetComponent<VP_ifSize>() != null ){
             if(transform.childCount == 0){
                 occupied = null;
             }
@@ -47,6 +48,10 @@ public class VP_shadow : MonoBehaviour
             occupied = null;
         }else if(this.name == "shad_Loop_in" && transform.childCount == 0){
             occupied = null;
+        }else if(transform.childCount == 0){
+            if(this.name == "shad_ifT" || this.name == "shad_ifF"){
+                occupied = null;
+            }
         }
 
         if(occupied != null || manager.dragging == this.parent){
@@ -55,19 +60,6 @@ public class VP_shadow : MonoBehaviour
             GetComponent<BoxCollider2D>().isTrigger = true;
         }
     }
-
-    /*public GameObject findLoopP(){
-        bool foundLoop = false;
-        Transform loop = this.transform;        
-            while(!foundLoop){
-                if(loop.GetComponentInChildren<VP_loopSize>() != null){
-                     foundLoop = true;
-                }else{
-                   loop = loop.transform.parent;
-                }
-            }
-        return loop.gameObject;
-    }*/
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -78,42 +70,59 @@ public class VP_shadow : MonoBehaviour
             onExit = false;
             onCallExit = true;
             onCallEnter = false;
-
-            //if(inSide && occupied == null)
-                //findLoopP().GetComponent<VP_loopSize>().counted = false;
         }
         if (other.tag != "Selectable" && other.gameObject == manager.dragging && !drag.selected && manager.onShadow
         && other.GetComponent<VP_drag>()!= null && other.GetComponent<VP_drag>().selected)
         {
             
-            if (occupied == null)
+            if (occupied == null && other.tag != "Sensor")
             {
-                manager.colliding = this.gameObject;
-                
-                if(this.name =="shad_Loop_in"){
-                    if(other.GetComponentInChildren<VP_loopSize>() == null){
-                        manager.colliding = this.gameObject;
-                        this.gameObject.GetComponent<Image>().enabled = true;
-                    }else{
-                        this.gameObject.GetComponent<Image>().enabled = false;
-                    }
-                }else{
+                if(transform.parent.GetComponentInChildren<VP_loopSize>() == null && 
+                manager.dragging.GetComponentInChildren<VP_loopSize>() == null ){
                     manager.colliding = this.gameObject;
                     this.gameObject.GetComponent<Image>().enabled = true;
+                }else if(transform.parent.GetComponentInChildren<VP_ifSize>() == null && 
+                manager.dragging.GetComponentInChildren<VP_ifSize>() == null){
+                    manager.colliding = this.gameObject;
+                    this.gameObject.GetComponent<Image>().enabled = true;
+                }else{
+                    manager.colliding = null;
+                    this.gameObject.GetComponent<Image>().enabled = false;
                 }
+                
 
 
-                if(inSide && onEnter){
+                if(inSide && onEnter && other.tag != "Sensor"){
+
                     if(this.name == "shad_Loop_in" && occupied == null &&
                     other.GetComponentInChildren<VP_shadow>().loopParent == null){
                         GetComponent<VP_loopSize>().counted =false;
                         GetComponent<VP_loopSize>().extend();
-                    }else if(loopParent !=null && this.name != "shad_Loop_in" &&
-                    other.GetComponentInChildren<VP_shadow>().loopParent == null){
-                        loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
-                        loopParent.GetComponentInChildren<VP_loopSize>().extend();
-                    }
 
+                    }else if(loopParent !=null && this.name != "shad_Loop_in" && 
+                    other.GetComponentInChildren<VP_shadow>().loopParent == null
+                    && loopParent.GetComponentInChildren<VP_loopSize>() != null &&
+                    this.name != "shad_ifT" && this.name != "shad_ifF"){
+                            loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                            loopParent.GetComponentInChildren<VP_loopSize>().extend();
+                            
+                    }else{
+                        if(occupied == null &&
+                        other.GetComponentInChildren<VP_shadow>().loopParent == null){
+                            if(this.name == "shad_ifT" || this.name == "shad_ifF"){
+                                GetComponent<VP_ifSize>().counted =false;
+                                GetComponent<VP_ifSize>().extend();
+                            }else{
+                                loopParent.GetComponentInChildren<VP_ifSize>().counted = false;
+                                loopParent.GetComponentInChildren<VP_ifSize>().extend();
+                            }
+                        }else if(loopParent !=null &&
+                        other.GetComponentInChildren<VP_shadow>().loopParent == null && 
+                        loopParent.GetComponentInChildren<VP_ifSize>() != null){
+                            loopParent.GetComponentInChildren<VP_ifSize>().counted = false;
+                            loopParent.GetComponentInChildren<VP_ifSize>().extend();
+                        }
+                    }
                     onEnter = false;
                 }
             }
@@ -138,25 +147,53 @@ public class VP_shadow : MonoBehaviour
         if (other.tag != "Selectable" || other.gameObject.name != parent.name)
         {
             
-            if(inSide && onExit){
+            if(inSide && onExit && other.tag != "Sensor"){
                 if (this.name == "shad_Loop_in" && occupied == null){
                     GetComponent<VP_loopSize>().counted = false;
                     GetComponent<VP_loopSize>().shrink();
                 }else if(this.name == "shad_Loop_in" && occupied != null &&
                 manager.colliding == other){
-                    GetComponent<VP_loopSize>().counted = false;
-                    GetComponent<VP_loopSize>().shrink();
+                    if(this.name != "shad_ifT" && this.name != "shad_ifF"){
+                        GetComponent<VP_loopSize>().counted = false;
+                        GetComponent<VP_loopSize>().shrink();
+                    }
+
                 }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected &&
-                other.GetComponentInChildren<VP_shadow>().loopParent == null){
-                    loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
-                    loopParent.GetComponentInChildren<VP_loopSize>().shrink();
+                other.GetComponentInChildren<VP_shadow>().loopParent == null && loopParent.GetComponentInChildren<VP_loopSize>() != null && loopParent.GetComponent<IfScript>() == null){
+                        loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
+                        loopParent.GetComponentInChildren<VP_loopSize>().shrink();
+                }else{
+
+                    if(this.name == "shad_ifT" || this.name == "shad_ifF"){
+                        if(occupied == null){
+                            GetComponent<VP_ifSize>().counted = false;
+                            GetComponent<VP_ifSize>().shrink();
+                        }else if(occupied != null && manager.colliding == other){
+                            GetComponent<VP_ifSize>().counted = false;
+                            GetComponent<VP_ifSize>().shrink();
+                        }
+                    }else if(loopParent !=null && occupied == null && other.GetComponent<VP_drag>() != null && other.GetComponent<VP_drag>().selected &&
+                    other.GetComponentInChildren<VP_shadow>().loopParent == null){
+                        loopParent.GetComponentInChildren<VP_ifSize>().counted = false;
+                        loopParent.GetComponentInChildren<VP_ifSize>().shrink();
+                    }
                 }
 
                 if(manager.dragging.GetComponentInChildren<VP_shadow>()!= null &&  
                 manager.dragging.GetComponentInChildren<VP_shadow>().loopParent == loopParent
-                && occupied == null && this.name != "shad_Loop_in" && other != occupied){
+                && occupied == null && this.name != "shad_Loop_in" && other != occupied &&
+                manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>() != null ){
                     manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().counted = false;
                     manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_loopSize>().shrink();
+                     
+                }
+
+                else if(manager.dragging.GetComponentInChildren<VP_shadow>()!= null &&  
+                manager.dragging.GetComponentInChildren<VP_shadow>().loopParent == loopParent
+                && occupied == null && other != occupied){
+                    if(this.name != "shad_ifT" && this.name != "shad_ifF" )
+                    manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_ifSize>().counted = false;
+                    manager.dragging.GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_ifSize>().shrink();
                      
                 }
 

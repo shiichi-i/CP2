@@ -17,6 +17,8 @@ public class SpawnManager : MonoBehaviour
     AssignmentControl control;
     TransformManager arrow;
 
+    public AudioSource plop;
+
     void Start()
     {
         mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
@@ -68,6 +70,7 @@ public class SpawnManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !avoidCollision.isColliding && !mouseUI.IsMouseOnUI())
             {
                 OnSpawn();
+                plop.Play();
                 if (outline.currentObj.GetComponent<ObjInfo>().isSpecial)
                 {
                     prefab.GetComponentInChildren<Renderer>().material = normal;

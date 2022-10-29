@@ -100,11 +100,7 @@ public class LopScript : MonoBehaviour
         if(!start.sim.Playing){
             if(!setter){
                 count = true;
-                for(int i = 0; i < blockIn.Length; i++){
-                    if(blockIn[i] != null){
-                        blockIn[i] = null;
-                    }
-                }
+                
                 j = 0;
                 c_indx = 0;
                 setter = true;
@@ -119,6 +115,12 @@ public class LopScript : MonoBehaviour
                     if(blockIn[i] != null){
                         blockIn[i].transform.GetChild(0).GetComponent<Image>().color = new Color(blockIn[i].transform.GetChild(0).GetComponent<Image>().color.r, 
                         blockIn[i].transform.GetChild(0).GetComponent<Image>().color.g, blockIn[i].transform.GetChild(0).GetComponent<Image>().color.b, 1);
+                    }
+                }
+
+                for(int i = 0; i < blockIn.Length; i++){
+                    if(blockIn[i] != null){
+                        blockIn[i] = null;
                     }
                 }
             }

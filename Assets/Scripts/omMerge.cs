@@ -12,6 +12,9 @@ public class omMerge : MonoBehaviour
     AvoidCollision collision;
     public FixedJoint[] joints;
 
+    public AudioSource click;
+    public AudioSource plop;
+
     public GameObject FoundParent;
 
     void Start(){
@@ -32,7 +35,7 @@ public class omMerge : MonoBehaviour
 
     public void OnMerge(){
         if(target != null && target != current && !collision.isColliding){
-            
+            click.Play();
             if(!target.GetComponent<ObjInfo>().isSpecial){
                 if(target.transform.childCount > 0 && target.transform.GetChild(0).gameObject.tag == "Player"){
                     GameObject temp = target;
@@ -135,7 +138,7 @@ public class omMerge : MonoBehaviour
     }
 
     public void OnUnmerge(){
-
+        plop.Play();
         current = select.currentObj;
         
         FindJoint();

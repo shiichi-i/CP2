@@ -24,12 +24,27 @@ public class VP_Start : MonoBehaviour
 
         while(count){   
             if(i < bock.transform.childCount && bock.transform.GetChild(i).GetComponent<LopScript>() == null &&
+                bock.transform.GetChild(i).GetComponent<IfScript>() == null &&
                 bock.transform.GetChild(i).tag == "Player"){
 
                     bock = bock.transform.GetChild(i).gameObject;
                     codes[blockSize] = bock;
                     blockSize++;
                     i = 0;
+
+            }else if(i < bock.transform.childCount && bock.transform.GetChild(i).GetComponent<IfScript>() != null){
+
+                codes[blockSize] = bock.transform.GetChild(i).gameObject;
+                blockSize++;
+
+                if(bock.transform.GetChild(i).Find("BackGround (1)").childCount > 1){
+                    bock = bock.transform.GetChild(i).Find("BackGround (1)").GetChild(1).gameObject;
+                    codes[blockSize] = bock;
+                    blockSize++;
+                    i = 0;
+                }else{
+                    count = false;
+                }
 
             }else if(i < bock.transform.childCount && bock.transform.GetChild(i).GetComponent<LopScript>() != null){
                     

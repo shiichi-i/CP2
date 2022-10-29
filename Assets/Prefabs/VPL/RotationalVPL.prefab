@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   execute: 0
   done: 0
+  onStart: 0
 --- !u!114 &7084919562365376436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +170,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   newRot: {x: 0, y: 0, z: 0}
-  execute: 0
   num_rotations: 0
   num_speed: 0
   nm_rt: {fileID: 547799391383378586}

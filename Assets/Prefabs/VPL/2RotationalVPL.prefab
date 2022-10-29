@@ -156,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   execute: 0
   done: 0
+  onStart: 0
 --- !u!114 &547799390876680452
 MonoBehaviour:
   m_ObjectHideFlags: 0

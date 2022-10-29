@@ -5,6 +5,7 @@ using UnityEngine;
 public class VP_Trash : MonoBehaviour
 {
     VP_manager manager;
+    public GameObject outhit;
 
     void Start()
     {
@@ -13,9 +14,11 @@ public class VP_Trash : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other){
         manager.colliding = this.gameObject;
+        outhit = other.gameObject.transform.parent.gameObject;
     }
 
     void OnTriggerExit2D(Collider2D other){
         manager.colliding = null;
+        outhit = null;
     }
 }

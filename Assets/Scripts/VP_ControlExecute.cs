@@ -34,6 +34,7 @@ public class VP_ControlExecute : MonoBehaviour
     public void DarkColor(){
         this.transform.GetChild(0).GetComponent<Image>().color = new Color(this.transform.GetChild(0).GetComponent<Image>().color.r, 
         this.transform.GetChild(0).GetComponent<Image>().color.g, this.transform.GetChild(0).GetComponent<Image>().color.b, 0.5f);
+        
         if(this.gameObject.GetComponent<LopScript>() != null){
             this.transform.GetChild(2).GetComponent<Image>().color = new Color(this.transform.GetChild(2).GetComponent<Image>().color.r, 
             this.transform.GetChild(2).GetComponent<Image>().color.g, this.transform.GetChild(2).GetComponent<Image>().color.b, 0.5f);
