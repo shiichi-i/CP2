@@ -40,15 +40,6 @@ public class ObjInfo : MonoBehaviour
             inspector.toggle.isOn = transparent;
             inspector.m_SliderScale.value = scale;
             
-            if(transparent){
-                this.gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(col, col, 1);
-                this.gameObject.GetComponent<Renderer>().material.color = new Color(this.gameObject.GetComponent<Renderer>().material.color.r, this.gameObject.GetComponent<Renderer>().material.color.g, 
-                this.gameObject.GetComponent<Renderer>().material.color.b, 0.5f);
-            }else{
-                this.gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(col, col, 1);
-                this.gameObject.GetComponent<Renderer>().material.color = new Color(this.gameObject.GetComponent<Renderer>().material.color.r, this.gameObject.GetComponent<Renderer>().material.color.g, 
-                this.gameObject.GetComponent<Renderer>().material.color.b, 1f);
-            }
         }
         else if(!isPart && select.currentObj == this.gameObject && !collision.isColliding && !spawn.willSpawn ){
 
@@ -62,7 +53,22 @@ public class ObjInfo : MonoBehaviour
             }
 
         }
-        
+
+        if(isPart && !collision.isColliding) { 
+            if (transparent)
+            {
+                this.gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(col, col, 1);
+                this.gameObject.GetComponent<Renderer>().material.color = new Color(this.gameObject.GetComponent<Renderer>().material.color.r, this.gameObject.GetComponent<Renderer>().material.color.g,
+                this.gameObject.GetComponent<Renderer>().material.color.b, 0.5f);
+            }
+            else
+            {
+                this.gameObject.GetComponent<Renderer>().material.color = Color.HSVToRGB(col, col, 1);
+                this.gameObject.GetComponent<Renderer>().material.color = new Color(this.gameObject.GetComponent<Renderer>().material.color.r, this.gameObject.GetComponent<Renderer>().material.color.g,
+                this.gameObject.GetComponent<Renderer>().material.color.b, 1f);
+            }
+        }
+
     }
 
     public void SetColor(){
