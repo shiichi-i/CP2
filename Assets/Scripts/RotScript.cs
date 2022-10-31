@@ -77,11 +77,12 @@ public class RotScript : MonoBehaviour
                         if(GetComponentInChildren<VP_shadow>().loopParent == null){
                             start.index++;
                         }else{
-                            if(GetComponentInChildren<VP_shadow>().isLoopParent){
+                            if(GetComponentInChildren<VP_shadow>().loopParent.GetComponentInChildren<VP_shadow>().isLoopParent){
                                 GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
                                 GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().Looper();
                             }else{
                                 GetComponentInChildren<VP_shadow>().loopParent.GetComponent<IfScript>().b_indx++;
+                                GetComponentInChildren<VP_shadow>().loopParent.GetComponent<IfScript>().Returner();
                             }
                         }
                         

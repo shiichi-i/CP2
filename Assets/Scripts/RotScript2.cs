@@ -110,8 +110,13 @@ public class RotScript2 : MonoBehaviour
                         if(GetComponentInChildren<VP_shadow>().loopParent == null){
                             start.index++;
                         }else{
-                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
-                            GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().Looper();
+                            if(GetComponentInChildren<VP_shadow>().loopParent.GetComponent<VP_shadow>().isLoopParent){
+                                GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().b_indx++;
+                                GetComponentInChildren<VP_shadow>().loopParent.GetComponent<LopScript>().Looper();
+                            }else{
+                                GetComponentInChildren<VP_shadow>().loopParent.GetComponent<IfScript>().b_indx++;
+                                GetComponentInChildren<VP_shadow>().loopParent.GetComponent<IfScript>().Returner();
+                            }
                         }
                         
                 }else if(!setA && !setB){

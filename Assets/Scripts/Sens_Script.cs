@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Sens_Script : MonoBehaviour
 {
-    public bool ret;
+    public bool ret, ready;
 }

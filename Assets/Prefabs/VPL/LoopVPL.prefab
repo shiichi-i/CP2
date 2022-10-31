@@ -514,6 +514,7 @@ MonoBehaviour:
   occupied: {fileID: 0}
   parent: {fileID: 8532524489945284360}
   loopParent: {fileID: 0}
+  isLoopParent: 0
   onEnter: 0
   onExit: 0
   onCallEnter: 1
@@ -892,6 +893,7 @@ MonoBehaviour:
   occupied: {fileID: 0}
   parent: {fileID: 53604589743437200}
   loopParent: {fileID: 53604589743437200}
+  isLoopParent: 1
   onEnter: 1
   onExit: 0
   onCallEnter: 0

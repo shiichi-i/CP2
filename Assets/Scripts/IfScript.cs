@@ -93,6 +93,22 @@ public class IfScript : MonoBehaviour
         onEnd = false;
     }
 
+    public void Returner(){
+        if(onEnd){
+            if(b_indx == c_indxT && ret){
+                End();
+            }else if(b_indx == c_indxF && !ret){
+                End();
+            }else{
+                if(ret){
+                    StartPT();
+                }else{
+                    StartPF();
+                }
+            }
+        }
+    }
+
     void LateUpdate()
     {
         if(control.execute){
@@ -111,32 +127,49 @@ public class IfScript : MonoBehaviour
                 }
 
                 if(transform.Find("shad_Sensor").childCount > 0){
-                    if(transform.Find("shad_Sensor").GetComponentInChildren<Sens_Script>().ret){
-                        ret = true;
-                        FColor();
-                        StartPT();
-                    }else{
-                        ret = false;
-                        TColor();
-                        StartPF();
-                    }
-                }
-                onEnd = true;
-                onStart = false;
-            }
-
-            if(onEnd){
-                if(b_indx == c_indxT && ret){
-                    End();
-                }else if(b_indx == c_indxF && !ret){
-                    End();
+                        if(transform.Find("shad_Sensor").GetComponentInChildren<Sens_Script>().ready &&
+                        transform.Find("shad_Sensor").GetComponentInChildren<Sens_Script>().ret){
+                            ret = true;
+                            FColor();
+                            StartPT();
+                        }else{
+                            ret = false;
+                            TColor();
+                            StartPF();
+                        }
+                    transform.Find("shad_Sensor").GetComponentInChildren<Sens_Script>().ready = false;
+                    onEnd = true;
+                    onStart = false;
+                    
+                }else{
+                    onEnd = true;
+                    onStart = false;
                 }
             }
 
+            
+
+        }
+
+        if(start.sim.Playing){
+            if(!control.execute){
+                if(transform.Find("shad_ifT").childCount > 0){
+                transform.Find("shad_ifT").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color = new Color(transform.Find("shad_ifT").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.r, transform.Find("shad_ifT").GetChild(0).GetChild(0).GetComponent<Image>().color.g,
+                transform.Find("shad_ifT").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.b, 0.5f);
+                }
+                if(transform.Find("shad_ifF").childCount > 0){
+                    transform.Find("shad_ifF").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color = new Color(transform.Find("shad_ifF").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.r, transform.Find("shad_ifF").GetChild(0).GetChild(0).GetComponent<Image>().color.g,
+                    transform.Find("shad_ifF").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.b, 0.5f);
+                }
+                FColor();
+                TColor();
+            }
         }
 
         if(control.done){
             Reset();
+            FColor();
+            TColor();
         }
 
         if(!start.sim.Playing){
@@ -172,14 +205,14 @@ public class IfScript : MonoBehaviour
                     }
                 }
 
-                for(int i = 0; i < blockInT.Length; i++){
-                    if(blockInT[i] != null){
-                        blockInT[i] = null;
+                for(int o = 0; o < blockInT.Length; o++){
+                    if(blockInT[o] != null){
+                        blockInT[o] = null;
                     }
                 }
-                for(int i = 0; i < blockInF.Length; i++){
-                    if(blockInF[i] != null){
-                        blockInF[i] = null;
+                for(int o = 0; o < blockInF.Length; o++){
+                    if(blockInF[o] != null){
+                        blockInF[o] = null;
                     }
                 }
                 setter = true;
@@ -188,6 +221,8 @@ public class IfScript : MonoBehaviour
 
         if(!control.execute){
             b_indx = 0;
+            c_indxT = 0;
+            c_indxF = 0;
             onStart = true;
         }
     }
@@ -213,9 +248,6 @@ public class IfScript : MonoBehaviour
             transform.Find("shad_ifF").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color = new Color(transform.Find("shad_ifF").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.r, transform.Find("shad_ifF").GetChild(0).GetChild(0).GetComponent<Image>().color.g,
             transform.Find("shad_ifF").GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color.b, 0.5f);
         }
-
-       TColor();
-       FColor();
         
     }
 
