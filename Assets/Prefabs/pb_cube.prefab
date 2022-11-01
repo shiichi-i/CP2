@@ -166,6 +166,7 @@ MonoBehaviour:
   connected: 0
   connection: {fileID: 0}
   special: {fileID: 0}
+  loadPrefab: {fileID: 6791393041459745234, guid: 7b56e3056f6c5ae42be05aff83f00a2b, type: 3}
   objType: Cube
   col: 0
   transparent: 0
@@ -174,3 +175,4 @@ MonoBehaviour:
   assignment: 
   scale: 0
   this_scale: {x: 0, y: 0, z: 0}
+  SaveID: 

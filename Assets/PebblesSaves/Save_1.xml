@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<Items xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Objects>
+    <Item>
+      <ItemID>0Floor (SAVE_manager)</ItemID>
+      <ItemPosition>
+        <x>0</x>
+        <y>-50</y>
+        <z>0</z>
+      </ItemPosition>
+      <ItemRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </ItemRotation>
+    </Item>
+    <Item>
+      <ItemID>2Floor (SAVE_manager)</ItemID>
+      <ItemPosition>
+        <x>0</x>
+        <y>-50</y>
+        <z>0</z>
+      </ItemPosition>
+      <ItemRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </ItemRotation>
+    </Item>
+    <Item>
+      <ItemID>2Floor (SAVE_manager)</ItemID>
+      <ItemPosition>
+        <x>0</x>
+        <y>-50</y>
+        <z>0</z>
+      </ItemPosition>
+      <ItemRotation>
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+        <w>1</w>
+        <eulerAngles>
+          <x>-0</x>
+          <y>0</y>
+          <z>0</z>
+        </eulerAngles>
+      </ItemRotation>
+    </Item>
+  </Objects>
+</Items>

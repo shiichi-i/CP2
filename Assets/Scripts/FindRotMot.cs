@@ -12,6 +12,8 @@ public class FindRotMot : MonoBehaviour
     public Material greeen;
     omMerge merge;
 
+    RewindManager rewinder;
+
     public Sprite arrow, eks;
 
     public AudioSource click;
@@ -28,6 +30,8 @@ public class FindRotMot : MonoBehaviour
         normMat = GameObject.Find("SimBar").GetComponent<SpawnManager>();
         merge = GameObject.Find("ShortCuts").GetComponent<omMerge>();
         coll = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
+
+        rewinder = GameObject.Find("SimBar").GetComponentInChildren<RewindManager>();
     }
 
     void Update(){
@@ -69,6 +73,8 @@ public class FindRotMot : MonoBehaviour
         motor.GetComponent<ObjInfo>().connected = false;
         motor.transform.GetChild(0).GetComponent<ObjInfo>().connected = false;
         motor.transform.GetChild(1).GetComponent<ObjInfo>().connected = false;
+
+        rewinder.robotParts.Add(wheel);
 
         Destroy(wheel.GetComponent<ConfigurableJoint>());
 
@@ -139,6 +145,8 @@ public class FindRotMot : MonoBehaviour
     }
 
     public void SetTransform(){
+        
+        
         Destroy(select.w);
         Destroy(select.currentObj.GetComponent<GreenOutline>());
         Destroy(select.currentObj.GetComponent<Outline>());
@@ -179,6 +187,16 @@ public class FindRotMot : MonoBehaviour
         select.currentObj.GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Free;
         select.currentObj.GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Locked;
         select.currentObj.GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Locked;
+
+        int indx = 0;
+        for(int i = 0; i < rewinder.robotParts.Count; i++){
+            if(rewinder.robotParts[i] == select.currentObj){
+                indx = i;
+            }
+        }
+
+        rewinder.robotParts.Remove(rewinder.robotParts[indx]);
+        indx = 0;
 
         select.currentObj.tag = "Player";
         merge.pChild = select.currentObj;

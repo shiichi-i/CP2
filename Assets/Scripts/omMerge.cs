@@ -12,6 +12,8 @@ public class omMerge : MonoBehaviour
     AvoidCollision collision;
     public FixedJoint[] joints;
 
+    RewindManager rewinder;
+
     public AudioSource click;
     public AudioSource plop;
 
@@ -20,6 +22,7 @@ public class omMerge : MonoBehaviour
     void Start(){
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
+        rewinder = GameObject.Find("SimBar").GetComponentInChildren<RewindManager>();
     }
     
     public void OnPickMerge(){
@@ -67,6 +70,19 @@ public class omMerge : MonoBehaviour
                     Destroy(target.GetComponent<GreenOutline>());
                 }
             }
+
+            int indx = 0;
+            for(int i = 0; i < rewinder.robotParts.Count; i++){
+                if(rewinder.robotParts[i] == target){
+                    indx = i;
+                }
+            }
+
+            rewinder.robotParts.Remove(rewinder.robotParts[indx]);
+            indx = 0;
+            Debug.Log("target");
+
+            SAVE_manager.Instance.RemoveItem(target.GetComponent<ObjInfo>().SaveID);
 
             
             current.AddComponent<FixedJoint>().connectedBody = target.GetComponent<Rigidbody>();
@@ -155,6 +171,8 @@ public class omMerge : MonoBehaviour
 
         select.ArrowAdd();
         select.checkChild = false;
+        rewinder.robotParts.Add(oldConn);
+        SAVE_manager.Instance.AddItem(oldConn);
 
         if(oldConn.GetComponent<ObjInfo>().isSpecial && oldConn.transform.childCount == 2){
             oldConn.GetComponent<ObjInfo>().isMerged = false;

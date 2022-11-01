@@ -867,7 +867,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'LEVEL 1
 
-    Building your first robot'
+    Building Basics'
 --- !u!222 &678380889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -948,7 +948,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'LEVEL 2
 
-    Basic wheeled robot'
+    Programming Basics'
 --- !u!222 &831550153
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1619,7 +1619,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'LEVEL 3
 
-    Advanced Programming'
+    My First Robot'
 --- !u!222 &1776393974
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6403fbe3c3c69494a93f258a79267e71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objType: 
 --- !u!114 &2618788729687567085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +163,10 @@ MonoBehaviour:
   isMotor: 0
   isMerged: 0
   isParent: 0
+  connected: 0
+  connection: {fileID: 0}
   special: {fileID: 0}
+  loadPrefab: {fileID: 6561204956720974850, guid: 3f149990a36cec049968ffc609d68bd8, type: 3}
   objType: Rectangle
   col: 0
   transparent: 0
@@ -171,3 +175,4 @@ MonoBehaviour:
   assignment: 
   scale: 0
   this_scale: {x: 0, y: 0, z: 0}
+  SaveID: 

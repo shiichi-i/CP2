@@ -21,6 +21,7 @@ public class ObjInfo : MonoBehaviour
     InspectorControl inspector;
     AvoidCollision collision;
     SpawnManager spawn;
+    public string SaveID;
     
     void Start(){
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();

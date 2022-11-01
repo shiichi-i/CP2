@@ -7,9 +7,14 @@ public class RigidBodyControls : MonoBehaviour
     SimManager simulation;
     ObjSelection select;
     public string objType;
+    RewindManager rewinder;
 
     void Start()
     {
+        if(objType == "Microcontroller"){
+            rewinder = GameObject.Find("SimBar").GetComponentInChildren<RewindManager>();
+            rewinder.robotParts.Add(this.gameObject);
+        }
         simulation = GameObject.Find("SimBar").GetComponent<SimManager>();
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
     }

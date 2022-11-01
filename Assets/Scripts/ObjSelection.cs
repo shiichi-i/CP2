@@ -24,6 +24,7 @@ public class ObjSelection : MonoBehaviour
     SimManager sim;
     IsMouseOverUI ui;
     FindRotMot findRot;
+    RewindManager rewinder;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class ObjSelection : MonoBehaviour
         b_unmerge = GameObject.Find("UNMR");
         b_merge = GameObject.Find("MERG");
         findRot = GameObject.Find("Inspector").GetComponent<FindRotMot>();
+        rewinder = GameObject.Find("SimBar").GetComponentInChildren<RewindManager>();
     }
 
     void Update()
@@ -258,6 +260,8 @@ public class ObjSelection : MonoBehaviour
                         if(Input.GetMouseButtonDown(0) && !collision.ghostCol){
                             findRot.parentMot = hit.collider.transform.parent.gameObject;
                             findRot.SetTransform();
+
+                            
                         }
                     }
                 }else{

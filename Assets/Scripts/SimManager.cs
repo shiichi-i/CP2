@@ -45,7 +45,7 @@ public class SimManager : MonoBehaviour
                 }
             
             if (Playing)
-            {
+            {                
                 vp.CountBlocks();
                 vp.ChangeColor();
                 vp.index = 0;
