@@ -51,8 +51,10 @@ public class VP_manager : MonoBehaviour
             
             dragging.GetComponentInChildren<Image>().color = new Color(1,0,0,1);
             
-            if(dropped)
+            if(dropped){
+                SAVE_manager.Instance.RemoveBlock(dragging.GetComponent<VP_drag>().vpID);
                 Destroy(dragging);
+            }
 
         }
         else if(dragging != null && dragging.tag == "Sensor" && colliding != null && colliding.GetComponent<VP_shadow>() == null &&

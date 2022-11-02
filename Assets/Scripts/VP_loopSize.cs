@@ -13,9 +13,7 @@ public class VP_loopSize : MonoBehaviour
     void Start(){
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
         thisWidth = this.GetComponent<RectTransform>().sizeDelta.x;
-        total = 0;
         totWidth = thisWidth;
-        totchildren = 0;
     }
 
     public void counter(bool inside){
@@ -66,7 +64,7 @@ public class VP_loopSize : MonoBehaviour
         }
     }
 
-    void grow(){
+    public void grow(){
         if(loope != null){
             loope.transform.localPosition = new Vector3(totWidth, loope.transform.localPosition.y, loope.transform.localPosition.z);
             loopm.transform.localPosition = new Vector3((totWidth/2) - thisWidth, loopm.transform.localPosition.y, loopm.transform.localPosition.z);

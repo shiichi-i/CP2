@@ -54,12 +54,14 @@ public class AssignmentControl : MonoBehaviour
             for(int i =0; i < sensors.Length ;i++){
                 if(sensors[i] != null){
                     inTake[i] = sensors[i].GetComponent<ObjInfo>().let_in + 5;
+                    SAVE_manager.Instance.SetAssignments(false, i, sensors[i], inTake[i]);
                 }
             }
         }else{
             for(int i =0; i < motors.Length ;i++){
                 if(motors[i] != null){
                     outTake[i] = motors[i].GetComponent<ObjInfo>().let_out + 5;
+                    SAVE_manager.Instance.SetAssignments(true, i, motors[i], outTake[i]);
                 }
             }
         }

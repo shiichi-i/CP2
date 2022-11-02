@@ -49,7 +49,7 @@ public class omMerge : MonoBehaviour
                     Destroy(target.GetComponent<GreenOutline>());
                 }
             }else{
-                if(target.name == "pb_microcontroller"){
+                if(target.name == "pb_microcontroller(Clone)"){
                     GameObject temp = target;
                     target = current;
                     current = temp;
@@ -57,7 +57,7 @@ public class omMerge : MonoBehaviour
                     select.tempObj = current;
                     Destroy(target.GetComponent<GreenOutline>());
                 }
-                else if(current.name == "pb_microcontroller"){
+                else if(current.name == "pb_microcontroller(Clone)"){
                     Destroy(target.GetComponent<GreenOutline>());
                 }
                 else if(target.transform.childCount > 2 && target.transform.GetChild(2).gameObject.GetComponent<ObjInfo>() != null &&
@@ -80,11 +80,9 @@ public class omMerge : MonoBehaviour
 
             rewinder.robotParts.Remove(rewinder.robotParts[indx]);
             indx = 0;
-            Debug.Log("target");
 
-            SAVE_manager.Instance.RemoveItem(target.GetComponent<ObjInfo>().SaveID);
+            //SAVE_manager.Instance.RemoveItem(target.GetComponent<ObjInfo>().SaveID);
 
-            
             current.AddComponent<FixedJoint>().connectedBody = target.GetComponent<Rigidbody>();
             Destroy(current.GetComponent<GreenOutline>());
 
@@ -172,7 +170,9 @@ public class omMerge : MonoBehaviour
         select.ArrowAdd();
         select.checkChild = false;
         rewinder.robotParts.Add(oldConn);
-        SAVE_manager.Instance.AddItem(oldConn);
+        //SAVE_manager.Instance.AddItem(oldConn);
+
+        oldConn.GetComponent<ObjInfo>().ParentID = null;
 
         if(oldConn.GetComponent<ObjInfo>().isSpecial && oldConn.transform.childCount == 2){
             oldConn.GetComponent<ObjInfo>().isMerged = false;

@@ -26,6 +26,7 @@ public class VP_spawn : MonoBehaviour
             {
                 naming.blocks++;
                 GameObject a = Instantiate(prefab) as GameObject;
+                SAVE_manager.Instance.AddBlock(a);
                 a.name = a.name + naming.blocks.ToString();
                 a.transform.SetParent(panel);
                 a.GetComponent<RectTransform>().localPosition = spawnPoint.GetComponent<RectTransform>().localPosition;

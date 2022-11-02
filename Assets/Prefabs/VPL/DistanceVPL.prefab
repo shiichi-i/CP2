@@ -1285,6 +1285,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   isStart: 0
+  BParentID: 
+  vpID: 
+  BlockType: Distance
 --- !u!114 &7114130775780385201
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,9 +9,11 @@ public class VP_shadow : MonoBehaviour
     public VP_manager manager;
     public bool taken, inSide;
     public GameObject occupied, parent;
-    float childC;
+    public float childC;
     public GameObject loopParent;
     public bool isLoopParent;
+
+    public GameObject mainBlock;
 
     public bool onEnter, onExit, onCallEnter, onCallExit;
 
@@ -19,9 +21,10 @@ public class VP_shadow : MonoBehaviour
 
     void Start()
     {
-        childC = transform.parent.childCount;
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
+
         parent = this.gameObject.transform.parent.gameObject;
+
         if(this.name == "shad_Loop" || this.name == "shad_if"){
             drag = parent.transform.parent.GetComponent<VP_drag>();
         }else if(this.name == "shad_Loop_in" || this.name == "shad_ifT" || this.name == "shad_ifF"){
@@ -44,10 +47,12 @@ public class VP_shadow : MonoBehaviour
             if(transform.childCount == 0){
                 occupied = null;
             }
+
         }else if(transform.parent.childCount == childC){
             occupied = null;
         }else if(this.name == "shad_Loop_in" && transform.childCount == 0){
             occupied = null;
+
         }else if(transform.childCount == 0){
             if(this.name == "shad_ifT" || this.name == "shad_ifF"){
                 occupied = null;

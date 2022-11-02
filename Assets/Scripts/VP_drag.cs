@@ -8,11 +8,29 @@ public class VP_drag : MonoBehaviour
     public bool selected = false;
     public bool isStart;
     VP_manager manager;
+    public string BParentID;
+    public string vpID;
+    public string BlockType;
+
+    public string Sin;
 
     void Start()
     {
         manager = GameObject.Find("CodeArea").GetComponent<VP_manager>();
+    }
 
+    void Update(){
+        if(transform.parent != null && transform.parent.tag == "Player"){
+            BParentID = transform.parent.GetComponent<VP_drag>().vpID;
+        }else if(transform.parent != null && transform.parent.tag == "Sensor"){
+            BParentID = transform.parent.parent.GetComponent<VP_drag>().vpID;
+        }else if(transform.parent.name == "shad_Loop_in"){
+            BParentID = transform.parent.parent.GetComponent<VP_drag>().vpID;
+            Sin = "Sloop";
+        }else{
+            BParentID = null;
+            Sin = null;
+        }
     }
 
     public void Dragging()

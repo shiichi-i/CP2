@@ -25,16 +25,20 @@ public class onDelete : MonoBehaviour
                         assign.inTake[i] = 0;
                         assign.sensors[i] = null;
                         index = i;
+                        SAVE_manager.Instance.SetAssignments(false, i, null, 0);
                     }
                 }
 
                 for(int i = index; i < assign.sensors.Length-1; i++){
                     assign.sensors[i] = assign.sensors[i+1];
                     assign.inTake[i] = assign.inTake[i+1];
+                    SAVE_manager.Instance.SetAssignments(false, i, assign.sensors[i], assign.inTake[i]);
                 }
                 assign.sensors[3] = null;
                 assign.inTake[3] = 0;
+                SAVE_manager.Instance.SetAssignments(false, 3, null, 0);
                 assign.sensorCount--;
+                SAVE_manager.Instance.SetAssignmentsCount(false, assign.sensorCount);
             }
 
             else{
@@ -44,16 +48,20 @@ public class onDelete : MonoBehaviour
                         assign.outTake[i] = 0;
                         assign.motors[i] = null;
                         index = i;
+                        SAVE_manager.Instance.SetAssignments(true, i, null, 0);
                     }
                 }
 
                 for(int i = index; i < assign.motors.Length-1; i++){
                     assign.motors[i] = assign.motors[i+1];
                     assign.outTake[i] = assign.outTake[i+1];
+                    SAVE_manager.Instance.SetAssignments(true, i, assign.motors[i], assign.outTake[i]);
                 }
                 assign.motors[3] = null;
                 assign.outTake[3] = 0;
+                SAVE_manager.Instance.SetAssignments(true, 3, null, 0);
                 assign.motorCount--;
+                SAVE_manager.Instance.SetAssignmentsCount(true, assign.motorCount);
             }
         }
 

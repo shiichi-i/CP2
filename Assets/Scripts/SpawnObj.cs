@@ -42,6 +42,7 @@ public class SpawnObj : MonoBehaviour
                 spawnManager.willSpawn = true;
                 outline.moving = true;
                 SAVE_manager.Instance.AddItem(a);
+                
                 rewinder.robotParts.Add(a);
             }
             else
@@ -52,9 +53,11 @@ public class SpawnObj : MonoBehaviour
                         indx = i;
                     }
                 }
-
                 rewinder.robotParts.Remove(rewinder.robotParts[indx]);
                 indx = 0;
+
+                SAVE_manager.Instance.RemoveItem(spawnManager.prefab.GetComponent<ObjInfo>().SaveID);
+                
                 Destroy(spawnManager.prefab);
                 spawnManager.prefab = null;
                 outline.currentObj = null;

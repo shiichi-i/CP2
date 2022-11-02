@@ -292,6 +292,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   isStart: 0
+  BParentID: 
+  vpID: 
+  BlockType: Loop
 --- !u!114 &6290383065180180135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,8 +516,10 @@ MonoBehaviour:
   inSide: 0
   occupied: {fileID: 0}
   parent: {fileID: 8532524489945284360}
+  childC: 4
   loopParent: {fileID: 0}
   isLoopParent: 0
+  mainBlock: {fileID: 53604589743437200}
   onEnter: 0
   onExit: 0
   onCallEnter: 1
@@ -892,8 +897,10 @@ MonoBehaviour:
   inSide: 1
   occupied: {fileID: 0}
   parent: {fileID: 53604589743437200}
+  childC: 0
   loopParent: {fileID: 53604589743437200}
   isLoopParent: 1
+  mainBlock: {fileID: 0}
   onEnter: 1
   onExit: 0
   onCallEnter: 0
@@ -912,7 +919,7 @@ GameObject:
   - component: {fileID: 105837645}
   m_Layer: 5
   m_Name: BackGround (1)
-  m_TagString: Untagged
+  m_TagString: Sensor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

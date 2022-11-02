@@ -6,9 +6,13 @@ public class ObjInfo : MonoBehaviour
 {
     public bool isSpecial;
     public bool isPart, isSensor, isMicrocontroller, isMotor, isMerged, isParent;
+
     public bool connected;
     public GameObject connection;
+    public string connectionID;
+
     public GameObject special;
+    
 
     public string objType;
     public float col;
@@ -22,13 +26,14 @@ public class ObjInfo : MonoBehaviour
     AvoidCollision collision;
     SpawnManager spawn;
     public string SaveID;
+    public string ParentID;
     
     void Start(){
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         inspector = GameObject.Find("Inspector").GetComponent<InspectorControl>();
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
-        this_scale = this.gameObject.transform.localScale;
+        this_scale = new Vector3(50f, 50f, 50f);
         if(isSpecial && !isParent){
             special = this.gameObject.transform.parent.gameObject;
         }
@@ -69,6 +74,12 @@ public class ObjInfo : MonoBehaviour
                 this.gameObject.GetComponent<Renderer>().material.color.b, 1f);
             }
         }
+
+        if(transform.parent != null && transform.parent.GetComponent<ObjInfo>() != null)
+        {
+            ParentID = transform.parent.GetComponent<ObjInfo>().SaveID;
+        }
+
 
     }
 

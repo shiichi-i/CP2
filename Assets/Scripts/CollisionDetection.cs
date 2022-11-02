@@ -18,6 +18,8 @@ public class CollisionDetection : MonoBehaviour
         if(this.GetComponent<ObjInfo>().isSpecial && this.transform.parent.tag != "CodeArea"){      
             if(!this.GetComponent<ObjInfo>().isParent){          
                 selectedObj = this.transform.parent.gameObject;
+            }else{
+                selectedObj = this.gameObject;
             }
         }else{
             selectedObj = this.gameObject;

@@ -18,7 +18,7 @@ public class OnDropdown : MonoBehaviour
         choices = this.gameObject.GetComponent<Dropdown>().GetComponentsInChildren<Toggle>();
 
         if(select.currentObj.GetComponent<ObjInfo>().isSensor){
-            for(int i = 0; i < assignment.inTake.Length; i++){
+            for(int i = 0; i < 4; i++){
                     if(assignment.inTake[i] > 5){
                         int temp = assignment.inTake[i] - 5;
                         choices[temp].interactable = false;
@@ -26,7 +26,7 @@ public class OnDropdown : MonoBehaviour
             }
         }
         else{
-            for(int i = 0; i < assignment.outTake.Length; i++){
+            for(int i = 0; i < 4; i++){
                 if(assignment.outTake[i] > 5){
                     int temp = assignment.outTake[i] - 5;
                     choices[temp].interactable = false;

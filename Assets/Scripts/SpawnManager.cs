@@ -31,8 +31,10 @@ public class SpawnManager : MonoBehaviour
     void OnSpawn(){
         if(!prefab.GetComponent<ObjInfo>().isPart && prefab.GetComponent<ObjInfo>().isSensor){
             control.sensorCount++;
+            SAVE_manager.Instance.SetAssignmentsCount(false,control.sensorCount);
         }else if(!prefab.GetComponent<ObjInfo>().isPart && !prefab.GetComponent<ObjInfo>().isSensor){
             control.motorCount++;
+            SAVE_manager.Instance.SetAssignmentsCount(true,control.motorCount);
         }
         
         
@@ -100,10 +102,13 @@ public class SpawnManager : MonoBehaviour
                 if(!prefab.GetComponent<ObjInfo>().isPart){
                     if(prefab.GetComponent<ObjInfo>().isSensor){
                         control.sensors[control.sensorCount-1] = prefab;
+                        SAVE_manager.Instance.SetAssignments(false, control.sensorCount-1, prefab, 0);
                     }
                     else{
                         control.motors[control.motorCount-1] = prefab;
+                        SAVE_manager.Instance.SetAssignments(true, control.motorCount-1, prefab, 0);
                     }
+                    
                 }
                 prefab.GetComponent<Rigidbody>().isKinematic = true;
 

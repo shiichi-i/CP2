@@ -1364,6 +1364,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   isStart: 0
+  BParentID: 
+  vpID: 
+  BlockType: Light
 --- !u!114 &6891522892080695801
 MonoBehaviour:
   m_ObjectHideFlags: 0

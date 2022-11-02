@@ -70,6 +70,8 @@ public class FindRotMot : MonoBehaviour
 
         wheel.GetComponent<ObjInfo>().connected = false;
         wheel.GetComponent<ObjInfo>().connection = null;
+        select.currentObj.GetComponent<ObjInfo>().connectionID = null;
+
         motor.GetComponent<ObjInfo>().connected = false;
         motor.transform.GetChild(0).GetComponent<ObjInfo>().connected = false;
         motor.transform.GetChild(1).GetComponent<ObjInfo>().connected = false;
@@ -170,6 +172,7 @@ public class FindRotMot : MonoBehaviour
 
     
         select.currentObj.GetComponent<ObjInfo>().connection = parentMot;
+        select.currentObj.GetComponent<ObjInfo>().connectionID = parentMot.GetComponent<ObjInfo>().SaveID;
         select.currentObj.GetComponent<ObjInfo>().connected = true;
 
         select.currentObj.transform.SetParent(parentMot.transform.GetChild(1));

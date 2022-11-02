@@ -142,6 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   isStart: 0
+  BParentID: 
+  vpID: 
+  BlockType: Rot2
 --- !u!114 &5796048754959503663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,7 +2860,9 @@ MonoBehaviour:
   inSide: 0
   occupied: {fileID: 0}
   parent: {fileID: 547799389729106456}
+  childC: 8
   loopParent: {fileID: 0}
+  isLoopParent: 0
   onEnter: 0
   onExit: 0
   onCallEnter: 0
