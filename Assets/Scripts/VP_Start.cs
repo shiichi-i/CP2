@@ -12,6 +12,8 @@ public class VP_Start : MonoBehaviour
     bool count;
     public int index;
 
+    public GameObject tutorial;
+
     void Start(){
         sim = GameObject.Find("SimBar").GetComponent<SimManager>();
     }
@@ -90,6 +92,10 @@ public class VP_Start : MonoBehaviour
                 codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color.r, codes[index].gameObject.transform.GetChild(0).GetComponent<Image>().color.g,
                 codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color.b, 1);
             }
+        }else{
+            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+            }
         }
     }
 
@@ -99,6 +105,7 @@ public class VP_Start : MonoBehaviour
             codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color = new Color(codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color.r, codes[i].gameObject.transform.GetChild(0).GetComponent<Image>().color.g,
             codes[i].transform.GetChild(0).gameObject.GetComponent<Image>().color.b, 1);
         }
+        
         blockSize = 0;
         for(int c =0; c < codes.Length; c++){
             codes[c] = null;

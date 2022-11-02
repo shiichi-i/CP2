@@ -1,42 +1,6 @@
 <?xml version="1.0"?>
 <Items xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Objects>
-    <Item>
-      <ItemID>0Floor (SAVE_manager)</ItemID>
-      <ObjType>Sphere</ObjType>
-      <ItemPosition>
-        <x>-0.0489183664</x>
-        <y>1</y>
-        <z>-2.650312</z>
-      </ItemPosition>
-      <ItemRotation>
-        <x>-0</x>
-        <y>-0</y>
-        <z>-0</z>
-        <w>1</w>
-        <eulerAngles>
-          <x>-0</x>
-          <y>0</y>
-          <z>0</z>
-        </eulerAngles>
-      </ItemRotation>
-      <ItemScale>
-        <x>50</x>
-        <y>50</y>
-        <z>50</z>
-      </ItemScale>
-      <IsMerged>false</IsMerged>
-      <connected>false</connected>
-      <connectionID />
-      <ParentID />
-      <col>0</col>
-      <transparent>false</transparent>
-      <scale>0</scale>
-      <assignment />
-      <let_in>0</let_in>
-      <let_out>0</let_out>
-    </Item>
-  </Objects>
+  <Objects />
   <CameraPos>
     <x>-1.65</x>
     <y>0.87</y>

@@ -19,6 +19,8 @@ public class SpawnManager : MonoBehaviour
 
     public AudioSource plop;
 
+    public GameObject tutorial;
+
     void Start()
     {
         mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
@@ -73,6 +75,11 @@ public class SpawnManager : MonoBehaviour
             {
                 OnSpawn();
                 plop.Play();
+                
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+                }
+
                 if (outline.currentObj.GetComponent<ObjInfo>().isSpecial)
                 {
                     prefab.GetComponentInChildren<Renderer>().material = normal;

@@ -26,6 +26,8 @@ public class ObjSelection : MonoBehaviour
     FindRotMot findRot;
     RewindManager rewinder;
 
+    public GameObject tutorial;
+
     void Start()
     {
         spawn = GameObject.Find("SimBar").GetComponent<SpawnManager>();
@@ -142,6 +144,11 @@ public class ObjSelection : MonoBehaviour
                         tempObj = currentObj;
                         ArrowAdd();
                         AddCol();
+                        if(tempObj.name == "pb_microcontroller(Clone)"){
+                            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+                            }
+                        }
                         
                     }else{
                         if(!checkChild  && arrow.dragAxis == null){

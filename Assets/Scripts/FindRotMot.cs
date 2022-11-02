@@ -21,6 +21,7 @@ public class FindRotMot : MonoBehaviour
     AvoidCollision coll;
 
     SpawnManager normMat;
+    public GameObject tutorial;
 
     bool ticked = true;
 
@@ -209,6 +210,10 @@ public class FindRotMot : MonoBehaviour
         coll.isColliding = false;
 
         select.onFindMotor = false;
+
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 4){
+            tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+        }
 
     }
 }

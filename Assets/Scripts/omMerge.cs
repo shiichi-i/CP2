@@ -19,6 +19,8 @@ public class omMerge : MonoBehaviour
 
     public GameObject FoundParent;
 
+    public GameObject tutorial;
+
     void Start(){
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
@@ -130,6 +132,10 @@ public class omMerge : MonoBehaviour
                     
                 }else{
                     current.AddComponent<CollisionDetection>();
+                }
+
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
                 }
                 
         

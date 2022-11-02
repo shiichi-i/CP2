@@ -8,6 +8,9 @@ public class onDelete : MonoBehaviour
     AssignmentControl assign;
     RewindManager rewinder;
 
+    public GameObject tutorial;
+
+
     void Start()
     {
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
@@ -72,17 +75,21 @@ public class onDelete : MonoBehaviour
             select.currentObj.transform.SetParent(null);
             Destroy(arrows);
         }
-        int indx = 0;
+            int indx = 0;
             for(int i = 0; i < rewinder.robotParts.Count; i++){
                 if(rewinder.robotParts[i] == select.currentObj){
-                    indx = 1;
+                    indx = i;
                 }
             }
-
             rewinder.robotParts.Remove(rewinder.robotParts[indx]);
             indx = 0;
+
         SAVE_manager.Instance.RemoveItem(select.currentObj.GetComponent<ObjInfo>().SaveID);
         Destroy(select.currentObj);
-        
+
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+            tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+        }
     }
 }
+

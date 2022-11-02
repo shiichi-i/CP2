@@ -25,6 +25,9 @@ public class InspectorControl : MonoBehaviour
 
     Renderer m_Renderer;
 
+    public GameObject tutorial;
+    int mcount;
+
     void Start()
     {
         collision = GameObject.Find("SimBar").GetComponent<AvoidCollision>();
@@ -39,6 +42,8 @@ public class InspectorControl : MonoBehaviour
 
         inObj = inDrop.gameObject;
         outObj = outDrop.gameObject;
+
+            
     }
 
     void Update()
@@ -173,6 +178,16 @@ public class InspectorControl : MonoBehaviour
             selection.currentObj.GetComponent<ObjInfo>().let_out = outDrop.value;
             assignment.CheckAvailable();
         }
+
+
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2 &&
+        mcount == 2){
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+            }
+        else{
+            mcount++;
+        }
+        }
             
     }
-}
+

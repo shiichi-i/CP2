@@ -11,6 +11,8 @@ public class VP_spawn : MonoBehaviour
 
     SimManager simulation;
 
+    public GameObject tutorial;
+
     void Start()
     {
         panel = GameObject.Find("Panel").GetComponent<Transform>();
@@ -32,6 +34,10 @@ public class VP_spawn : MonoBehaviour
                 a.GetComponent<RectTransform>().localPosition = spawnPoint.GetComponent<RectTransform>().localPosition;
                 a.GetComponent<RectTransform>().localScale = new Vector3(0.09f, 0.09f, 1f);
                 naming.spawnEmpty = false;
+
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+                }
             }
         }
     }

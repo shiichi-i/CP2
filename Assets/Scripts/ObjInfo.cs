@@ -27,6 +27,8 @@ public class ObjInfo : MonoBehaviour
     SpawnManager spawn;
     public string SaveID;
     public string ParentID;
+
+
     
     void Start(){
         select = GameObject.Find("SimBar").GetComponent<ObjSelection>();
