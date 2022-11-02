@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 384336059}
   - component: {fileID: 384336058}
   - component: {fileID: 384336057}
+  - component: {fileID: 384336060}
   m_Layer: 5
   m_Name: Load
   m_TagString: Untagged
@@ -452,7 +453,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 384336058}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 384336060}
+        m_TargetAssemblyTypeName: SceneNav, orbo.orbo
+        m_MethodName: Nav
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &384336058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -491,6 +504,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 384336055}
   m_CullTransparentMesh: 1
+--- !u!114 &384336060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384336055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0132bbee77ae29440b8d5344e87489c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redirect: Main
+  navload: 1
 --- !u!1 &586938296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,7 +1196,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 941994976}
-        m_TargetAssemblyTypeName: SceneNav, ui.codes
+        m_TargetAssemblyTypeName: SceneNav, orbo.orbo
         m_MethodName: Nav
         m_Mode: 1
         m_Arguments:
@@ -1231,6 +1258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redirect: TutorialMenu
+  navload: 0
 --- !u!1 &1097563218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,7 +1822,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1746140959}
-        m_TargetAssemblyTypeName: SceneNav, ui.codes
+        m_TargetAssemblyTypeName: SceneNav, orbo.orbo
         m_MethodName: Nav
         m_Mode: 1
         m_Arguments:
@@ -1856,6 +1884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redirect: Main
+  navload: 0
 --- !u!1 &1894550189
 GameObject:
   m_ObjectHideFlags: 0

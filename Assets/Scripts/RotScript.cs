@@ -14,6 +14,8 @@ public class RotScript : MonoBehaviour
     string temp_rt, temp_spd;
     bool onStart, setter;
 
+    
+
     VP_ControlExecute control;
     AssignmentControl assign;
     VP_Start start;
@@ -23,7 +25,14 @@ public class RotScript : MonoBehaviour
     string[] choices_spd = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
     "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10"};
 
-    Dropdown letter;
+    public Dropdown letter;
+    public int dval;
+
+    public void SetText(){
+        nm_rt.text = num_rotations.ToString();
+        nm_spd.text = num_speed.ToString();
+        letter.value = dval;
+    }
 
 
     void Start(){

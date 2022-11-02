@@ -27,9 +27,15 @@ public class SAVE_manager : MonoBehaviour
     public GameObject[] vpLoaders;
     public string[] vpTypes;
 
-    void Start()
+    public GameObject help;
+
+    void Awake()
     {
         Instance = this;
+        if(StateController.load){
+            LoadData();
+            help.SetActive(false);
+        }
     }
 
     public void AddBlock(GameObject block){
@@ -110,6 +116,29 @@ public class SAVE_manager : MonoBehaviour
                 lp.TotChildren = PItemObjects.BlockObj[v].PBlock.transform.parent.GetComponent<VP_loopSize>().totchildren;
                 lp.Children = PItemObjects.BlockObj[v].PBlock.transform.parent.GetComponent<VP_loopSize>().children;
                 Items.Blocks[v].sizes.Add(lp);
+
+            }
+
+            if(Items.Blocks[v].PType == "Rot"){
+                Rot r = new Rot();
+                r.Num_Rotations = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript>().num_rotations;
+                r.Num_Speed = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript>().num_speed;
+                r.LetterVal = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript>().letter.value;
+                Items.Blocks[v].rots.Add(r);
+            }
+
+            if(Items.Blocks[v].PType == "Rot2"){
+                Rot2 r2 = new Rot2();
+                r2.Num_Rotations = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript2>().num_rotations;
+                r2.Num_Speed = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript2>().num_speed;
+                r2.LetterVal = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript2>().letter.value;
+                r2.Num_Rotations2 = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript2>().num_rotations2;
+                r2.Num_Speed2 = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript2>().num_speed2;
+                r2.LetterVal2 = PItemObjects.BlockObj[v].PBlock.GetComponent<RotScript2>().letter2.value;
+                Items.Blocks[v].rots2.Add(r2);
+            }
+            else if(Items.Blocks[v].PType == "Loop"){
+                Items.Blocks[v].Iterations = PItemObjects.BlockObj[v].PBlock.GetComponent<LopScript>().iterations;
             }
         }
 
@@ -238,7 +267,7 @@ public class SAVE_manager : MonoBehaviour
             vp.GetComponent<RectTransform>().localPosition = pitem.PItemPos;
             vp.GetComponent<RectTransform>().localScale = pitem.PItemScale;
             vp.GetComponent<VP_drag>().vpID = pitem.PItemID;
-            vp.GetComponent<VP_drag>().vpID = pitem.Sin;
+            vp.GetComponent<VP_drag>().Sin = pitem.Sin;
             
             PItemObj pitemobj = new PItemObj();
             pitemobj.PItemID = pitem.PItemID;
@@ -290,7 +319,38 @@ public class SAVE_manager : MonoBehaviour
         }
 
         ChangeLoopSize();
+        SetComponents();
 
+    }
+
+    void SetComponents(){
+        for(int i = 0; i < Items.Blocks.Count; i++){
+
+            if(Items.Blocks[i].PType == "Rot2"){
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().num_rotations = Items.Blocks[i].rots2[0].Num_Rotations;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().num_speed = Items.Blocks[i].rots2[0].Num_Speed;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().dval = Items.Blocks[i].rots2[0].LetterVal;
+
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().num_rotations2 = Items.Blocks[i].rots2[0].Num_Rotations2;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().num_speed2 = Items.Blocks[i].rots2[0].Num_Speed2;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().dval2 = Items.Blocks[i].rots2[0].LetterVal2;
+
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript2>().SetText2();
+            }
+            else if(Items.Blocks[i].PType == "Rot"){
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript>().num_rotations = Items.Blocks[i].rots[0].Num_Rotations;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript>().num_speed = Items.Blocks[i].rots[0].Num_Speed;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript>().dval = Items.Blocks[i].rots[0].LetterVal;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<RotScript>().SetText();
+            }
+            else if(Items.Blocks[i].PType == "Loop"){
+                PItemObjects.BlockObj[i].PBlock.GetComponent<LopScript>().iterations = Items.Blocks[i].Iterations;
+                PItemObjects.BlockObj[i].PBlock.GetComponent<LopScript>().SetIter();
+            }
+        
+
+            
+        }
     }
 
     void ChangeLoopSize(){
@@ -418,11 +478,37 @@ public class PItem
     public string PITemParentID;
 
     public List<LoopSize> sizes = new List<LoopSize>();
+
+    public List<Rot> rots = new List<Rot>();
+    public List<Rot2> rots2 = new List<Rot2>();
+
+    public float Iterations;
+}
+
+[System.Serializable]
+public class Rot2
+{
+    public float Num_Rotations;
+    public float Num_Speed;
+    public int LetterVal;
+
+    public float Num_Rotations2;
+    public float Num_Speed2;
+    public int LetterVal2;
+}
+
+[System.Serializable]
+public class Rot
+{
+    public float Num_Rotations;
+    public float Num_Speed;
+    public int LetterVal;
 }
 
 [System.Serializable]
 public class LoopSize
 {
+    public float Iterations;
     public string ConnID;
     public float TotWidth;
     public float Total;

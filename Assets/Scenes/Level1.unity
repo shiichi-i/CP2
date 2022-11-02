@@ -1437,6 +1437,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   isStart: 0
+  BParentID: 
+  vpID: 
+  BlockType: 
+  Sin: 
 --- !u!114 &83433942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1880,6 +1884,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Items:
     Objects: []
+    CameraPos: {x: 0, y: 0, z: 0}
+    CameraZoom: {x: 0, y: 0, z: 0}
+    CameraRot: {x: 0, y: 0, z: 0, w: 0}
+    motCount: 0
+    sensCount: 0
+    motorID: []
+    sensorID: []
+    inTakes: 
+    outTakes: 
+    spawnPos: {x: 0, y: 0, z: 0}
+    Day: 0
+    Blocks: []
+  ItemObjects:
+    GObjects: []
+  AssignmentControlLoader:
+    motCount: 0
+    sensCount: 0
+    motorID: []
+    sensorID: []
+    inTakes: 
+    outTakes: 
+  PItem:
+    PItemID: 
+    PType: 
+    PItemPos: {x: 0, y: 0, z: 0}
+    PItemScale: {x: 0, y: 0, z: 0}
+    Sin: 
+    PITemParentID: 
+    sizes: []
+    rots: []
+    rots2: []
+    Iterations: 0
+  PItemObjects:
+    BlockObj: []
+  prefabLoaders: []
+  prefabTypes: []
+  vpLoaders: []
+  vpTypes: []
+  help: {fileID: 0}
 --- !u!1 &162266991
 GameObject:
   m_ObjectHideFlags: 0
@@ -9207,7 +9250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 927, y: -53}
+  m_AnchoredPosition: {x: 359, y: -53}
   m_SizeDelta: {x: -75.8, y: 599.9993}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &876007278
@@ -11754,8 +11797,10 @@ MonoBehaviour:
   inSide: 0
   occupied: {fileID: 0}
   parent: {fileID: 0}
+  childC: 0
   loopParent: {fileID: 0}
   isLoopParent: 0
+  mainBlock: {fileID: 0}
   onEnter: 0
   onExit: 0
   onCallEnter: 0
@@ -11894,13 +11939,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109875794}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6678, y: 0.6678, z: 0.6678}
   m_Children: []
   m_Father: {fileID: 1807426139}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 7.9}
@@ -12898,6 +12943,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   isStart: 1
+  BParentID: 
+  vpID: 
+  BlockType: 
+  Sin: 
 --- !u!114 &1275254966
 MonoBehaviour:
   m_ObjectHideFlags: 0

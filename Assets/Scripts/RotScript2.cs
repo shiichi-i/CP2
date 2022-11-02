@@ -31,7 +31,17 @@ public class RotScript2 : MonoBehaviour
     "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10"};
 
     public Dropdown letter, letter2;
+    public int dval, dval2;
 
+    public void SetText2(){
+        nm_rt.text = num_rotations.ToString();
+        nm_spd.text = num_speed.ToString();
+        letter.value = dval;
+
+        nm_rt2.text = num_rotations2.ToString();
+        nm_spd2.text = num_speed2.ToString();
+        letter2.value = dval2;
+    }
 
     void Start(){
         control = this.GetComponent<VP_ControlExecute>();

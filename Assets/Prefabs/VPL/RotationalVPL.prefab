@@ -142,6 +142,7 @@ MonoBehaviour:
   BParentID: 
   vpID: 
   BlockType: Rot
+  Sin: 
 --- !u!114 &5796048754959503663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +178,8 @@ MonoBehaviour:
   num_speed: 0
   nm_rt: {fileID: 547799391383378586}
   nm_spd: {fileID: 547799390733513061}
+  letter: {fileID: 547799389897209360}
+  dval: 0
 --- !u!1 &547799389897209366
 GameObject:
   m_ObjectHideFlags: 0
@@ -1567,8 +1570,10 @@ MonoBehaviour:
   inSide: 0
   occupied: {fileID: 0}
   parent: {fileID: 547799389729106456}
+  childC: 0
   loopParent: {fileID: 0}
   isLoopParent: 0
+  mainBlock: {fileID: 0}
   onEnter: 0
   onExit: 0
   onCallEnter: 0

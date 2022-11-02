@@ -20,13 +20,17 @@ public class LopScript : MonoBehaviour
 
     string[] choices_lp = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "i"};
 
+    public void SetIter(){
+        nm_i.text = iterations.ToString();
+        SetValuesIter();
+    }
+
     void Start()
     {
         onStart = true;
         control = this.GetComponent<VP_ControlExecute>();
         start = GameObject.Find("Start").GetComponent<VP_Start>();
         starter = true;
-        iterations = 0;
         b_indx = 0;
         startBlock = transform.Find("shad_Loop_in").gameObject;
     }
