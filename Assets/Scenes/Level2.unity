@@ -9669,6 +9669,7 @@ MonoBehaviour:
   outDrop: {fileID: 61498138}
   prop2: {fileID: 572146950}
   prop3: {fileID: 901176411}
+  tutorial: {fileID: 0}
 --- !u!95 &756526277
 Animator:
   serializedVersion: 3
@@ -10405,6 +10406,7 @@ MonoBehaviour:
   onFindMotor: 0
   play: 0
   showOnce: 0
+  tutorial: {fileID: 0}
 --- !u!114 &849271262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15051,6 +15053,7 @@ MonoBehaviour:
   - {fileID: 0}
   sim: {fileID: 0}
   index: 0
+  tutorial: {fileID: 0}
 --- !u!1 &1280695581
 GameObject:
   m_ObjectHideFlags: 0
@@ -17072,8 +17075,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0561ef614d7c5b749b64fb145bb1d5ff, type: 3}
   - {fileID: 21300000, guid: 0561ef614d7c5b749b64fb145bb1d5ff, type: 3}
   sentences:
-  - Lets Begin By clicking a block from the bottom menu The object will appear in
-    the right drawer of the screen
+  - Lets Begin by clicking a block from the programming menu The object will appear
+    in the right drawer
   - Connect and Disconnect Blocks by dragging and dropping them with the Left Mouse
     Button
   - Delete Blocks by dragging them near the TrashCan icon on the right of the screen

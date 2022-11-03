@@ -182,6 +182,7 @@ public class SAVE_manager : MonoBehaviour
     
         Item item = Items.Objects.Where(p => p.ItemID == itemID).First();
         Items.Objects.Remove(item);
+        
         if(item.ParentID != null){
             Item itemp = Items.Objects.Where(p => p.ParentID == itemID).First();
             Items.Objects.Remove(itemp);

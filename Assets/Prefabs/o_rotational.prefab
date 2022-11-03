@@ -199,6 +199,7 @@ MonoBehaviour:
   isParent: 0
   connected: 0
   connection: {fileID: 0}
+  connectionID: 
   special: {fileID: 0}
   objType: 
   col: 0
@@ -208,6 +209,8 @@ MonoBehaviour:
   assignment: 
   scale: 0
   this_scale: {x: 0, y: 0, z: 0}
+  SaveID: 
+  ParentID: 
 --- !u!54 &1271999287961407870
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -379,6 +382,7 @@ MonoBehaviour:
   isParent: 1
   connected: 0
   connection: {fileID: 0}
+  connectionID: 
   special: {fileID: 0}
   objType: Rotational Motor
   col: 0
@@ -388,6 +392,8 @@ MonoBehaviour:
   assignment: 
   scale: 0
   this_scale: {x: 0, y: 0, z: 0}
+  SaveID: 
+  ParentID: 
 --- !u!114 &5578399781118552343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,6 +643,7 @@ MonoBehaviour:
   isParent: 0
   connected: 0
   connection: {fileID: 0}
+  connectionID: 
   special: {fileID: 0}
   objType: 
   col: 0
@@ -646,6 +653,8 @@ MonoBehaviour:
   assignment: 
   scale: 0
   this_scale: {x: 0, y: 0, z: 0}
+  SaveID: 
+  ParentID: 
 --- !u!54 &2567554236663050041
 Rigidbody:
   m_ObjectHideFlags: 0
