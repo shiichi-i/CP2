@@ -204,16 +204,16 @@ public class SAVE_manager : MonoBehaviour
     {
         SetTransformsItems();
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(Items));
-        FileStream stream = new FileStream(Application.dataPath + "/PebblesSaves/Save_1.xml", FileMode.Create);
+        FileStream stream = new FileStream(Application.persistentDataPath + "Save_1.xml", FileMode.Create);
         xmlSerializer.Serialize(stream, Items);
         stream.Close();
     }
 
     public void LoadData()
     {
-        if(!File.Exists(Application.dataPath + "/PebblesSaves/Save_1.xml")) return;
+        if(!File.Exists(Application.persistentDataPath + "Save_1.xml")) return;
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(Items));
-        FileStream stream = new FileStream(Application.dataPath + "/PebblesSaves/Save_1.xml", FileMode.Open);
+        FileStream stream = new FileStream(Application.persistentDataPath + "Save_1.xml", FileMode.Open);
         Items = xmlSerializer.Deserialize(stream) as Items;
         stream.Close();
 
