@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2760950100016401149}
   - component: {fileID: 7862350063467803958}
   - component: {fileID: 5250966748539133163}
+  - component: {fileID: 5127988218945539611}
   m_Layer: 0
   m_Name: i_distance
   m_TagString: Selectable
@@ -135,6 +136,7 @@ MonoBehaviour:
   isParent: 0
   connected: 0
   connection: {fileID: 0}
+  connectionID: 
   special: {fileID: 0}
   objType: Distance Sensor
   col: 0
@@ -176,6 +178,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!138 &5127988218945539611
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097629754624679537}
+  m_ConnectedBody: {fileID: 3790986161909467447}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &6226529903270519051
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +249,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &7545473299366305285
 BoxCollider:

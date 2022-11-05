@@ -54,7 +54,7 @@ public class S_Distance : MonoBehaviour
         if(sim.Playing){
                 if(!setter){
                     FindAssign();
-                    setter = true;
+                    
                     if(sensorObj != null){
                         ChangeSize();
                         ret = sensorObj.GetComponentInChildren<dist_values>().isIn;
@@ -63,6 +63,7 @@ public class S_Distance : MonoBehaviour
                         ret = false;
                     }
                     sens.ret = ret;
+                    setter = true;
                 }
             }
 

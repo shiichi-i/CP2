@@ -87,7 +87,7 @@ public class onDelete : MonoBehaviour
         SAVE_manager.Instance.RemoveItem(select.currentObj.GetComponent<ObjInfo>().SaveID);
         Destroy(select.currentObj);
 
-        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 4){
             tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
         }
     }

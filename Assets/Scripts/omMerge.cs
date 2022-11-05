@@ -180,6 +180,10 @@ public class omMerge : MonoBehaviour
 
         oldConn.GetComponent<ObjInfo>().ParentID = null;
 
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+                }
+
         if(oldConn.GetComponent<ObjInfo>().isSpecial && oldConn.transform.childCount == 2){
             oldConn.GetComponent<ObjInfo>().isMerged = false;
         }
