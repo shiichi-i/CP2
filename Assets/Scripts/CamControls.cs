@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CamControls : MonoBehaviour
 {
     public GameObject pivot;
+    public GameObject img;
 
 
     Vector3 newPosition, _LocalRotation;
 
     Vector3 camPos, pivPos;
-    Quaternion camRot, pivRot;
+    Quaternion camRot, pivRot, imgRot;
 
     public float panSensitivity = 10f;
     float MouseSensitivity = 2f;
@@ -35,6 +37,7 @@ public class CamControls : MonoBehaviour
         camRot = transform.rotation;
         pivPos = pivot.transform.position;
         pivRot = pivot.transform.rotation;
+        imgRot = img.transform.rotation;
 
         mouseUI = GameObject.Find("SimBar").GetComponent<IsMouseOverUI>();
 
@@ -110,6 +113,7 @@ public class CamControls : MonoBehaviour
 
             Quaternion QT = Quaternion.Euler(_LocalRotation.y, _LocalRotation.x, 0);
             pivot.transform.rotation = Quaternion.Lerp(pivot.transform.rotation, QT, Time.deltaTime * OrbitDampening);
+            img.transform.eulerAngles = new Vector3(0,0, imgRot.z + _LocalRotation.x);
 
         }
         if (Input.GetMouseButtonUp(1))
