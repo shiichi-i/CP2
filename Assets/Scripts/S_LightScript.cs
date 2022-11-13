@@ -33,6 +33,7 @@ public class S_LightScript : MonoBehaviour
         assign = GameObject.Find("Inspector").GetComponent<AssignmentControl>();
         sim = GameObject.Find("SimBar").GetComponent<SimManager>();
         dc = GameObject.Find("Light").GetComponent<DaylightControl>();
+
     }
 
      void Update()
@@ -41,13 +42,21 @@ public class S_LightScript : MonoBehaviour
 
             if(sensorObj != null){
                 if(nm_l == 1 && day){
-                    ret = true;
+                    if(!sensorObj.GetComponentInChildren<dist_values>().isIn){
+                        ret = true;
+                    }else{
+                        ret = false;
+                    }
                 }else if(nm_l == 0 && !day){
-                    ret = true;
+                        ret = true;
                 }else if(nm_l == 1 && !day){
-                    ret = false;
+                        ret = false;
                 }else if(nm_l == 0 && day){
-                    ret = false;
+                    if(sensorObj.GetComponentInChildren<dist_values>().isIn){
+                        ret = true;
+                    }else{
+                        ret = false;
+                    }
                 }
                 sens.ready = true;
             }else{
@@ -61,14 +70,22 @@ public class S_LightScript : MonoBehaviour
                     setter = true;
                     if(sensorObj != null){
                         if(nm_l == 1 && day){
-                            ret = true;
+                            if(!sensorObj.GetComponentInChildren<dist_values>().isIn){
+                                ret = true;
+                            }else{
+                                ret = false;
+                            }
                         }else if(nm_l == 0 && !day){
-                            ret = true;
+                                ret = true;
                         }else if(nm_l == 1 && !day){
-                            ret = false;
+                                ret = false;
                         }else if(nm_l == 0 && day){
-                            ret = false;
-                        }
+                            if(sensorObj.GetComponentInChildren<dist_values>().isIn){
+                                ret = true;
+                            }else{
+                                ret = false;
+                            }
+                        }   
                     }else{
                         ret = false;
                     }

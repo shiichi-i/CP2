@@ -1044,7 +1044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &50060605
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4187,21 +4187,33 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.y
       value: -0.00025899202
       objectReference: {fileID: 0}
+    - target: {fileID: 2221192808313783322, guid: f06f776faa2713f4195910f9725a0455, type: 3}
+      propertyPath: m_Mass
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221192808313783322, guid: f06f776faa2713f4195910f9725a0455, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2277654122205413584, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_Name
       value: pb_microcontroller(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 3072050892485538716, guid: f06f776faa2713f4195910f9725a0455, type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3072050892485538716, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 7.966353e-11
+      value: -3.711873e-11
       objectReference: {fileID: 0}
     - target: {fileID: 3072050892485538716, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.000000003726011
+      value: -0.0000000017361322
       objectReference: {fileID: 0}
     - target: {fileID: 3072050892485538716, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: 0.0000000031045475
+      value: 0.0000000033957526
       objectReference: {fileID: 0}
     - target: {fileID: 3297632927262352873, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -4252,6 +4264,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8158590433236670870, guid: f06f776faa2713f4195910f9725a0455, type: 3}
+      propertyPath: m_AngularXMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8158590433236670870, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 7.897858e-11
       objectReference: {fileID: 0}
@@ -4262,6 +4278,14 @@ PrefabInstance:
     - target: {fileID: 8158590433236670870, guid: f06f776faa2713f4195910f9725a0455, type: 3}
       propertyPath: m_ConnectedAnchor.z
       value: 0.000000005192223
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517348803949603288, guid: f06f776faa2713f4195910f9725a0455, type: 3}
+      propertyPath: m_Mass
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517348803949603288, guid: f06f776faa2713f4195910f9725a0455, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f06f776faa2713f4195910f9725a0455, type: 3}
@@ -6956,7 +6980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &476803714
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6984,7 +7008,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476803713}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f683759fbe21fbe48a701b3cb6d54a65, type: 3}
   m_Name: 
