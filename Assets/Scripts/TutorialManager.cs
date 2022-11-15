@@ -11,12 +11,14 @@ public class TutorialManager : MonoBehaviour
     public Sprite[] sprites;
     public string[] sentences;
     public int indxx;
+    public bool noonext;
 
     public GameObject img;
     public GameObject badg;
     public Text txt;
 
     public GameObject Exit;
+    public GameObject Tut3Light;
 
     void Start(){
         indxx = 0;
@@ -33,10 +35,20 @@ public class TutorialManager : MonoBehaviour
         if(indxx >= sprites.Length-1){
             EndExit();
         }
+        if(indxx == 4 && Tut3Light != null){
+            Tut3Light.SetActive(true);
+        }
     }
 
     public void HidePop(){
         popUp.SetActive(false);
+        if(noonext && indxx == 3){
+            NextTut();
+            ShowPop();
+        }
+    }
+
+    public void NextTut(){
         indxx++;
     }
 
@@ -50,7 +62,10 @@ public class TutorialManager : MonoBehaviour
             StateController.level2 = true;
         }else if(level == 3){
             StateController.level3 = true;
+        }else if(level == 4){
+            StateController.level4 = true;
         }
+        
         
     }
 }

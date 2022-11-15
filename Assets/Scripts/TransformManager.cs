@@ -11,6 +11,9 @@ public class TransformManager : MonoBehaviour
     ObjSelection selection;
     public bool overlap;
 
+    public GameObject tutorial;
+    bool tutmoves;
+
     void Start()
     {
         selection = GameObject.Find("SimBar").GetComponent<ObjSelection>();
@@ -37,7 +40,7 @@ public class TransformManager : MonoBehaviour
                     newRot = selection.currentObj.transform.eulerAngles;
                     ry = dragAxis.transform.parent.transform;
                 }
-                    
+                    tutmoves = true;
 
                 if (axis == "x")
                 {
@@ -94,6 +97,12 @@ public class TransformManager : MonoBehaviour
 
             }
             
+        }
+        if(Input.GetMouseButtonUp(0) && tutmoves){
+            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+                }
         }
 
        if (dragAxis == null)

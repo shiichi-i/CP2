@@ -145,7 +145,8 @@ public class ObjSelection : MonoBehaviour
                         ArrowAdd();
                         AddCol();
                         if(tempObj.name == "pb_microcontroller(Clone)"){
-                            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 0){
+                                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                                 tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
                             }
                         }

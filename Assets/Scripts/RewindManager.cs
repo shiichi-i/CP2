@@ -9,6 +9,8 @@ public class RewindManager : MonoBehaviour
     public List<Quaternion> robotRot;
     SimManager sim;
 
+    public GameObject tutorial;
+
     void Start(){
         sim = GameObject.Find("SimBar").GetComponent<SimManager>();
     }
@@ -33,5 +35,9 @@ public class RewindManager : MonoBehaviour
             robotParts[i].transform.position = robotPos[i];
             robotParts[i].transform.rotation = robotRot[i];
         }   
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+        }
     }
 }

@@ -76,7 +76,8 @@ public class SpawnManager : MonoBehaviour
                 OnSpawn();
                 plop.Play();
                 
-                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 0){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                     tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
                 }
 

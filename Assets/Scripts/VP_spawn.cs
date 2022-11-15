@@ -35,7 +35,8 @@ public class VP_spawn : MonoBehaviour
                 a.GetComponent<RectTransform>().localScale = new Vector3(0.09f, 0.09f, 1f);
                 naming.spawnEmpty = false;
 
-                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 0){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                     tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
                 }
             }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BadgeManager : MonoBehaviour
 {
-    public GameObject lvl1, lvl2, lvl3;
+    public GameObject lvl1, lvl2, lvl3, lvl4;
 
     void Start(){
         if(StateController.level1){
@@ -17,6 +17,10 @@ public class BadgeManager : MonoBehaviour
 
         if(StateController.level3){
             lvl3.SetActive(true);
+        }
+
+        if(StateController.level4){
+            lvl4.SetActive(true);
         }
     }
 }

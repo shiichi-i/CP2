@@ -134,7 +134,8 @@ public class omMerge : MonoBehaviour
                     current.AddComponent<CollisionDetection>();
                 }
 
-                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2){
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 5){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                     tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
                 }
                 
@@ -180,9 +181,10 @@ public class omMerge : MonoBehaviour
 
         oldConn.GetComponent<ObjInfo>().ParentID = null;
 
-        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 6){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                     tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
-                }
+        }
 
         if(oldConn.GetComponent<ObjInfo>().isSpecial && oldConn.transform.childCount == 2){
             oldConn.GetComponent<ObjInfo>().isMerged = false;

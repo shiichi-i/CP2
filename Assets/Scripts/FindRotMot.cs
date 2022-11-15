@@ -211,7 +211,8 @@ public class FindRotMot : MonoBehaviour
 
         select.onFindMotor = false;
 
-        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 5){
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 8){
+            tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
             tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
         }
 

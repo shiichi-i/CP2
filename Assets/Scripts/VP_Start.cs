@@ -11,6 +11,7 @@ public class VP_Start : MonoBehaviour
     int blockSize = 0;
     bool count;
     public int index;
+    public bool tut3;
 
     public GameObject tutorial;
 
@@ -93,8 +94,13 @@ public class VP_Start : MonoBehaviour
                 codes[index].transform.GetChild(0).gameObject.GetComponent<Image>().color.b, 1);
             }
         }else{
-            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
-                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+            if(!tut3 && tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 4){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+            }
+            if(tut3 && tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
             }
         }
     }

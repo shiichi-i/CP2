@@ -55,7 +55,8 @@ public class VP_manager : MonoBehaviour
             
             if(dropped){
                 SAVE_manager.Instance.RemoveBlock(dragging.GetComponent<VP_drag>().vpID);
-                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+                if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                     tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
                 }
                 Destroy(dragging);
@@ -81,9 +82,10 @@ public class VP_manager : MonoBehaviour
         {  
             click.Play();
             
-            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2){
-                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
-            }
+            if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1){
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                    tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+                }
 
             dragging.GetComponentInChildren<Image>().color = new Color(1,1,1,1);
 

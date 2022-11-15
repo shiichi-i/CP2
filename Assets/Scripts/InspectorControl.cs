@@ -117,11 +117,20 @@ public class InspectorControl : MonoBehaviour
     }
 
     public void onColorChange(){
-        selection.currentObj.GetComponent<ObjInfo>().col = m_SliderHue.value;      
+        selection.currentObj.GetComponent<ObjInfo>().col = m_SliderHue.value;
+
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2){
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+        }
     }
 
     public void onTransparentChange(){
         selection.currentObj.GetComponent<ObjInfo>().transparent = toggle.isOn;
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 4){
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+        }
     }
 
     public void onScaleChange(){
@@ -160,6 +169,10 @@ public class InspectorControl : MonoBehaviour
                 selection.currentObj.transform.SetParent(temp.transform);
             }
         }
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 3){
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
+        }
     }
 
     void OnScale(){
@@ -180,8 +193,9 @@ public class InspectorControl : MonoBehaviour
         }
 
 
-        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 2 &&
+        if(tutorial != null && tutorial.transform.GetChild(0).GetComponent<TutorialManager>().indxx == 1 &&
         mcount == 2){
+                tutorial.transform.GetChild(0).GetComponent<TutorialManager>().NextTut();
                 tutorial.transform.GetChild(0).GetComponent<TutorialManager>().ShowPop();
             }
         else{
